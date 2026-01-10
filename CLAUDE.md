@@ -10,11 +10,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Languages**: Multilingual (DE, EN, FR) - use Laravel localization for all user-facing strings
 
+**Target Users**: Students in enrolled schools/educational institutions (B2B Education)
+
+**Business Model**:
+- Free trial: 1 month time-limited
+- Subscription: Half-yearly billing per school/organization
+
 **Status**: Pre-implementation planning phase. The Laravel project has not been initialized yet.
 
 ### What This Project Does
 
-1. **Organizations (Teams)** create isolated learning environments with their own instructors, learners, and content
+1. **Schools/Institutions (Teams)** enroll and create isolated learning environments for their students and instructors
 
 2. **Instructors** create structured learning paths with modules and steps containing materials (text, video, audio, PDF), tasks (submissions for review), and assessments (quizzes/exams)
 
@@ -84,13 +90,156 @@ Use Spatie packages where applicable:
 | `spatie/laravel-data` | DTOs for API responses and service layer |
 | `spatie/laravel-query-builder` | API filtering, sorting, includes |
 | `spatie/laravel-backup` | Database and file backups |
+| `spatie/laravel-cookie-consent` | GDPR cookie consent banner |
 
 ```bash
 # Install Spatie packages
 composer require spatie/laravel-permission spatie/laravel-medialibrary \
   spatie/laravel-activitylog spatie/laravel-sluggable spatie/laravel-translatable \
   spatie/laravel-settings spatie/laravel-data spatie/laravel-query-builder \
-  spatie/laravel-backup
+  spatie/laravel-backup spatie/laravel-cookie-consent
+```
+
+### Additional Required Packages
+
+```bash
+# Social login (Google, Microsoft)
+composer require laravel/socialite
+
+# Error tracking
+composer require sentry/sentry-laravel
+
+# PDF generation (already in spec)
+composer require barryvdh/laravel-dompdf
+
+# S3-compatible storage (DigitalOcean Spaces)
+composer require league/flysystem-aws-s3-v3
+```
+
+### File Storage (DigitalOcean Spaces)
+
+Use **DigitalOcean Spaces** (S3-compatible) for all file storage:
+
+```php
+// config/filesystems.php
+'disks' => [
+    'do_spaces' => [
+        'driver' => 's3',
+        'key' => env('DO_SPACES_KEY'),
+        'secret' => env('DO_SPACES_SECRET'),
+        'region' => env('DO_SPACES_REGION', 'fra1'),
+        'bucket' => env('DO_SPACES_BUCKET'),
+        'endpoint' => env('DO_SPACES_ENDPOINT', 'https://fra1.digitaloceanspaces.com'),
+        'url' => env('DO_SPACES_URL'),  // CDN URL
+        'visibility' => 'private',
+        'throw' => true,
+    ],
+],
+```
+
+**Environment Configuration** (.env):
+```
+# DigitalOcean Spaces (S3-compatible)
+DO_SPACES_KEY=your-spaces-key
+DO_SPACES_SECRET=your-spaces-secret
+DO_SPACES_REGION=fra1
+DO_SPACES_BUCKET=learningpilot-files
+DO_SPACES_ENDPOINT=https://fra1.digitaloceanspaces.com
+DO_SPACES_URL=https://learningpilot-files.fra1.cdn.digitaloceanspaces.com
+
+FILESYSTEM_DISK=do_spaces
+```
+
+**Storage Structure**:
+```
+learningpilot-files/
+├── teams/{team_id}/
+│   ├── paths/{path_id}/
+│   │   ├── thumbnail.jpg
+│   │   └── materials/
+│   │       ├── {step_id}/
+│   │       │   ├── video.mp4
+│   │       │   ├── document.pdf
+│   │       │   └── images/
+│   ├── submissions/{submission_id}/
+│   │   └── uploaded_files/
+│   └── certificates/{certificate_id}.pdf
+├── avatars/{user_id}.jpg
+└── temp/
+```
+
+**File Size Limits** (per subscription tier):
+| Plan | Max Upload | Storage Limit |
+|------|------------|---------------|
+| Trial | 50 MB | 1 GB |
+| Pro | 200 MB | 50 GB |
+| Team Starter | 500 MB | 200 GB |
+| Team Business | 1 GB | Unlimited |
+
+### Video Hosting Strategy
+
+**Dual approach**: Self-hosted (S3) + External embeds (YouTube, Loom)
+
+```php
+// app/Enums/VideoSourceType.php
+enum VideoSourceType: string
+{
+    case Upload = 'upload';      // Self-hosted on DO Spaces
+    case YouTube = 'youtube';    // YouTube embed
+    case Loom = 'loom';          // Loom embed
+    case Vimeo = 'vimeo';        // Vimeo embed (future)
+}
+```
+
+**Video Material Schema**:
+```php
+// In learning_materials table
+'video_source_type' => VideoSourceType::class,  // upload, youtube, loom
+'video_url' => 'string|nullable',               // External URL or S3 path
+'video_id' => 'string|nullable',                // External video ID
+'duration_seconds' => 'integer|nullable',
+```
+
+**Embed URL Patterns**:
+```php
+// app/Services/VideoEmbedService.php
+public function getEmbedUrl(LearningMaterial $material): string
+{
+    return match ($material->video_source_type) {
+        VideoSourceType::YouTube => "https://www.youtube.com/embed/{$material->video_id}",
+        VideoSourceType::Loom => "https://www.loom.com/embed/{$material->video_id}",
+        VideoSourceType::Vimeo => "https://player.vimeo.com/video/{$material->video_id}",
+        VideoSourceType::Upload => Storage::disk('do_spaces')->temporaryUrl($material->video_url, now()->addHours(4)),
+    };
+}
+```
+
+**Video Player Component**:
+```html
+<!-- Self-hosted video -->
+<video controls class="w-full rounded-brand">
+    <source src="{{ $signedUrl }}" type="video/mp4">
+</video>
+
+<!-- YouTube/Loom embed -->
+<iframe
+    src="{{ $embedUrl }}"
+    class="w-full aspect-video rounded-brand"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
+```
+
+**Upload Processing** (for self-hosted):
+```php
+// Use queue job for video processing
+- Accept: mp4, webm, mov
+- Max size: Based on subscription tier
+- Generate thumbnail at 10% mark (ffmpeg)
+- Extract duration (ffmpeg)
+- Store in DO Spaces with private visibility
+- Generate signed URLs for playback (4-hour expiry)
 ```
 
 ### Subscription Billing (Required)
@@ -103,61 +252,142 @@ php artisan vendor:publish --tag="cashier-migrations"
 php artisan migrate
 ```
 
-**Subscription Model** (half-yearly billing):
+**Subscription Model** (school-focused, half-yearly billing with 1-month trial):
 ```php
 // Subscription plans in config/lernpfad.php
 'billing' => [
     'provider' => 'stripe',
-    'currency' => 'eur',
+    'default_currency' => 'eur',
+    'supported_currencies' => ['chf', 'eur', 'usd'],
+    'trial_days' => 30,  // 1 month free trial
     'plans' => [
-        'learner_basic' => [
-            'name' => 'Basis',
-            'stripe_price_id' => env('STRIPE_PRICE_LEARNER_BASIC'),
-            'interval' => 'every 6 months',  // Half-yearly
-            'price' => 4900,  // €49.00
-            'features' => ['5 active paths', '10 AI requests/day', 'Email support'],
-        ],
-        'learner_pro' => [
-            'name' => 'Professional',
-            'stripe_price_id' => env('STRIPE_PRICE_LEARNER_PRO'),
+        'school_starter' => [
+            'name' => 'Schule Starter',
             'interval' => 'every 6 months',
-            'price' => 9900,  // €99.00
-            'features' => ['Unlimited paths', '100 AI requests/day', 'Priority support', 'Certificates'],
+            'prices' => [
+                'chf' => ['amount' => 49900, 'stripe_price_id' => env('STRIPE_PRICE_SCHOOL_STARTER_CHF')],  // CHF 499
+                'eur' => ['amount' => 49900, 'stripe_price_id' => env('STRIPE_PRICE_SCHOOL_STARTER_EUR')],  // €499
+                'usd' => ['amount' => 54900, 'stripe_price_id' => env('STRIPE_PRICE_SCHOOL_STARTER_USD')],  // $549
+            ],
+            'max_students' => 50,
+            'max_instructors' => 5,
+            'storage_gb' => 25,
+            'features' => [
+                '50 students',
+                '5 instructors',
+                '25 GB storage',
+                '100 AI requests/day',
+                'Email support',
+                'Certificates',
+            ],
         ],
-        'team_starter' => [
-            'name' => 'Team Starter',
-            'stripe_price_id' => env('STRIPE_PRICE_TEAM_STARTER'),
+        'school_pro' => [
+            'name' => 'Schule Professional',
             'interval' => 'every 6 months',
-            'price' => 29900,  // €299.00
-            'features' => ['Up to 25 users', 'Create paths', '500 AI requests/day', 'Analytics'],
+            'prices' => [
+                'chf' => ['amount' => 99900, 'stripe_price_id' => env('STRIPE_PRICE_SCHOOL_PRO_CHF')],   // CHF 999
+                'eur' => ['amount' => 99900, 'stripe_price_id' => env('STRIPE_PRICE_SCHOOL_PRO_EUR')],   // €999
+                'usd' => ['amount' => 109900, 'stripe_price_id' => env('STRIPE_PRICE_SCHOOL_PRO_USD')],  // $1,099
+            ],
+            'max_students' => 200,
+            'max_instructors' => 20,
+            'storage_gb' => 100,
+            'features' => [
+                '200 students',
+                '20 instructors',
+                '100 GB storage',
+                '500 AI requests/day',
+                'Priority support',
+                'Analytics dashboard',
+                'Custom branding',
+            ],
         ],
-        'team_business' => [
-            'name' => 'Team Business',
-            'stripe_price_id' => env('STRIPE_PRICE_TEAM_BUSINESS'),
+        'school_enterprise' => [
+            'name' => 'Schule Enterprise',
             'interval' => 'every 6 months',
-            'price' => 59900,  // €599.00
-            'features' => ['Unlimited users', 'Unlimited paths', 'Unlimited AI', 'Custom branding', 'API access'],
+            'prices' => [
+                'chf' => ['amount' => 199900, 'stripe_price_id' => env('STRIPE_PRICE_SCHOOL_ENTERPRISE_CHF')],  // CHF 1,999
+                'eur' => ['amount' => 199900, 'stripe_price_id' => env('STRIPE_PRICE_SCHOOL_ENTERPRISE_EUR')],  // €1,999
+                'usd' => ['amount' => 219900, 'stripe_price_id' => env('STRIPE_PRICE_SCHOOL_ENTERPRISE_USD')],  // $2,199
+            ],
+            'max_students' => null,  // Unlimited
+            'max_instructors' => null,
+            'storage_gb' => null,  // Unlimited
+            'features' => [
+                'Unlimited students',
+                'Unlimited instructors',
+                'Unlimited storage',
+                'Unlimited AI requests',
+                'Dedicated support',
+                'API access',
+                'SSO integration',
+                'Custom domain',
+            ],
         ],
     ],
 ],
+
+// Currency selection helper
+'currency_symbols' => [
+    'chf' => 'CHF',
+    'eur' => '€',
+    'usd' => '$',
+],
 ```
 
-**Billable Models**:
+**Trial Period**:
 ```php
-// app/Models/User.php
-use Laravel\Cashier\Billable;
-
-class User extends Authenticatable
+// Team model - apply trial on creation
+class Team extends JetstreamTeam
 {
     use Billable;
-}
 
-// app/Models/Team.php (for team subscriptions)
+    protected static function booted()
+    {
+        static::created(function ($team) {
+            $team->createAsStripeCustomer([
+                'name' => $team->name,
+            ]);
+            // Trial ends after 30 days
+            $team->trial_ends_at = now()->addDays(config('lernpfad.billing.trial_days'));
+            $team->save();
+        });
+    }
+
+    public function onTrial(): bool
+    {
+        return $this->trial_ends_at && $this->trial_ends_at->isFuture();
+    }
+
+    public function trialDaysRemaining(): int
+    {
+        return $this->trial_ends_at ? now()->diffInDays($this->trial_ends_at, false) : 0;
+    }
+}
+```
+
+**Billable Model** (Team-based billing for schools):
+```php
+// app/Models/Team.php - Schools subscribe at team level
 use Laravel\Cashier\Billable;
 
 class Team extends JetstreamTeam
 {
     use Billable;
+
+    // Check if team can add more students
+    public function canAddStudent(): bool
+    {
+        $plan = $this->currentPlan();
+        if (!$plan || !$plan['max_students']) return true;
+        return $this->users()->where('role', 'learner')->count() < $plan['max_students'];
+    }
+
+    // Check storage usage
+    public function storageUsedGb(): float
+    {
+        return $this->files()->sum('size') / (1024 * 1024 * 1024);
+    }
 }
 ```
 
@@ -166,12 +396,85 @@ class Team extends JetstreamTeam
 STRIPE_KEY=pk_test_...
 STRIPE_SECRET=sk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
+CASHIER_CURRENCY=eur
+TRIAL_DAYS=30
 
-# Half-yearly price IDs (create in Stripe Dashboard)
-STRIPE_PRICE_LEARNER_BASIC=price_...
-STRIPE_PRICE_LEARNER_PRO=price_...
-STRIPE_PRICE_TEAM_STARTER=price_...
-STRIPE_PRICE_TEAM_BUSINESS=price_...
+# School subscription plans - CHF (Switzerland)
+STRIPE_PRICE_SCHOOL_STARTER_CHF=price_...
+STRIPE_PRICE_SCHOOL_PRO_CHF=price_...
+STRIPE_PRICE_SCHOOL_ENTERPRISE_CHF=price_...
+
+# School subscription plans - EUR (Europe)
+STRIPE_PRICE_SCHOOL_STARTER_EUR=price_...
+STRIPE_PRICE_SCHOOL_PRO_EUR=price_...
+STRIPE_PRICE_SCHOOL_ENTERPRISE_EUR=price_...
+
+# School subscription plans - USD (International)
+STRIPE_PRICE_SCHOOL_STARTER_USD=price_...
+STRIPE_PRICE_SCHOOL_PRO_USD=price_...
+STRIPE_PRICE_SCHOOL_ENTERPRISE_USD=price_...
+```
+
+**Currency Selection Logic**:
+```php
+// app/Services/CurrencyService.php
+class CurrencyService
+{
+    // Auto-detect currency based on country/locale
+    public function detectCurrency(?string $countryCode = null): string
+    {
+        $countryCode = $countryCode ?? $this->detectCountry();
+
+        return match ($countryCode) {
+            'CH', 'LI' => 'chf',                          // Switzerland, Liechtenstein
+            'US', 'CA', 'AU', 'NZ' => 'usd',              // Dollar countries
+            default => 'eur',                              // Default to EUR (Europe)
+        };
+    }
+
+    // Get price for plan in specific currency
+    public function getPlanPrice(string $plan, string $currency): array
+    {
+        $plans = config('lernpfad.billing.plans');
+        return $plans[$plan]['prices'][$currency] ?? $plans[$plan]['prices']['eur'];
+    }
+
+    // Format price for display
+    public function formatPrice(int $amount, string $currency): string
+    {
+        $symbols = config('lernpfad.billing.currency_symbols');
+        $formatted = number_format($amount / 100, 2, '.', "'");
+
+        return match ($currency) {
+            'usd' => '$' . $formatted,
+            'eur' => '€' . $formatted,
+            'chf' => 'CHF ' . $formatted,
+            default => $formatted,
+        };
+    }
+}
+```
+
+**Pricing Page with Currency Switcher**:
+```html
+<!-- Currency selector on pricing page -->
+<div class="flex justify-center gap-2 mb-8">
+    <button wire:click="setCurrency('chf')"
+            class="{{ $currency === 'chf' ? 'bg-brand-teal text-white' : 'bg-white' }}
+                   px-4 py-2 rounded-brand border">
+        🇨🇭 CHF
+    </button>
+    <button wire:click="setCurrency('eur')"
+            class="{{ $currency === 'eur' ? 'bg-brand-teal text-white' : 'bg-white' }}
+                   px-4 py-2 rounded-brand border">
+        🇪🇺 EUR
+    </button>
+    <button wire:click="setCurrency('usd')"
+            class="{{ $currency === 'usd' ? 'bg-brand-teal text-white' : 'bg-white' }}
+                   px-4 py-2 rounded-brand border">
+        🇺🇸 USD
+    </button>
+</div>
 ```
 
 **Billing Routes**:
@@ -447,7 +750,7 @@ See `TASKS.md` for detailed implementation checklist.
 /                   → Landing page (hero, features, testimonials, CTA)
 /about              → About us (mission, team, story)
 /features           → Feature overview (see Features Page Spec below)
-/pricing            → Subscription plans (half-yearly: Basis, Pro, Team Starter, Team Business)
+/pricing            → School subscription plans (1-month trial, then half-yearly)
 /contact            → Contact form
 /blog               → Blog/articles listing
 /blog/{slug}        → Blog article detail
@@ -1184,6 +1487,306 @@ php artisan queue:restart
 | `develop` | Integration | Staging (optional) |
 | `feature/*` | New features | - |
 | `fix/*` | Bug fixes | - |
+
+## POC Scope (MVP)
+
+### In Scope (Phase 1)
+- School registration with 1-month free trial
+- User registration, login, email verification
+- Team (school) creation and member management (students + instructors)
+- **Student onboarding**: Invitation links + bulk CSV import
+- **School admin dashboard**: Students, instructors, usage, billing
+- Learning path builder (modules, steps, materials)
+- Content types: Text, Video (self-hosted S3 + YouTube/Loom embeds), PDF
+- Assessments: Single choice, Multiple choice, True/False, Text
+- Learner enrollment and progress tracking
+- School billing: 1-month trial → Starter/Pro/Enterprise plans (half-yearly)
+- File storage on DigitalOcean Spaces
+- Certificate generation (PDF)
+- Platform admin dashboard with stats
+- German language only
+- Single AI provider (Claude) for explanations only
+
+### Deferred (Phase 2+)
+- AI Tutor, Practice Generator, Summaries, Flashcards
+- Multi-provider AI (OpenAI, Gemini, Ollama)
+- English and French translations
+- Matching question type
+- Advanced gamification (badges, streaks, leaderboards)
+- Class/group management within schools
+- Parent access / progress reports
+- LTI integration with other LMS
+- Offline mode / PWA
+
+---
+
+## Student Onboarding (B2B Education)
+
+### How Students Join a School
+
+**Option 1: Invitation Link** (Primary)
+```
+1. School admin generates invite link with role preset
+2. Link format: /join/{school_slug}?token={invite_token}&role=student
+3. Student clicks link → Registration form (name, email, password)
+4. Auto-joins school team with 'learner' role
+5. Welcome email sent
+```
+
+**Option 2: Bulk CSV Import** (For large schools)
+```csv
+# students.csv
+first_name,last_name,email,class
+Max,Mustermann,max@schule.de,10A
+Anna,Schmidt,anna@schule.de,10A
+...
+```
+
+```php
+// app/Actions/School/ImportStudentsAction.php
+- Parse CSV
+- Validate emails (unique, valid format)
+- Create User accounts with temporary passwords
+- Send invitation emails with password reset link
+- Return import summary (created, skipped, errors)
+```
+
+**Option 3: Email Domain Restriction** (Optional)
+```php
+// School can restrict to specific email domains
+'allowed_domains' => ['schule-beispiel.de', 'students.schule-beispiel.de']
+```
+
+### Student Onboarding UI Flow
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  SCHOOL ADMIN: Invite Students                              │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  📧 Invite by Email        📄 Bulk Import (CSV)            │
+│  ─────────────────        ──────────────────               │
+│  [email@example.com]      [Upload CSV] [Download Template] │
+│  Role: [Student ▼]                                         │
+│  [Send Invitation]        Preview: 45 students found       │
+│                           [Import All]                     │
+│                                                             │
+│  🔗 Share Invite Link                                       │
+│  ─────────────────────                                      │
+│  https://app.learningpilot.com/join/schule-xyz?token=abc   │
+│  [Copy Link] [Regenerate]                                   │
+│                                                             │
+│  Pending Invitations (3)                                    │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ anna@example.com    Student    Sent 2 days ago [x]  │   │
+│  │ max@example.com     Student    Sent 1 day ago  [x]  │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## School Admin Dashboard
+
+School admins need a dedicated dashboard (different from platform admin):
+
+### Routes
+```
+/school/dashboard         → Overview (students, usage, quick actions)
+/school/students          → Student list, invite, remove, view progress
+/school/instructors       → Instructor management
+/school/paths             → Learning paths in this school
+/school/analytics         → School-wide progress reports
+/school/usage             → Storage used, AI requests, seat count
+/school/billing           → Current plan, invoices, upgrade
+/school/settings          → School profile, branding, invite settings
+```
+
+### School Dashboard Wireframe
+```
+┌─────────────────────────────────────────────────────────────┐
+│  🏫 Schule Beispiel              [Trial: 14 days left]     │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐       │
+│  │ 45/50    │ │ 3/5      │ │ 12       │ │ 68%      │       │
+│  │ Students │ │ Teachers │ │ Paths    │ │ Avg.Prog │       │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘       │
+│                                                             │
+│  Quick Actions                                              │
+│  [+ Invite Students] [+ Add Instructor] [+ Create Path]    │
+│                                                             │
+│  Recent Activity                    Storage Usage           │
+│  ─────────────────                  ─────────────           │
+│  • Max joined the school            ████████░░ 18/25 GB    │
+│  • Anna completed "Math 101"                                │
+│  • New path "Biology" created       AI Requests Today       │
+│  • 5 students invited               ██████░░░░ 62/100      │
+│                                                             │
+│  Student Progress Overview          [View Full Report →]   │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ Path            │ Enrolled │ Completed │ Avg Score │   │
+│  │ Math 101        │ 42       │ 28 (67%)  │ 82%       │   │
+│  │ Biology Basics  │ 38       │ 12 (32%)  │ 75%       │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Key Livewire Components
+```
+Livewire\School\Dashboard           → School overview
+Livewire\School\StudentList         → List, search, filter students
+Livewire\School\StudentInvite       → Invite modal (email, CSV, link)
+Livewire\School\InstructorList      → Manage instructors
+Livewire\School\UsageStats          → Storage, AI, seats
+Livewire\School\ProgressReport      → School-wide analytics
+Livewire\School\BillingDashboard    → Plan, invoices, upgrade
+Livewire\School\Settings            → School configuration
+```
+
+---
+
+## Data Privacy for Minors
+
+Since target users are students (potentially minors), add these safeguards:
+
+### Age Verification
+```php
+// User registration/profile
+'date_of_birth' => 'required|date|before:today',
+
+// Check if minor (under 16 in EU)
+public function isMinor(): bool
+{
+    return $this->date_of_birth->age < 16;
+}
+```
+
+### Parental Consent (if minor)
+```php
+// migrations: add to users table
+$table->boolean('parental_consent_given')->default(false);
+$table->timestamp('parental_consent_at')->nullable();
+$table->string('parent_email')->nullable();
+
+// Flow for minors:
+1. Student registers with DOB showing they're under 16
+2. System requires parent email
+3. Consent email sent to parent with approval link
+4. Account limited until consent received
+5. Store consent timestamp for compliance
+```
+
+### Data Handling
+```php
+// config/lernpfad.php
+'privacy' => [
+    'minor_age_threshold' => 16,  // EU GDPR
+    'require_parental_consent' => true,
+    'data_retention_days' => 365 * 3,  // 3 years after last activity
+    'auto_delete_inactive_students' => true,
+],
+```
+- Discussion forums / Comments
+- Mobile app / PWA
+
+---
+
+## Missing Components (Add Before Launch)
+
+### Authentication
+```php
+// config/lernpfad.php
+'auth' => [
+    'social_providers' => ['google', 'microsoft'],  // Laravel Socialite
+    'require_email_verification' => true,
+    'enable_2fa' => true,  // Jetstream built-in
+    'password_min_length' => 8,
+],
+```
+
+### Notifications
+```php
+// Notification triggers
+- welcome_email          → On registration
+- email_verified         → On email verification
+- team_invitation        → When invited to team
+- enrollment_confirmed   → When enrolled in path
+- path_completed         → When completing a path
+- certificate_issued     → When certificate generated
+- submission_reviewed    → When instructor reviews task
+- assessment_passed      → When passing an assessment
+- subscription_renewed   → Billing reminder/confirmation
+```
+
+### Email Templates (Create in `resources/views/emails/`)
+```
+emails/
+├── welcome.blade.php
+├── verify-email.blade.php
+├── team-invitation.blade.php
+├── path-completed.blade.php
+├── certificate-issued.blade.php
+├── submission-reviewed.blade.php
+└── subscription-reminder.blade.php
+```
+
+### Error Tracking
+```bash
+composer require sentry/sentry-laravel
+```
+```
+# .env
+SENTRY_LARAVEL_DSN=https://...@sentry.io/...
+```
+
+### Health Checks
+```php
+// routes/web.php
+Route::get('/health', function () {
+    return response()->json([
+        'status' => 'ok',
+        'database' => DB::connection()->getPdo() ? 'connected' : 'error',
+        'cache' => Cache::store()->get('health') !== null || Cache::store()->put('health', true, 10),
+        'queue' => Queue::size('default') >= 0,
+    ]);
+});
+```
+
+### GDPR Compliance
+```php
+// User model methods
+public function exportPersonalData(): array  // Data portability
+public function anonymize(): void            // Right to erasure
+public function getConsentHistory(): Collection
+
+// Required pages
+/legal/privacy          → Privacy policy
+/legal/terms            → Terms of service
+/legal/cookies          → Cookie policy
+/profile/data           → Download my data
+/profile/delete         → Delete my account
+```
+
+### Cookie Consent
+```bash
+composer require spatie/laravel-cookie-consent
+```
+
+### Demo Seeder
+```php
+// database/seeders/DemoSeeder.php
+- Demo team: "Demo Company"
+- Demo instructor: demo-instructor@learningpilot.com / demo1234
+- Demo learner: demo-learner@learningpilot.com / demo1234
+- Sample learning path: "Getting Started with LearningPilot"
+  - 3 modules, 9 steps
+  - Mix of text, video (YouTube embeds), PDF
+  - 2 assessments with sample questions
+  - 1 task submission example
+```
+
+---
 
 ## Documentation Reference
 

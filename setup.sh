@@ -41,7 +41,7 @@ fi
 if ! composer show laravel/jetstream &> /dev/null; then
     echo "📦 Installing Jetstream..."
     composer require laravel/jetstream
-    php artisan jetstream:install livewire --teams=false
+    php artisan jetstream:install livewire --teams=true
 fi
 
 # Additional packages
