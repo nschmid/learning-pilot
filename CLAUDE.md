@@ -1517,6 +1517,241 @@ php artisan queue:restart
 - Parent access / progress reports
 - LTI integration with other LMS
 - Offline mode / PWA
+- Content import/export (SCORM, xAPI)
+- Webhook system for external integrations
+- White-label / custom domains
+- Mobile apps (iOS/Android)
+
+---
+
+## Email Service Configuration
+
+Use **Resend** for transactional emails (modern, developer-friendly, great Laravel support):
+
+```bash
+composer require resend/resend-laravel
+php artisan vendor:publish --tag="resend-config"
+```
+
+**.env configuration (Resend - Recommended):**
+```
+MAIL_MAILER=resend
+RESEND_API_KEY=re_xxxxxxxxxxxx
+MAIL_FROM_ADDRESS=noreply@learningpilot.com
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+**Why Resend:**
+- Modern API, excellent DX
+- Built-in analytics and tracking
+- React Email support for templates
+- Competitive pricing
+- EU data residency option
+
+**Alternative: Postmark** (high deliverability):
+```bash
+composer require symfony/postmark-mailer
+```
+```
+MAIL_MAILER=postmark
+POSTMARK_TOKEN=your-postmark-server-token
+```
+
+**Other alternatives:**
+- Mailgun (good for EU with EU endpoint)
+- Amazon SES (cost-effective at scale)
+
+---
+
+## Rate Limiting
+
+Protect API and prevent abuse:
+
+```php
+// routes/api.php or RouteServiceProvider
+RateLimiter::for('api', function (Request $request) {
+    return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+});
+
+RateLimiter::for('ai', function (Request $request) {
+    // Stricter limits for AI endpoints (costly)
+    return Limit::perMinute(10)->by($request->user()?->id ?: $request->ip());
+});
+
+RateLimiter::for('auth', function (Request $request) {
+    // Prevent brute force
+    return Limit::perMinute(5)->by($request->ip());
+});
+```
+
+---
+
+## Testing Strategy (POC)
+
+### Priority 1: Critical Paths
+```bash
+# Must have 100% coverage
+tests/Feature/Auth/
+├── RegistrationTest.php      # School + user registration
+├── LoginTest.php             # Login, 2FA
+├── TeamInvitationTest.php    # Student/instructor invites
+
+tests/Feature/Billing/
+├── SubscriptionTest.php      # Trial, subscribe, cancel
+├── WebhookTest.php           # Stripe webhook handling
+
+tests/Feature/Learning/
+├── EnrollmentTest.php        # Enroll in path
+├── ProgressTrackingTest.php  # Complete steps, track time
+├── AssessmentTest.php        # Take quiz, grading
+```
+
+### Priority 2: Core Features
+```bash
+tests/Feature/Instructor/
+├── LearningPathTest.php      # CRUD paths
+├── ModuleTest.php            # CRUD modules
+├── MaterialUploadTest.php    # File uploads
+
+tests/Feature/School/
+├── StudentManagementTest.php # Invite, remove students
+├── UsageTrackingTest.php     # Storage, AI limits
+```
+
+### Test Commands
+```bash
+# Run all tests
+php artisan test
+
+# Run with coverage
+php artisan test --coverage --min=80
+
+# Run specific suite
+php artisan test --testsuite=Feature
+
+# Run in parallel (faster)
+php artisan test --parallel
+```
+
+---
+
+## Demo Seeder (Detailed)
+
+```php
+// database/seeders/DemoSeeder.php
+
+class DemoSeeder extends Seeder
+{
+    public function run(): void
+    {
+        // 1. Create demo school
+        $school = Team::create([
+            'name' => 'Demo Schule Zürich',
+            'slug' => 'demo-schule',
+            'trial_ends_at' => now()->addDays(30),
+        ]);
+
+        // 2. Create school admin
+        $admin = User::create([
+            'name' => 'Maria Müller',
+            'email' => 'admin@demo-schule.ch',
+            'password' => Hash::make('demo1234'),
+            'email_verified_at' => now(),
+        ]);
+        $school->users()->attach($admin, ['role' => 'admin']);
+
+        // 3. Create instructors
+        $instructor = User::create([
+            'name' => 'Thomas Weber',
+            'email' => 'lehrer@demo-schule.ch',
+            'password' => Hash::make('demo1234'),
+            'email_verified_at' => now(),
+        ]);
+        $school->users()->attach($instructor, ['role' => 'instructor']);
+
+        // 4. Create students
+        foreach (range(1, 10) as $i) {
+            $student = User::create([
+                'name' => fake('de_CH')->name(),
+                'email' => "student{$i}@demo-schule.ch",
+                'password' => Hash::make('demo1234'),
+                'email_verified_at' => now(),
+            ]);
+            $school->users()->attach($student, ['role' => 'learner']);
+        }
+
+        // 5. Create sample learning path
+        $path = LearningPath::create([
+            'team_id' => $school->id,
+            'creator_id' => $instructor->id,
+            'title' => 'Einführung in LearningPilot',
+            'slug' => 'einfuehrung-learningpilot',
+            'description' => 'Lernen Sie die Grundlagen unserer Lernplattform kennen.',
+            'difficulty' => Difficulty::Beginner,
+            'is_published' => true,
+        ]);
+
+        // 6. Create modules
+        $modules = [
+            ['title' => 'Erste Schritte', 'position' => 1],
+            ['title' => 'Inhalte entdecken', 'position' => 2],
+            ['title' => 'Wissen testen', 'position' => 3],
+        ];
+
+        foreach ($modules as $moduleData) {
+            $module = $path->modules()->create($moduleData);
+
+            // Add steps to each module
+            $this->createDemoSteps($module);
+        }
+
+        // 7. Enroll some students
+        $students = $school->users()->wherePivot('role', 'learner')->take(5)->get();
+        foreach ($students as $student) {
+            Enrollment::create([
+                'user_id' => $student->id,
+                'learning_path_id' => $path->id,
+                'status' => EnrollmentStatus::Active,
+                'started_at' => now()->subDays(rand(1, 14)),
+            ]);
+        }
+    }
+
+    private function createDemoSteps(Module $module): void
+    {
+        // Text material
+        $module->steps()->create([
+            'title' => 'Willkommen',
+            'step_type' => StepType::Material,
+            'position' => 1,
+            'points_value' => 10,
+        ]);
+
+        // Video (YouTube embed)
+        $module->steps()->create([
+            'title' => 'Video-Tutorial',
+            'step_type' => StepType::Material,
+            'position' => 2,
+            'points_value' => 20,
+        ]);
+
+        // Assessment
+        $module->steps()->create([
+            'title' => 'Quiz',
+            'step_type' => StepType::Assessment,
+            'position' => 3,
+            'points_value' => 50,
+        ]);
+    }
+}
+```
+
+**Demo Credentials:**
+| Role | Email | Password |
+|------|-------|----------|
+| School Admin | admin@demo-schule.ch | demo1234 |
+| Instructor | lehrer@demo-schule.ch | demo1234 |
+| Student | student1@demo-schule.ch | demo1234 |
 
 ---
 
