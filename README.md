@@ -1,177 +1,59 @@
-# 📚 LearningPilot
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-A modern Learning Path Management System built with Laravel 12 and the TALL stack (Tailwind CSS, Alpine.js, Livewire).
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## Features
+## About Laravel
 
-- **Role-based Access**: Admin, Instructor, and Learner roles
-- **Learning Path Builder**: Create structured learning paths with modules and steps
-- **Multi-format Content**: Support for text, video, audio, PDF, images, and interactive content
-- **Assessment System**: 5 question types with auto-grading and time limits
-- **Task Management**: File submissions with instructor review workflow
-- **Progress Tracking**: Detailed analytics on time spent, completion, and points
-- **Certificates**: Auto-generated PDF certificates upon completion
-- **Gamification**: Points system for engagement
-- **Search**: Full-text search powered by Meilisearch
-- **Multilingual**: German, English, and French language support
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-## Tech Stack
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-| Component | Technology | Version |
-|-----------|------------|---------|
-| Backend | Laravel | 12.x |
-| CSS | Tailwind CSS | 4.x |
-| JavaScript | Alpine.js | 3.x |
-| Reactivity | Livewire | 3.x |
-| Database | PostgreSQL | 16.x |
-| Cache/Queue | Redis | 7.x |
-| Search | Laravel Scout + Meilisearch | - |
-| PDF Generation | DomPDF | - |
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Requirements
+## Learning Laravel
 
-- PHP 8.4+
-- Composer 2.x
-- Node.js 20+
-- PostgreSQL 16+
-- Redis (optional, for cache/queue)
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
 
-## Installation
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-```bash
-# Clone the repository
-git clone <repository-url> learning-pilot
-cd learning-pilot
+## Laravel Sponsors
 
-# Run setup script
-chmod +x setup.sh
-./setup.sh
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-# Or manual setup:
-composer install
-npm install
-cp .env.example .env
-php artisan key:generate
+### Premium Partners
 
-# Configure database in .env, then:
-php artisan migrate
-php artisan db:seed
-
-# Build assets
-npm run build
-```
-
-## Development
-
-```bash
-# Start development server
-php artisan serve
-
-# Watch for asset changes (separate terminal)
-npm run dev
-
-# Run tests
-php artisan test
-
-# Code formatting
-./vendor/bin/pint
-
-# Static analysis
-./vendor/bin/phpstan analyse
-```
-
-## Project Structure
-
-```
-app/
-├── Actions/        # Single-purpose action classes
-├── Enums/          # PHP 8.1+ backed enums
-├── Events/         # Domain events
-├── Http/           # Controllers, Middleware, Requests
-├── Livewire/       # Livewire components (Admin/Instructor/Learner/Shared)
-├── Models/         # Eloquent models
-├── Policies/       # Authorization policies
-├── Repositories/   # Data access layer
-└── Services/       # Business logic layer
-```
-
-## User Roles
-
-| Role | Description |
-|------|-------------|
-| **Admin** | Full system access, user management, analytics |
-| **Instructor** | Create/manage learning paths, review submissions |
-| **Learner** | Browse catalog, enroll in paths, track progress |
-
-## Database Models (18 entities)
-
-**Core**: User, LearningPath, Category, Tag, Module, LearningStep
-
-**Content**: LearningMaterial, Task, Assessment, Question, AnswerOption
-
-**Progress**: Enrollment, StepProgress, TaskSubmission, AssessmentAttempt, QuestionResponse
-
-**Features**: Prerequisite, ModuleDependency, Certificate, UserNote, Bookmark, PathReview
-
-## Configuration
-
-Key settings in `config/lernpfad.php`:
-
-```php
-'defaults' => [
-    'passing_score' => 70,
-    'max_assessment_attempts' => 3,
-    'certificate_validity_years' => 2,
-],
-'materials' => [
-    'max_file_size' => 100 * 1024 * 1024, // 100MB
-],
-'gamification' => [
-    'enabled' => true,
-    'points' => [
-        'step_completion' => 10,
-        'assessment_pass' => 50,
-        'path_completion' => 200,
-    ],
-],
-```
-
-## API Documentation
-
-API routes are available under `/api/v1/` with authentication via Laravel Sanctum.
-
-```
-GET    /api/v1/learning-paths        # List published paths
-GET    /api/v1/learning-paths/{id}   # Path details
-POST   /api/v1/enrollments           # Enroll in a path
-GET    /api/v1/progress              # User progress
-```
-
-## Testing
-
-```bash
-# Run all tests
-php artisan test
-
-# Run with coverage
-php artisan test --coverage
-
-# Run specific suite
-php artisan test --testsuite=Feature
-php artisan test --testsuite=Unit
-```
+- **[Vehikl](https://vehikl.com)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Redberry](https://redberry.international/laravel-development)**
+- **[Active Logic](https://activelogic.com)**
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Write tests for new functionality
-4. Submit a pull request
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+
+## Code of Conduct
+
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
-[MIT License](LICENSE)
-
----
-
-Built with ❤️ using Laravel 12 TALL Stack
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
