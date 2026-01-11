@@ -90,6 +90,20 @@ class Show extends Component
         return $this->latestSubmission->scorePercent() >= 60;
     }
 
+    #[Computed]
+    public function stepProgressId(): ?string
+    {
+        if (! $this->enrollment) {
+            return null;
+        }
+
+        $stepProgress = $this->enrollment->stepProgress()
+            ->where('step_id', $this->task->step_id)
+            ->first();
+
+        return $stepProgress?->id;
+    }
+
     public function toggleSubmitForm(): void
     {
         $this->showSubmitForm = ! $this->showSubmitForm;

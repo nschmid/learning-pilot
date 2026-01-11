@@ -50,12 +50,30 @@ class JetstreamServiceProvider extends ServiceProvider
             'read',
             'update',
             'delete',
-        ])->description('Administrator users can perform any action.');
+            'manage:team',
+            'manage:users',
+            'manage:billing',
+        ])->description('Administrators can perform any action including team management.');
+
+        Jetstream::role('instructor', 'Dozent', [
+            'create',
+            'read',
+            'update',
+            'manage:paths',
+            'manage:assessments',
+            'review:submissions',
+        ])->description('Instructors can create and manage learning paths, assessments, and review submissions.');
+
+        Jetstream::role('learner', 'Lernende', [
+            'read',
+            'submit:tasks',
+            'take:assessments',
+        ])->description('Learners can view content, submit tasks, and take assessments.');
 
         Jetstream::role('editor', 'Editor', [
             'read',
             'create',
             'update',
-        ])->description('Editor users have the ability to read, create, and update.');
+        ])->description('Editors can read, create, and update content.');
     }
 }

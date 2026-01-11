@@ -39,6 +39,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'bio',
         'preferences',
         'last_login_at',
+        'profile_photo_path',
+        // OAuth fields
+        'oauth_google_id',
+        'oauth_google_token',
+        'oauth_google_refresh_token',
+        'oauth_microsoft_id',
+        'oauth_microsoft_token',
+        'oauth_microsoft_refresh_token',
     ];
 
     protected $hidden = [
@@ -46,6 +54,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+        'oauth_google_token',
+        'oauth_google_refresh_token',
+        'oauth_microsoft_token',
+        'oauth_microsoft_refresh_token',
     ];
 
     protected $appends = [

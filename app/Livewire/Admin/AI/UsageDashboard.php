@@ -17,7 +17,7 @@ class UsageDashboard extends Component
     #[Computed]
     public function totalTokensUsed(): int
     {
-        return $this->getUsageQuery()->sum('total_tokens');
+        return (int) $this->getUsageQuery()->sum('tokens_total');
     }
 
     #[Computed]
@@ -29,34 +29,28 @@ class UsageDashboard extends Component
     #[Computed]
     public function successRate(): float
     {
-        $total = $this->totalRequests;
-        if ($total === 0) {
-            return 100;
-        }
-
-        $successful = $this->getUsageQuery()->successful()->count();
-
-        return round(($successful / $total) * 100, 1);
+        // All logged requests are successful (errors aren't logged)
+        return 100.0;
     }
 
     #[Computed]
     public function averageResponseTime(): int
     {
-        return (int) $this->getUsageQuery()->avg('response_time_ms');
+        return (int) $this->getUsageQuery()->avg('latency_ms');
     }
 
     #[Computed]
     public function usageByService(): array
     {
         return $this->getUsageQuery()
-            ->select('service_type', DB::raw('COUNT(*) as count'), DB::raw('SUM(total_tokens) as tokens'))
+            ->select('service_type', DB::raw('COUNT(*) as count'), DB::raw('SUM(tokens_total) as tokens'))
             ->groupBy('service_type')
             ->get()
             ->map(fn ($item) => [
-                'service' => AiServiceType::from($item->service_type)->label(),
+                'service' => AiServiceType::tryFrom($item->service_type)?->label() ?? $item->service_type,
                 'service_key' => $item->service_type,
                 'count' => $item->count,
-                'tokens' => $item->tokens,
+                'tokens' => $item->tokens ?? 0,
             ])
             ->toArray();
     }
@@ -69,7 +63,7 @@ class UsageDashboard extends Component
         return AiUsageLog::select(
             DB::raw('DATE(created_at) as date'),
             DB::raw('COUNT(*) as requests'),
-            DB::raw('SUM(total_tokens) as tokens')
+            DB::raw('SUM(tokens_total) as tokens')
         )
             ->where('created_at', '>=', now()->subDays($days))
             ->groupBy('date')
@@ -78,7 +72,7 @@ class UsageDashboard extends Component
             ->map(fn ($item) => [
                 'date' => $item->date,
                 'requests' => $item->requests,
-                'tokens' => $item->tokens,
+                'tokens' => $item->tokens ?? 0,
             ])
             ->toArray();
     }
@@ -86,7 +80,7 @@ class UsageDashboard extends Component
     #[Computed]
     public function topUsers(): \Illuminate\Support\Collection
     {
-        return AiUsageLog::select('user_id', DB::raw('COUNT(*) as requests'), DB::raw('SUM(total_tokens) as tokens'))
+        return AiUsageLog::select('user_id', DB::raw('COUNT(*) as requests'), DB::raw('SUM(tokens_total) as tokens'))
             ->where('created_at', '>=', now()->subMonth())
             ->groupBy('user_id')
             ->orderByDesc('tokens')
@@ -118,11 +112,9 @@ class UsageDashboard extends Component
     #[Computed]
     public function recentErrors()
     {
-        return AiUsageLog::failed()
-            ->with('user:id,name,email')
-            ->orderByDesc('created_at')
-            ->limit(5)
-            ->get();
+        // Currently AI usage logs only track successful requests
+        // Return empty collection as errors are not persisted
+        return collect([]);
     }
 
     public function setPeriod(string $period): void

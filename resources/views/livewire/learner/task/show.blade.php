@@ -59,6 +59,13 @@
                 </div>
             </div>
 
+            <!-- AI Hint Button -->
+            @if($this->stepProgressId)
+                <div class="mb-6">
+                    <livewire:learner.ai.hint-button :step-progress-id="$this->stepProgressId" />
+                </div>
+            @endif
+
             <!-- Rubric -->
             @if($task->rubric && count($task->rubric) > 0)
                 <div class="mb-6">

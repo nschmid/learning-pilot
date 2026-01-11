@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\UserRole;
+use App\Http\Controllers\Auth\SocialiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -11,6 +12,17 @@ use Illuminate\Support\Facades\Route;
 
 // Public routes (landing, pricing, features, etc.)
 require __DIR__ . '/public.php';
+
+/*
+|--------------------------------------------------------------------------
+| Social Authentication Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('auth')->name('auth.')->middleware('guest')->group(function () {
+    Route::get('/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
+    Route::get('/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
+});
 
 Route::middleware([
     'auth:sanctum',

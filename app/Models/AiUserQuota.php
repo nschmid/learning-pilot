@@ -19,14 +19,22 @@ class AiUserQuota extends Model
         'tokens_used_this_month',
         'requests_today',
         'last_request_at',
-        'quota_resets_at',
+        'month_reset_at',
+        'feature_explanations_enabled',
+        'feature_tutor_enabled',
+        'feature_practice_enabled',
+        'feature_summaries_enabled',
     ];
 
     protected function casts(): array
     {
         return [
             'last_request_at' => 'datetime',
-            'quota_resets_at' => 'datetime',
+            'month_reset_at' => 'datetime',
+            'feature_explanations_enabled' => 'boolean',
+            'feature_tutor_enabled' => 'boolean',
+            'feature_practice_enabled' => 'boolean',
+            'feature_summaries_enabled' => 'boolean',
         ];
     }
 
@@ -89,7 +97,7 @@ class AiUserQuota extends Model
     {
         $this->update([
             'tokens_used_this_month' => 0,
-            'quota_resets_at' => now()->addMonth()->startOfMonth(),
+            'month_reset_at' => now()->startOfMonth(),
         ]);
     }
 }

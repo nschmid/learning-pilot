@@ -136,29 +136,109 @@ return [
     'billing' => [
         'default_currency' => 'chf',
         'supported_currencies' => ['chf', 'eur', 'usd'],
+        'trial_days' => 14,
+    ],
 
-        'plans' => [
-            'basic' => [
-                'max_students' => 50,
-                'max_instructors' => 5,
-                'max_storage_gb' => 10,
-                'ai_enabled' => false,
+    /*
+    |--------------------------------------------------------------------------
+    | Subscription Plans
+    |--------------------------------------------------------------------------
+    |
+    | Define pricing plans with Stripe price IDs and feature limits.
+    |
+    */
+
+    'plans' => [
+        'starter' => [
+            'name' => 'Starter',
+            'description' => 'Ideal für kleine Schulen und Nachhilfe',
+            'stripe_prices' => [
+                'chf' => env('STRIPE_PRICE_STARTER_CHF', 'price_starter_chf'),
+                'eur' => env('STRIPE_PRICE_STARTER_EUR', 'price_starter_eur'),
+                'usd' => env('STRIPE_PRICE_STARTER_USD', 'price_starter_usd'),
             ],
-            'professional' => [
-                'max_students' => 200,
-                'max_instructors' => 20,
-                'max_storage_gb' => 50,
-                'ai_enabled' => true,
+            'prices' => [
+                'chf' => 49,
+                'eur' => 45,
+                'usd' => 49,
             ],
-            'enterprise' => [
-                'max_students' => null, // unlimited
-                'max_instructors' => null,
-                'max_storage_gb' => 500,
-                'ai_enabled' => true,
+            'billing_period' => 'monthly',
+            'limits' => [
+                'students' => 50,
+                'instructors' => 3,
+                'storage_gb' => 5,
+                'ai_daily_requests' => 0,
+            ],
+            'features' => [
+                'ai_tutor' => false,
+                'ai_practice' => false,
+                'ai_explanations' => false,
+                'advanced_analytics' => false,
+                'custom_branding' => false,
+                'api_access' => false,
+                'priority_support' => false,
             ],
         ],
-
-        'trial_days' => 14,
+        'professional' => [
+            'name' => 'Professional',
+            'description' => 'Für wachsende Bildungseinrichtungen',
+            'stripe_prices' => [
+                'chf' => env('STRIPE_PRICE_PRO_CHF', 'price_pro_chf'),
+                'eur' => env('STRIPE_PRICE_PRO_EUR', 'price_pro_eur'),
+                'usd' => env('STRIPE_PRICE_PRO_USD', 'price_pro_usd'),
+            ],
+            'prices' => [
+                'chf' => 149,
+                'eur' => 139,
+                'usd' => 149,
+            ],
+            'billing_period' => 'monthly',
+            'limits' => [
+                'students' => 200,
+                'instructors' => 10,
+                'storage_gb' => 25,
+                'ai_daily_requests' => 500,
+            ],
+            'features' => [
+                'ai_tutor' => true,
+                'ai_practice' => true,
+                'ai_explanations' => true,
+                'advanced_analytics' => true,
+                'custom_branding' => false,
+                'api_access' => false,
+                'priority_support' => false,
+            ],
+        ],
+        'enterprise' => [
+            'name' => 'Enterprise',
+            'description' => 'Für grosse Institutionen mit individuellen Anforderungen',
+            'stripe_prices' => [
+                'chf' => env('STRIPE_PRICE_ENTERPRISE_CHF', 'price_enterprise_chf'),
+                'eur' => env('STRIPE_PRICE_ENTERPRISE_EUR', 'price_enterprise_eur'),
+                'usd' => env('STRIPE_PRICE_ENTERPRISE_USD', 'price_enterprise_usd'),
+            ],
+            'prices' => [
+                'chf' => 399,
+                'eur' => 369,
+                'usd' => 399,
+            ],
+            'billing_period' => 'monthly',
+            'limits' => [
+                'students' => -1, // unlimited
+                'instructors' => -1,
+                'storage_gb' => 100,
+                'ai_daily_requests' => -1, // unlimited
+            ],
+            'features' => [
+                'ai_tutor' => true,
+                'ai_practice' => true,
+                'ai_explanations' => true,
+                'advanced_analytics' => true,
+                'custom_branding' => true,
+                'api_access' => true,
+                'priority_support' => true,
+            ],
+        ],
     ],
 
     /*

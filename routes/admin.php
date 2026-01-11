@@ -7,6 +7,13 @@ use App\Livewire\Admin\Categories\Index as CategoriesIndex;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\Paths\Index as PathsIndex;
 use App\Livewire\Admin\Paths\Show as PathsShow;
+use App\Livewire\Admin\Reports\AIUsage as ReportsAIUsage;
+use App\Livewire\Admin\Reports\Enrollments as ReportsEnrollments;
+use App\Livewire\Admin\Reports\Paths as ReportsPaths;
+use App\Livewire\Admin\Reports\Users as ReportsUsers;
+use App\Livewire\Admin\Settings\AI as SettingsAI;
+use App\Livewire\Admin\Settings\Billing as SettingsBilling;
+use App\Livewire\Admin\Settings\General as SettingsGeneral;
 use App\Livewire\Admin\Teams\Create as TeamsCreate;
 use App\Livewire\Admin\Teams\Index as TeamsIndex;
 use App\Livewire\Admin\Teams\Show as TeamsShow;
@@ -59,18 +66,18 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     // Reports
     Route::prefix('reports')->name('reports.')->group(function () {
         Route::view('/', 'admin.reports.index')->name('index');
-        Route::view('/users', 'admin.reports.users')->name('users');
-        Route::view('/paths', 'admin.reports.paths')->name('paths');
-        Route::view('/enrollments', 'admin.reports.enrollments')->name('enrollments');
-        Route::view('/ai-usage', 'admin.reports.ai-usage')->name('ai-usage');
+        Route::get('/users', ReportsUsers::class)->name('users');
+        Route::get('/paths', ReportsPaths::class)->name('paths');
+        Route::get('/enrollments', ReportsEnrollments::class)->name('enrollments');
+        Route::get('/ai-usage', ReportsAIUsage::class)->name('ai-usage');
     });
 
     // Settings
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::view('/', 'admin.settings.index')->name('index');
-        Route::view('/general', 'admin.settings.general')->name('general');
-        Route::view('/billing', 'admin.settings.billing')->name('billing');
-        Route::view('/ai', 'admin.settings.ai')->name('ai');
+        Route::get('/general', SettingsGeneral::class)->name('general');
+        Route::get('/billing', SettingsBilling::class)->name('billing');
+        Route::get('/ai', SettingsAI::class)->name('ai');
     });
 
     // AI Management
