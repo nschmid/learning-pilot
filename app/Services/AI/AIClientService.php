@@ -3,17 +3,20 @@
 namespace App\Services\AI;
 
 use App\Enums\AiServiceType;
-use Illuminate\Http\Client\PendingRequest;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Prism\Prism\Enums\Provider;
+use Prism\Prism\Facades\Prism;
+use Prism\Prism\ValueObjects\Messages\AssistantMessage;
+use Prism\Prism\ValueObjects\Messages\UserMessage;
 
 class AIClientService
 {
-    protected string $baseUrl = 'https://api.anthropic.com/v1';
+    protected string $provider;
 
-    public function __construct(
-        protected string $apiKey,
-    ) {}
+    public function __construct()
+    {
+        $this->provider = config('lernpfad.ai.provider', 'anthropic');
+    }
 
     public function createMessage(
         AiServiceType $serviceType,
@@ -28,59 +31,86 @@ class AIClientService
         $startTime = microtime(true);
 
         try {
-            $response = $this->client()->post('/messages', [
-                'model' => $model,
-                'max_tokens' => $maxTokens,
-                'system' => $systemPrompt,
-                'messages' => $messages,
-            ]);
+            $prismMessages = $this->convertMessages($messages);
+
+            $response = Prism::text()
+                ->using($this->provider, $model)
+                ->withSystemPrompt($systemPrompt)
+                ->withMessages($prismMessages)
+                ->withMaxTokens($maxTokens)
+                ->asText();
 
             $latencyMs = (int) ((microtime(true) - $startTime) * 1000);
 
-            if (! $response->successful()) {
-                Log::error('AI API Error', [
-                    'status' => $response->status(),
-                    'body' => $response->body(),
-                ]);
-                throw new \Exception('AI API request failed: '.$response->body());
-            }
-
-            $data = $response->json();
-
             return [
-                'content' => $data['content'][0]['text'] ?? '',
+                'content' => $response->text,
                 'model' => $model,
-                'tokens_input' => $data['usage']['input_tokens'] ?? 0,
-                'tokens_output' => $data['usage']['output_tokens'] ?? 0,
+                'tokens_input' => $response->usage->promptTokens,
+                'tokens_output' => $response->usage->completionTokens,
                 'latency_ms' => $latencyMs,
-                'stop_reason' => $data['stop_reason'] ?? null,
+                'stop_reason' => $response->finishReason->value ?? null,
             ];
 
         } catch (\Exception $e) {
             Log::error('AI Client Exception', [
                 'message' => $e->getMessage(),
                 'service_type' => $serviceType->value,
+                'provider' => $this->provider,
+                'model' => $model,
             ]);
             throw $e;
         }
     }
 
-    protected function client(): PendingRequest
+    /**
+     * Convert array messages to Prism message objects.
+     */
+    protected function convertMessages(array $messages): array
     {
-        return Http::baseUrl($this->baseUrl)
-            ->withHeaders([
-                'x-api-key' => $this->apiKey,
-                'anthropic-version' => '2023-06-01',
-                'content-type' => 'application/json',
-            ])
-            ->timeout(60);
+        return array_map(function ($message) {
+            $role = $message['role'] ?? 'user';
+            $content = $message['content'] ?? '';
+
+            return match ($role) {
+                'assistant' => new AssistantMessage($content),
+                default => new UserMessage($content),
+            };
+        }, $messages);
     }
 
+    /**
+     * Get the default model for a service type based on the configured provider.
+     */
     protected function getDefaultModel(AiServiceType $serviceType): string
     {
-        return match ($serviceType) {
-            AiServiceType::Tutor, AiServiceType::Practice => config('lernpfad.ai.models.tutor', 'claude-sonnet-4-5-20250929'),
-            default => config('lernpfad.ai.models.default', 'claude-haiku-4-5-20251001'),
+        $configKey = match ($serviceType) {
+            AiServiceType::Tutor, AiServiceType::Practice => 'tutor',
+            AiServiceType::Summary => 'summary',
+            default => 'default',
+        };
+
+        // First, check for explicit model override in config
+        $model = config("lernpfad.ai.models.{$configKey}");
+        if ($model) {
+            return $model;
+        }
+
+        // Then, use provider-specific defaults from config
+        $providerModel = config("lernpfad.ai.provider_models.{$this->provider}.{$configKey}");
+        if ($providerModel) {
+            return $providerModel;
+        }
+
+        // Fallback to hardcoded defaults if config is missing
+        return match ($this->provider) {
+            'anthropic' => 'claude-haiku-4-5-20251001',
+            'openai' => 'gpt-4o-mini',
+            'mistral' => 'mistral-small-latest',
+            'groq' => 'llama-3.3-70b-versatile',
+            'gemini' => 'gemini-1.5-flash',
+            'deepseek' => 'deepseek-chat',
+            'ollama' => 'llama3.2',
+            default => 'claude-haiku-4-5-20251001',
         };
     }
 
@@ -92,5 +122,30 @@ class AIClientService
             AiServiceType::Summary => 2048,
             default => 1024,
         };
+    }
+
+    /**
+     * Get the currently configured provider.
+     */
+    public function getProvider(): string
+    {
+        return $this->provider;
+    }
+
+    /**
+     * Get list of supported providers.
+     */
+    public static function getSupportedProviders(): array
+    {
+        return [
+            'anthropic' => 'Anthropic (Claude)',
+            'openai' => 'OpenAI (GPT)',
+            'mistral' => 'Mistral AI',
+            'groq' => 'Groq',
+            'gemini' => 'Google Gemini',
+            'deepseek' => 'DeepSeek',
+            'ollama' => 'Ollama (Local)',
+            'openrouter' => 'OpenRouter',
+        ];
     }
 }

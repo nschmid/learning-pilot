@@ -89,19 +89,69 @@ return [
     |--------------------------------------------------------------------------
     |
     | Settings for AI-powered features using Prism PHP.
+    | Supports multiple providers: anthropic, openai, mistral, groq, gemini,
+    | deepseek, ollama, openrouter.
     |
     */
 
     'ai' => [
         'enabled' => env('AI_ENABLED', true),
-        'provider' => env('AI_PROVIDER', 'anthropic'),
-        'api_key' => env('ANTHROPIC_API_KEY'),
 
+        // Active provider: anthropic, openai, mistral, groq, gemini, deepseek, ollama, openrouter
+        'provider' => env('AI_PROVIDER', 'anthropic'),
+
+        // Model overrides per service type (optional - provider defaults are used if not set)
         'models' => [
-            'default' => env('AI_MODEL_DEFAULT', 'claude-haiku-4-5-20251001'),
-            'tutor' => env('AI_MODEL_TUTOR', 'claude-sonnet-4-5-20250929'),
-            'practice' => env('AI_MODEL_PRACTICE', 'claude-sonnet-4-5-20250929'),
-            'summary' => env('AI_MODEL_SUMMARY', 'claude-haiku-4-5-20251001'),
+            'default' => env('AI_MODEL_DEFAULT'),
+            'tutor' => env('AI_MODEL_TUTOR'),
+            'practice' => env('AI_MODEL_PRACTICE'),
+            'summary' => env('AI_MODEL_SUMMARY'),
+        ],
+
+        // Provider-specific default models (used when models.* is not set)
+        'provider_models' => [
+            'anthropic' => [
+                'default' => 'claude-haiku-4-5-20251001',
+                'tutor' => 'claude-sonnet-4-5-20250929',
+                'practice' => 'claude-sonnet-4-5-20250929',
+                'summary' => 'claude-haiku-4-5-20251001',
+            ],
+            'openai' => [
+                'default' => 'gpt-4o-mini',
+                'tutor' => 'gpt-4o',
+                'practice' => 'gpt-4o',
+                'summary' => 'gpt-4o-mini',
+            ],
+            'mistral' => [
+                'default' => 'mistral-small-latest',
+                'tutor' => 'mistral-large-latest',
+                'practice' => 'mistral-large-latest',
+                'summary' => 'mistral-small-latest',
+            ],
+            'groq' => [
+                'default' => 'llama-3.3-70b-versatile',
+                'tutor' => 'llama-3.3-70b-versatile',
+                'practice' => 'llama-3.3-70b-versatile',
+                'summary' => 'llama-3.3-70b-versatile',
+            ],
+            'gemini' => [
+                'default' => 'gemini-1.5-flash',
+                'tutor' => 'gemini-1.5-pro',
+                'practice' => 'gemini-1.5-pro',
+                'summary' => 'gemini-1.5-flash',
+            ],
+            'deepseek' => [
+                'default' => 'deepseek-chat',
+                'tutor' => 'deepseek-chat',
+                'practice' => 'deepseek-chat',
+                'summary' => 'deepseek-chat',
+            ],
+            'ollama' => [
+                'default' => 'llama3.2',
+                'tutor' => 'llama3.2',
+                'practice' => 'llama3.2',
+                'summary' => 'llama3.2',
+            ],
         ],
 
         'quotas' => [
