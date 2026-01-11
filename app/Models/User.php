@@ -109,6 +109,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(AiTutorConversation::class);
     }
 
+    public function tutorConversations(): HasMany
+    {
+        return $this->aiConversations();
+    }
+
     // Scopes
 
     public function scopeActive($query)

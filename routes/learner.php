@@ -26,6 +26,10 @@ use App\Livewire\Learner\Task\Submission as TaskSubmission;
 use App\Livewire\Learner\Certificates\Index as CertificatesIndex;
 use App\Livewire\Learner\Certificates\Show as CertificatesShow;
 use App\Livewire\Learner\Settings\Index as SettingsIndex;
+use App\Livewire\Learner\AI\TutorChat;
+use App\Livewire\Learner\AI\PracticeSession;
+use App\Livewire\Learner\AI\SummaryPanel;
+use App\Livewire\Learner\AI\FlashcardViewer;
 
 Route::middleware(['auth:sanctum', 'verified'])->prefix('learn')->name('learner.')->group(function () {
 
@@ -67,10 +71,12 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('learn')->name('learner.
 
     // AI Features
     Route::prefix('ai')->name('ai.')->group(function () {
-        Route::view('/tutor', 'learner.ai.tutor')->name('tutor');
-        Route::view('/practice/{step}', 'learner.ai.practice')->name('practice');
-        Route::view('/summary/{module}', 'learner.ai.summary')->name('summary');
-        Route::view('/flashcards/{module}', 'learner.ai.flashcards')->name('flashcards');
+        Route::get('/tutor', TutorChat::class)->name('tutor');
+        Route::get('/tutor/{step}', TutorChat::class)->name('tutor.step');
+        Route::get('/tutor/conversation/{conversation}', TutorChat::class)->name('tutor.conversation');
+        Route::get('/practice/{module}', PracticeSession::class)->name('practice');
+        Route::get('/summary/{module}', SummaryPanel::class)->name('summary');
+        Route::get('/flashcards/{module}', FlashcardViewer::class)->name('flashcards');
     });
 
     // Bookmarks

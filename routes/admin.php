@@ -1,9 +1,13 @@
 <?php
 
+use App\Livewire\Admin\AI\FeedbackReview as AIFeedbackReview;
+use App\Livewire\Admin\AI\QuotaManager as AIQuotaManager;
+use App\Livewire\Admin\AI\UsageDashboard as AIUsageDashboard;
 use App\Livewire\Admin\Categories\Index as CategoriesIndex;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\Paths\Index as PathsIndex;
 use App\Livewire\Admin\Paths\Show as PathsShow;
+use App\Livewire\Admin\Teams\Create as TeamsCreate;
 use App\Livewire\Admin\Teams\Index as TeamsIndex;
 use App\Livewire\Admin\Teams\Show as TeamsShow;
 use App\Livewire\Admin\Users\Create as UsersCreate;
@@ -37,6 +41,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     // Teams (Schools) Management
     Route::prefix('teams')->name('teams.')->group(function () {
         Route::get('/', TeamsIndex::class)->name('index');
+        Route::get('/create', TeamsCreate::class)->name('create');
         Route::get('/{team}', TeamsShow::class)->name('show');
     });
 
@@ -66,6 +71,13 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
         Route::view('/general', 'admin.settings.general')->name('general');
         Route::view('/billing', 'admin.settings.billing')->name('billing');
         Route::view('/ai', 'admin.settings.ai')->name('ai');
+    });
+
+    // AI Management
+    Route::prefix('ai')->name('ai.')->group(function () {
+        Route::get('/usage', AIUsageDashboard::class)->name('usage');
+        Route::get('/quotas', AIQuotaManager::class)->name('quotas');
+        Route::get('/feedback', AIFeedbackReview::class)->name('feedback');
     });
 
 });

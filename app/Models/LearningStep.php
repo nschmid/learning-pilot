@@ -45,9 +45,14 @@ class LearningStep extends Model
         return $this->belongsTo(Module::class);
     }
 
-    public function learningPath(): BelongsTo
+    /**
+     * Get the learning path through the module.
+     * Note: This is a helper method, not a true relationship.
+     * For eager loading, use: with('module.learningPath')
+     */
+    public function getLearningPathAttribute(): ?LearningPath
     {
-        return $this->module->learningPath();
+        return $this->module?->learningPath;
     }
 
     public function materials(): HasMany

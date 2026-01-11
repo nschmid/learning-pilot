@@ -9,9 +9,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Public routes (landing, pricing, features, etc.)
+require __DIR__ . '/public.php';
 
 Route::middleware([
     'auth:sanctum',
@@ -34,3 +33,9 @@ Route::middleware([
 require __DIR__ . '/admin.php';
 require __DIR__ . '/instructor.php';
 require __DIR__ . '/learner.php';
+
+// Billing routes (Stripe subscriptions)
+require __DIR__ . '/billing.php';
+
+// School admin routes
+require __DIR__ . '/school.php';

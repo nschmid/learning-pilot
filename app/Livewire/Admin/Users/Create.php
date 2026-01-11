@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Users;
 use App\Enums\UserRole;
 use App\Models\Team;
 use App\Models\User;
+use App\Notifications\WelcomeNotification;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -91,7 +92,10 @@ class Create extends Component
             }
         }
 
-        // TODO: Send welcome email if $this->sendWelcomeEmail is true
+        // Send welcome email with temporary password
+        if ($this->sendWelcomeEmail) {
+            $user->notify(new WelcomeNotification($validated['password']));
+        }
 
         session()->flash('success', __('Benutzer wurde erstellt.'));
         $this->redirect(route('admin.users.index'), navigate: true);

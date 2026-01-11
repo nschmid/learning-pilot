@@ -17,25 +17,49 @@ use App\Listeners\ProcessAssessmentCompletion;
 use App\Listeners\SendCertificateNotification;
 use App\Listeners\SendEnrollmentConfirmation;
 use App\Listeners\UpdateProgressOnStepCompletion;
+use App\Models\AiFeedbackReport;
+use App\Models\AiPracticeSession;
+use App\Models\AiTutorConversation;
 use App\Models\Assessment;
 use App\Models\AssessmentAttempt;
+use App\Models\Bookmark;
 use App\Models\Category;
 use App\Models\Certificate;
+use App\Models\Enrollment;
+use App\Models\LearningMaterial;
+use App\Models\LearningPath;
 use App\Models\LearningStep;
 use App\Models\Module;
+use App\Models\PathReview;
 use App\Models\Question;
 use App\Models\StepProgress;
+use App\Models\Tag;
 use App\Models\Task;
+use App\Models\TaskSubmission;
+use App\Models\Team;
 use App\Models\User;
+use App\Models\UserNote;
+use App\Policies\AiFeedbackReportPolicy;
+use App\Policies\AiPracticeSessionPolicy;
+use App\Policies\AiTutorConversationPolicy;
 use App\Policies\AssessmentAttemptPolicy;
 use App\Policies\AssessmentPolicy;
+use App\Policies\BookmarkPolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\CertificatePolicy;
+use App\Policies\EnrollmentPolicy;
+use App\Policies\LearningMaterialPolicy;
+use App\Policies\LearningPathPolicy;
 use App\Policies\LearningStepPolicy;
 use App\Policies\ModulePolicy;
+use App\Policies\PathReviewPolicy;
 use App\Policies\QuestionPolicy;
 use App\Policies\StepProgressPolicy;
+use App\Policies\TagPolicy;
 use App\Policies\TaskPolicy;
+use App\Policies\TaskSubmissionPolicy;
+use App\Policies\TeamPolicy;
+use App\Policies\UserNotePolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
@@ -65,16 +89,41 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function registerPolicies(): void
     {
+        // Core models
         Gate::policy(User::class, UserPolicy::class);
+        Gate::policy(Team::class, TeamPolicy::class);
+        Gate::policy(Category::class, CategoryPolicy::class);
+        Gate::policy(Tag::class, TagPolicy::class);
+
+        // Learning path models
+        Gate::policy(LearningPath::class, LearningPathPolicy::class);
         Gate::policy(Module::class, ModulePolicy::class);
         Gate::policy(LearningStep::class, LearningStepPolicy::class);
+        Gate::policy(LearningMaterial::class, LearningMaterialPolicy::class);
+
+        // Assessment models
         Gate::policy(Assessment::class, AssessmentPolicy::class);
         Gate::policy(Question::class, QuestionPolicy::class);
         Gate::policy(AssessmentAttempt::class, AssessmentAttemptPolicy::class);
-        Gate::policy(StepProgress::class, StepProgressPolicy::class);
+
+        // Task models
         Gate::policy(Task::class, TaskPolicy::class);
+        Gate::policy(TaskSubmission::class, TaskSubmissionPolicy::class);
+
+        // Progress and enrollment
+        Gate::policy(Enrollment::class, EnrollmentPolicy::class);
+        Gate::policy(StepProgress::class, StepProgressPolicy::class);
         Gate::policy(Certificate::class, CertificatePolicy::class);
-        Gate::policy(Category::class, CategoryPolicy::class);
+
+        // User content
+        Gate::policy(UserNote::class, UserNotePolicy::class);
+        Gate::policy(Bookmark::class, BookmarkPolicy::class);
+        Gate::policy(PathReview::class, PathReviewPolicy::class);
+
+        // AI models
+        Gate::policy(AiTutorConversation::class, AiTutorConversationPolicy::class);
+        Gate::policy(AiPracticeSession::class, AiPracticeSessionPolicy::class);
+        Gate::policy(AiFeedbackReport::class, AiFeedbackReportPolicy::class);
     }
 
     /**

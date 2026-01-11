@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \App\Http\Middleware\EnsureUserHasRole::class,
             'enrolled' => \App\Http\Middleware\EnsureUserIsEnrolled::class,
+            'feature' => \App\Http\Middleware\EnsureTeamHasFeature::class,
+            'team.admin' => \App\Http\Middleware\EnsureUserIsTeamAdmin::class,
+            'ai.quota' => \App\Http\Middleware\EnforceAIQuotaLimit::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
