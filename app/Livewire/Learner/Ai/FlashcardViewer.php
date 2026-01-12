@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Learner\Ai;
 
+use App\Enums\AiContentType;
 use App\Models\AiGeneratedContent;
 use App\Models\Module;
 use App\Services\AI\AISummaryService;
@@ -41,13 +42,24 @@ class FlashcardViewer extends Component
         // Try to load existing flashcards
         $content = AiGeneratedContent::where('contentable_type', Module::class)
             ->where('contentable_id', $this->moduleId)
-            ->where('content_type', 'flashcards')
+            ->where('content_type', AiContentType::Flashcard)
             ->where('user_id', auth()->id())
             ->latest()
             ->first();
 
         if ($content) {
-            $this->flashcards = $content->content['cards'] ?? [];
+            // Handle both content formats: direct array or {cards: [...]} wrapper
+            $rawContent = $content->content;
+            if (is_string($rawContent)) {
+                // Strip markdown code fences if present
+                $rawContent = preg_replace('/^```(?:json)?\s*|\s*```$/s', '', trim($rawContent));
+                $rawContent = json_decode($rawContent, true) ?? [];
+            }
+
+            // Check if content has 'cards' key or is direct array
+            $this->flashcards = is_array($rawContent)
+                ? (isset($rawContent['cards']) ? $rawContent['cards'] : $rawContent)
+                : [];
             $this->initializeProgress();
         }
     }

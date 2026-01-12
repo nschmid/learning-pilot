@@ -36,6 +36,7 @@ class AiGeneratedContent extends Model
     {
         return [
             'content_type' => AiContentType::class,
+            // Note: 'content' is not cast to array as it may contain markdown-wrapped JSON
             'content_metadata' => 'array',
             'context_snapshot' => 'array',
             'was_helpful' => 'boolean',
