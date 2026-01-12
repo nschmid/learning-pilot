@@ -13,6 +13,11 @@ class AiPracticeQuestion extends Model
     use HasFactory;
     use HasUuids;
 
+    /**
+     * Disable default timestamps - migration only has created_at.
+     */
+    public $timestamps = false;
+
     protected $fillable = [
         'session_id',
         'question_type',
@@ -20,12 +25,16 @@ class AiPracticeQuestion extends Model
         'options',
         'correct_answer',
         'explanation',
+        'difficulty',
+        'topics',
+        'source_material_ids',
         'user_answer',
         'is_correct',
         'answered_at',
-        'difficulty_level',
-        'tokens_used',
-        'metadata',
+        'time_spent_seconds',
+        'ai_feedback',
+        'position',
+        'created_at',
     ];
 
     protected function casts(): array
@@ -33,9 +42,11 @@ class AiPracticeQuestion extends Model
         return [
             'question_type' => QuestionType::class,
             'options' => 'array',
+            'topics' => 'array',
+            'source_material_ids' => 'array',
             'is_correct' => 'boolean',
             'answered_at' => 'datetime',
-            'metadata' => 'array',
+            'created_at' => 'datetime',
         ];
     }
 
@@ -68,6 +79,11 @@ class AiPracticeQuestion extends Model
         return $query->where('is_correct', false);
     }
 
+    public function scopeByDifficulty($query, string $difficulty)
+    {
+        return $query->where('difficulty', $difficulty);
+    }
+
     // Helpers
 
     public function isAnswered(): bool
@@ -75,7 +91,7 @@ class AiPracticeQuestion extends Model
         return $this->answered_at !== null;
     }
 
-    public function answer(string $userAnswer): bool
+    public function answer(string $userAnswer, ?int $timeSpentSeconds = null): bool
     {
         $isCorrect = $this->checkAnswer($userAnswer);
 
@@ -83,6 +99,7 @@ class AiPracticeQuestion extends Model
             'user_answer' => $userAnswer,
             'is_correct' => $isCorrect,
             'answered_at' => now(),
+            'time_spent_seconds' => $timeSpentSeconds,
         ]);
 
         $this->session->recordAnswer($isCorrect);

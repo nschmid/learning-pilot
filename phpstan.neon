@@ -1,0 +1,17 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - app/
+
+    level: 5
+
+    excludePaths:
+        - vendor/
+
+    ignoreErrors:
+        # Jetstream dynamic methods
+        - '#Call to an undefined method [a-zA-Z0-9\\_]+::factory\(\)#'
+        # Livewire component properties
+        - '#Access to an undefined property [a-zA-Z0-9\\_]+::\$[a-zA-Z0-9_]+#'

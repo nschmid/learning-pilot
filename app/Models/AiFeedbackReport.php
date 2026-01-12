@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class AiFeedbackReport extends Model
 {
@@ -16,21 +15,20 @@ class AiFeedbackReport extends Model
 
     protected $fillable = [
         'user_id',
-        'feedbackable_type',
-        'feedbackable_id',
+        'ai_generated_content_id',
         'feedback_type',
-        'rating',
-        'comment',
-        'is_resolved',
+        'description',
+        'expected_response',
+        'status',
+        'admin_notes',
         'resolved_at',
-        'resolver_notes',
+        'resolved_by',
     ];
 
     protected function casts(): array
     {
         return [
             'feedback_type' => AiFeedbackType::class,
-            'is_resolved' => 'boolean',
             'resolved_at' => 'datetime',
         ];
     }
@@ -42,31 +40,36 @@ class AiFeedbackReport extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function feedbackable(): MorphTo
+    public function aiGeneratedContent(): BelongsTo
     {
-        return $this->morphTo();
+        return $this->belongsTo(AiGeneratedContent::class);
+    }
+
+    public function resolvedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'resolved_by');
     }
 
     // Scopes
 
-    public function scopeUnresolved($query)
+    public function scopePending($query)
     {
-        return $query->where('is_resolved', false);
+        return $query->where('status', 'pending');
+    }
+
+    public function scopeReviewed($query)
+    {
+        return $query->where('status', 'reviewed');
     }
 
     public function scopeResolved($query)
     {
-        return $query->where('is_resolved', true);
+        return $query->where('status', 'resolved');
     }
 
-    public function scopePositive($query)
+    public function scopeUnresolved($query)
     {
-        return $query->where('rating', '>=', 4);
-    }
-
-    public function scopeNegative($query)
-    {
-        return $query->where('rating', '<=', 2);
+        return $query->whereIn('status', ['pending', 'reviewed']);
     }
 
     public function scopeOfType($query, AiFeedbackType $type)
@@ -76,27 +79,36 @@ class AiFeedbackReport extends Model
 
     // Helpers
 
-    public function resolve(?string $notes = null): void
+    public function markAsReviewed(?string $notes = null): void
     {
         $this->update([
-            'is_resolved' => true,
-            'resolved_at' => now(),
-            'resolver_notes' => $notes,
+            'status' => 'reviewed',
+            'admin_notes' => $notes,
         ]);
     }
 
-    public function isPositive(): bool
+    public function resolve(User $resolver, ?string $notes = null): void
     {
-        return $this->rating >= 4;
+        $this->update([
+            'status' => 'resolved',
+            'resolved_at' => now(),
+            'resolved_by' => $resolver->id,
+            'admin_notes' => $notes ?? $this->admin_notes,
+        ]);
     }
 
-    public function isNegative(): bool
+    public function isPending(): bool
     {
-        return $this->rating <= 2;
+        return $this->status === 'pending';
     }
 
-    public function isNeutral(): bool
+    public function isReviewed(): bool
     {
-        return $this->rating === 3;
+        return $this->status === 'reviewed';
+    }
+
+    public function isResolved(): bool
+    {
+        return $this->status === 'resolved';
     }
 }

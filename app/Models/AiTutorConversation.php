@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class AiTutorConversation extends Model
 {
@@ -16,22 +15,22 @@ class AiTutorConversation extends Model
 
     protected $fillable = [
         'user_id',
-        'contextable_type',
-        'contextable_id',
+        'learning_path_id',
+        'module_id',
+        'step_id',
         'title',
-        'is_active',
+        'status',
+        'system_context',
+        'total_messages',
         'total_tokens_used',
-        'message_count',
         'last_message_at',
-        'metadata',
     ];
 
     protected function casts(): array
     {
         return [
-            'is_active' => 'boolean',
+            'system_context' => 'array',
             'last_message_at' => 'datetime',
-            'metadata' => 'array',
         ];
     }
 
@@ -42,9 +41,19 @@ class AiTutorConversation extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function contextable(): MorphTo
+    public function learningPath(): BelongsTo
     {
-        return $this->morphTo();
+        return $this->belongsTo(LearningPath::class);
+    }
+
+    public function module(): BelongsTo
+    {
+        return $this->belongsTo(Module::class);
+    }
+
+    public function step(): BelongsTo
+    {
+        return $this->belongsTo(LearningStep::class, 'step_id');
     }
 
     public function messages(): HasMany
@@ -56,27 +65,51 @@ class AiTutorConversation extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('is_active', true);
+        return $query->where('status', 'active');
     }
 
-    public function scopeForContext($query, Model $context)
+    public function scopeArchived($query)
     {
-        return $query->where('contextable_type', get_class($context))
-            ->where('contextable_id', $context->getKey());
+        return $query->where('status', 'archived');
+    }
+
+    public function scopeResolved($query)
+    {
+        return $query->where('status', 'resolved');
+    }
+
+    public function scopeForPath($query, LearningPath $path)
+    {
+        return $query->where('learning_path_id', $path->id);
+    }
+
+    public function scopeForModule($query, Module $module)
+    {
+        return $query->where('module_id', $module->id);
+    }
+
+    public function scopeForStep($query, LearningStep $step)
+    {
+        return $query->where('step_id', $step->id);
     }
 
     // Helpers
 
-    public function addMessage(string $role, string $content, int $tokensUsed = 0): AiTutorMessage
+    public function addMessage(string $role, string $content, ?int $tokensInput = null, ?int $tokensOutput = null): AiTutorMessage
     {
         $message = $this->messages()->create([
             'role' => $role,
             'content' => $content,
-            'tokens_used' => $tokensUsed,
+            'tokens_input' => $tokensInput,
+            'tokens_output' => $tokensOutput,
+            'created_at' => now(),
         ]);
 
-        $this->increment('message_count');
-        $this->increment('total_tokens_used', $tokensUsed);
+        $this->increment('total_messages');
+        $totalTokens = ($tokensInput ?? 0) + ($tokensOutput ?? 0);
+        if ($totalTokens > 0) {
+            $this->increment('total_tokens_used', $totalTokens);
+        }
         $this->update(['last_message_at' => now()]);
 
         return $message;
@@ -97,8 +130,18 @@ class AiTutorConversation extends Model
             ->toArray();
     }
 
-    public function close(): void
+    public function archive(): void
     {
-        $this->update(['is_active' => false]);
+        $this->update(['status' => 'archived']);
+    }
+
+    public function resolve(): void
+    {
+        $this->update(['status' => 'resolved']);
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === 'active';
     }
 }

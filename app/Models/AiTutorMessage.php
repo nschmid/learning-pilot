@@ -12,20 +12,28 @@ class AiTutorMessage extends Model
     use HasFactory;
     use HasUuids;
 
+    /**
+     * Disable default timestamps - migration only has created_at.
+     */
+    public $timestamps = false;
+
     protected $fillable = [
         'conversation_id',
         'role',
         'content',
-        'tokens_used',
-        'model_used',
-        'response_time_ms',
-        'metadata',
+        'model',
+        'tokens_input',
+        'tokens_output',
+        'latency_ms',
+        'references',
+        'created_at',
     ];
 
     protected function casts(): array
     {
         return [
-            'metadata' => 'array',
+            'references' => 'array',
+            'created_at' => 'datetime',
         ];
     }
 

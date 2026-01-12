@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class AiPracticeSession extends Model
 {
@@ -16,26 +15,26 @@ class AiPracticeSession extends Model
 
     protected $fillable = [
         'user_id',
-        'sourceable_type',
-        'sourceable_id',
-        'difficulty_level',
+        'learning_path_id',
+        'module_id',
+        'step_id',
+        'difficulty',
         'question_count',
+        'focus_areas',
+        'questions_generated',
         'questions_answered',
         'correct_answers',
-        'total_tokens_used',
-        'is_completed',
+        'status',
         'started_at',
         'completed_at',
-        'settings',
     ];
 
     protected function casts(): array
     {
         return [
-            'is_completed' => 'boolean',
+            'focus_areas' => 'array',
             'started_at' => 'datetime',
             'completed_at' => 'datetime',
-            'settings' => 'array',
         ];
     }
 
@@ -46,9 +45,19 @@ class AiPracticeSession extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function sourceable(): MorphTo
+    public function learningPath(): BelongsTo
     {
-        return $this->morphTo();
+        return $this->belongsTo(LearningPath::class);
+    }
+
+    public function module(): BelongsTo
+    {
+        return $this->belongsTo(Module::class);
+    }
+
+    public function step(): BelongsTo
+    {
+        return $this->belongsTo(LearningStep::class, 'step_id');
     }
 
     public function questions(): HasMany
@@ -58,20 +67,34 @@ class AiPracticeSession extends Model
 
     // Scopes
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
     public function scopeCompleted($query)
     {
-        return $query->where('is_completed', true);
+        return $query->where('status', 'completed');
     }
 
-    public function scopeInProgress($query)
+    public function scopeAbandoned($query)
     {
-        return $query->where('is_completed', false);
+        return $query->where('status', 'abandoned');
     }
 
-    public function scopeForSource($query, Model $source)
+    public function scopeForPath($query, LearningPath $path)
     {
-        return $query->where('sourceable_type', get_class($source))
-            ->where('sourceable_id', $source->getKey());
+        return $query->where('learning_path_id', $path->id);
+    }
+
+    public function scopeForModule($query, Module $module)
+    {
+        return $query->where('module_id', $module->id);
+    }
+
+    public function scopeForStep($query, LearningStep $step)
+    {
+        return $query->where('step_id', $step->id);
     }
 
     // Helpers
@@ -115,19 +138,44 @@ class AiPracticeSession extends Model
     public function complete(): void
     {
         $this->update([
-            'is_completed' => true,
+            'status' => 'completed',
             'completed_at' => now(),
         ]);
     }
 
-    public function adjustDifficulty(): void
+    public function abandon(): void
+    {
+        $this->update([
+            'status' => 'abandoned',
+        ]);
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === 'active';
+    }
+
+    public function isCompleted(): bool
+    {
+        return $this->status === 'completed';
+    }
+
+    public function adjustDifficulty(): string
     {
         $score = $this->scorePercent();
+        $difficulties = ['beginner', 'intermediate', 'advanced'];
+        $currentIndex = array_search($this->difficulty, $difficulties);
 
-        if ($score >= 80 && $this->difficulty_level < 5) {
-            $this->increment('difficulty_level');
-        } elseif ($score < 50 && $this->difficulty_level > 1) {
-            $this->decrement('difficulty_level');
+        if ($currentIndex === false || $this->difficulty === 'adaptive') {
+            return $this->difficulty;
         }
+
+        if ($score >= 80 && $currentIndex < count($difficulties) - 1) {
+            return $difficulties[$currentIndex + 1];
+        } elseif ($score < 50 && $currentIndex > 0) {
+            return $difficulties[$currentIndex - 1];
+        }
+
+        return $this->difficulty;
     }
 }
