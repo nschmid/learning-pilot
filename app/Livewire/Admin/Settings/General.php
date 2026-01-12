@@ -94,6 +94,19 @@ class General extends Component
     }
 
     #[Computed]
+    public function appInfo(): array
+    {
+        return [
+            'name' => config('app.name'),
+            'url' => config('app.url'),
+            'env' => config('app.env'),
+            'debug' => config('app.debug'),
+            'timezone' => config('app.timezone'),
+            'locale' => config('app.locale'),
+        ];
+    }
+
+    #[Computed]
     public function timezones(): array
     {
         return [

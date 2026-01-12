@@ -115,10 +115,10 @@ class AI extends Component
 
         return [
             'total_requests' => $thisMonth->clone()->count(),
-            'total_tokens' => $thisMonth->clone()->sum('tokens_used'),
+            'total_tokens' => $thisMonth->clone()->sum('tokens_total'),
             'unique_users' => $thisMonth->clone()->distinct('user_id')->count('user_id'),
             'avg_tokens_per_request' => $thisMonth->clone()->count() > 0
-                ? round($thisMonth->clone()->sum('tokens_used') / $thisMonth->clone()->count())
+                ? round($thisMonth->clone()->sum('tokens_total') / $thisMonth->clone()->count())
                 : 0,
         ];
     }
@@ -135,14 +135,14 @@ class AI extends Component
     #[Computed]
     public function topFeatures(): array
     {
-        return AiUsageLog::select('feature', DB::raw('COUNT(*) as count'), DB::raw('SUM(tokens_used) as tokens'))
+        return AiUsageLog::select('service_type', DB::raw('COUNT(*) as count'), DB::raw('SUM(tokens_total) as tokens'))
             ->where('created_at', '>=', now()->startOfMonth())
-            ->groupBy('feature')
+            ->groupBy('service_type')
             ->orderByDesc('count')
             ->limit(5)
             ->get()
             ->map(fn ($row) => [
-                'feature' => $row->feature,
+                'feature' => $row->service_type,
                 'count' => $row->count,
                 'tokens' => $row->tokens,
             ])
