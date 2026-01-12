@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Learner\AI;
+namespace App\Livewire\Learner\Ai;
 
 use App\Models\AiUserQuota;
 use App\Services\AI\AIUsageService;

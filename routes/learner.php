@@ -26,10 +26,10 @@ use App\Livewire\Learner\Task\Submission as TaskSubmission;
 use App\Livewire\Learner\Certificates\Index as CertificatesIndex;
 use App\Livewire\Learner\Certificates\Show as CertificatesShow;
 use App\Livewire\Learner\Settings\Index as SettingsIndex;
-use App\Livewire\Learner\AI\TutorChat;
-use App\Livewire\Learner\AI\PracticeSession;
-use App\Livewire\Learner\AI\SummaryPanel;
-use App\Livewire\Learner\AI\FlashcardViewer;
+use App\Livewire\Learner\Ai\TutorChat;
+use App\Livewire\Learner\Ai\PracticeSession;
+use App\Livewire\Learner\Ai\SummaryPanel;
+use App\Livewire\Learner\Ai\FlashcardViewer;
 
 Route::middleware(['auth:sanctum', 'verified'])->prefix('learn')->name('learner.')->group(function () {
 

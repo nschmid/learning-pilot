@@ -2473,7 +2473,7 @@ class AIUsageService
 ```php
 <?php
 
-namespace App\Livewire\Learner\AI;
+namespace App\Livewire\Learner\Ai;
 
 use App\Models\AITutorConversation;
 use App\Services\AI\AITutorService;
@@ -2572,7 +2572,7 @@ class TutorChat extends Component
 ```php
 <?php
 
-namespace App\Livewire\Learner\AI;
+namespace App\Livewire\Learner\Ai;
 
 use App\Enums\AIPracticeDifficulty;
 use App\Models\AIPracticeSession;
@@ -2675,7 +2675,7 @@ class PracticeSession extends Component
 ```php
 <?php
 
-namespace App\Livewire\Learner\AI;
+namespace App\Livewire\Learner\Ai;
 
 use App\Models\QuestionResponse;
 use App\Services\AI\AIExplanationService;
