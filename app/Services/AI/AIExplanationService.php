@@ -63,16 +63,15 @@ class AIExplanationService
             'user_id' => $user->id,
             'content_type' => AiContentType::Explanation,
             'content' => $result['content'],
-            'model_used' => $result['model'],
-            'tokens_used' => $result['tokens_input'] + $result['tokens_output'],
-            'generation_time_ms' => $result['latency_ms'],
-            'is_cached' => true,
-            'cache_expires_at' => now()->addDays(30),
-            'metadata' => [
+            'content_metadata' => [
+                'model' => $result['model'],
                 'tokens_input' => $result['tokens_input'],
                 'tokens_output' => $result['tokens_output'],
-                'context' => $context,
+                'latency_ms' => $result['latency_ms'],
             ],
+            'context_snapshot' => $context,
+            'cache_key' => "explanation:{$response->id}",
+            'expires_at' => now()->addDays(30),
         ]);
     }
 
@@ -83,13 +82,10 @@ class AIExplanationService
     {
         $this->usageService->checkQuota($user, AiServiceType::Explanation);
 
-        // Check for cached hint at this level using composite lookup
+        // Check for cached hint at this level
+        $cacheKey = "hint:{$progress->id}:level:{$hintLevel}";
         $cached = AiGeneratedContent::query()
-            ->where('contentable_type', StepProgress::class)
-            ->where('contentable_id', $progress->id)
-            ->where('content_type', AiContentType::Hint)
-            ->where('user_id', $user->id)
-            ->whereJsonContains('metadata->hint_level', $hintLevel)
+            ->where('cache_key', $cacheKey)
             ->cached()
             ->first();
 
@@ -124,17 +120,16 @@ class AIExplanationService
             'user_id' => $user->id,
             'content_type' => AiContentType::Hint,
             'content' => $result['content'],
-            'model_used' => $result['model'],
-            'tokens_used' => $result['tokens_input'] + $result['tokens_output'],
-            'generation_time_ms' => $result['latency_ms'],
-            'is_cached' => true,
-            'cache_expires_at' => now()->addDays(7),
-            'metadata' => [
+            'content_metadata' => [
+                'model' => $result['model'],
                 'tokens_input' => $result['tokens_input'],
                 'tokens_output' => $result['tokens_output'],
+                'latency_ms' => $result['latency_ms'],
                 'hint_level' => $hintLevel,
-                'context' => $context,
             ],
+            'context_snapshot' => $context,
+            'cache_key' => "hint:{$progress->id}:level:{$hintLevel}",
+            'expires_at' => now()->addDays(7),
         ]);
     }
 

@@ -22,22 +22,24 @@ class AiGeneratedContent extends Model
         'user_id',
         'content_type',
         'content',
-        'model_used',
-        'tokens_used',
-        'generation_time_ms',
-        'is_cached',
-        'cache_expires_at',
-        'metadata',
+        'content_metadata',
+        'context_snapshot',
+        'rating',
+        'was_helpful',
+        'user_feedback',
+        'cache_key',
+        'expires_at',
+        'version',
     ];
 
     protected function casts(): array
     {
         return [
             'content_type' => AiContentType::class,
-            'content' => 'array',
-            'is_cached' => 'boolean',
-            'cache_expires_at' => 'datetime',
-            'metadata' => 'array',
+            'content_metadata' => 'array',
+            'context_snapshot' => 'array',
+            'was_helpful' => 'boolean',
+            'expires_at' => 'datetime',
         ];
     }
 
@@ -57,16 +59,15 @@ class AiGeneratedContent extends Model
 
     public function scopeCached($query)
     {
-        return $query->where('is_cached', true)
-            ->where(function ($q) {
-                $q->whereNull('cache_expires_at')
-                    ->orWhere('cache_expires_at', '>', now());
-            });
+        return $query->where(function ($q) {
+            $q->whereNull('expires_at')
+                ->orWhere('expires_at', '>', now());
+        });
     }
 
     public function scopeExpired($query)
     {
-        return $query->where('cache_expires_at', '<=', now());
+        return $query->where('expires_at', '<=', now());
     }
 
     public function scopeOfType($query, AiContentType $type)
@@ -78,19 +79,15 @@ class AiGeneratedContent extends Model
 
     public function isCacheValid(): bool
     {
-        if (! $this->is_cached) {
-            return false;
-        }
-
-        if (! $this->cache_expires_at) {
+        if (! $this->expires_at) {
             return true;
         }
 
-        return $this->cache_expires_at->isFuture();
+        return $this->expires_at->isFuture();
     }
 
     public function markAsExpired(): void
     {
-        $this->update(['cache_expires_at' => now()]);
+        $this->update(['expires_at' => now()]);
     }
 }

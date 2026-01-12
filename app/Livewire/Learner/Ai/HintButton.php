@@ -111,7 +111,7 @@ class HintButton extends Component
             ->get();
 
         foreach ($cachedHints as $hint) {
-            $level = $hint->metadata['hint_level'] ?? 1;
+            $level = $hint->content_metadata['hint_level'] ?? 1;
             $this->hints[] = [
                 'level' => $level,
                 'content' => $hint->content,
