@@ -28,18 +28,17 @@ class AITutorService
         ?LearningStep $step = null,
         ?string $title = null
     ): AiTutorConversation {
-        $context = $this->contextBuilder->buildTutorContext($user, $path, $module, $step);
+        // Determine the context - prefer step, then module, then path
+        $contextable = $step ?? $module ?? $path;
 
         return AiTutorConversation::create([
             'user_id' => $user->id,
-            'learning_path_id' => $path?->id,
-            'module_id' => $module?->id,
-            'step_id' => $step?->id,
+            'contextable_type' => $contextable ? get_class($contextable) : null,
+            'contextable_id' => $contextable?->id,
             'title' => $title ?? $this->generateTitle($path, $module, $step),
-            'status' => 'active',
-            'system_context' => $context,
-            'total_messages' => 0,
+            'is_active' => true,
             'total_tokens_used' => 0,
+            'message_count' => 0,
         ]);
     }
 
@@ -87,7 +86,7 @@ class AITutorService
             'latency_ms' => $result['latency_ms'],
         ]);
 
-        $conversation->increment('total_messages', 2);
+        $conversation->increment('message_count', 2);
         $conversation->increment('total_tokens_used', $result['tokens_input'] + $result['tokens_output']);
         $conversation->update(['last_message_at' => now()]);
 
@@ -127,7 +126,7 @@ class AITutorService
      */
     public function archiveConversation(AiTutorConversation $conversation): void
     {
-        $conversation->update(['status' => 'archived']);
+        $conversation->update(['is_active' => false]);
     }
 
     /**
@@ -136,7 +135,7 @@ class AITutorService
     public function getUserConversations(User $user, int $limit = 10): array
     {
         return $user->tutorConversations()
-            ->where('status', 'active')
+            ->where('is_active', true)
             ->orderByDesc('last_message_at')
             ->limit($limit)
             ->get()
@@ -144,12 +143,9 @@ class AITutorService
                 'id' => $conv->id,
                 'title' => $conv->title,
                 'last_message_at' => $conv->last_message_at?->toISOString(),
-                'total_messages' => $conv->total_messages,
-                'context' => [
-                    'path' => $conv->learningPath?->title,
-                    'module' => $conv->module?->title,
-                    'step' => $conv->learningStep?->title,
-                ],
+                'total_messages' => $conv->message_count,
+                'context_type' => $conv->contextable_type ? class_basename($conv->contextable_type) : null,
+                'context_title' => $conv->contextable?->title ?? null,
             ])
             ->toArray();
     }
@@ -174,21 +170,24 @@ class AITutorService
 
     protected function buildTutorSystemPrompt(AiTutorConversation $conversation): string
     {
-        $context = $conversation->system_context;
-
         $contextInfo = '';
-        if (isset($context['learning_path'])) {
-            $contextInfo .= "Lernpfad: {$context['learning_path']['title']}\n";
-            $contextInfo .= "Schwierigkeit: {$context['learning_path']['difficulty']}\n";
-        }
-        if (isset($context['module'])) {
-            $contextInfo .= "Aktuelles Modul: {$context['module']['title']}\n";
-        }
-        if (isset($context['step'])) {
-            $contextInfo .= "Aktueller Schritt: {$context['step']['title']}\n";
-        }
-        if (isset($context['enrollment'])) {
-            $contextInfo .= "Fortschritt: {$context['enrollment']['progress_percent']}%\n";
+        $contextable = $conversation->contextable;
+
+        if ($contextable) {
+            $contextInfo .= "Kontext: {$contextable->title}\n";
+
+            // Try to get more context from relationships
+            if ($contextable instanceof LearningStep) {
+                $contextInfo .= "Typ: Lernschritt\n";
+                if ($contextable->module) {
+                    $contextInfo .= "Modul: {$contextable->module->title}\n";
+                }
+            } elseif ($contextable instanceof Module) {
+                $contextInfo .= "Typ: Modul\n";
+            } elseif ($contextable instanceof LearningPath) {
+                $contextInfo .= "Typ: Lernpfad\n";
+                $contextInfo .= "Schwierigkeit: {$contextable->difficulty->value}\n";
+            }
         }
 
         return <<<PROMPT

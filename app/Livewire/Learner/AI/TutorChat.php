@@ -32,8 +32,8 @@ class TutorChat extends Component
             $conv = AiTutorConversation::find($conversation);
             if ($conv && $conv->user_id === auth()->id()) {
                 $this->conversationId = $conv->id;
-                $this->stepId = $conv->context_type === LearningStep::class
-                    ? $conv->context_id
+                $this->stepId = $conv->contextable_type === LearningStep::class
+                    ? $conv->contextable_id
                     : null;
             }
         }
@@ -45,7 +45,6 @@ class TutorChat extends Component
             'message' => 'required|string|min:1|max:2000',
         ]);
 
-        $user = auth()->user();
         $this->isTyping = true;
 
         try {
@@ -54,17 +53,8 @@ class TutorChat extends Component
             // Get or create conversation
             $conversation = $this->getOrCreateConversation();
 
-            // Get step context if available
-            $step = $this->stepId ? LearningStep::find($this->stepId) : null;
-
             // Send message to AI
-            $response = $tutorService->sendMessage(
-                user: $user,
-                message: $this->message,
-                conversationId: $conversation->id,
-                contextType: $step ? get_class($step) : null,
-                contextId: $this->stepId,
-            );
+            $response = $tutorService->sendMessage($conversation, $this->message);
 
             $this->conversationId = $conversation->id;
             $this->message = '';
@@ -88,8 +78,8 @@ class TutorChat extends Component
 
         if ($conversation && $conversation->user_id === auth()->id()) {
             $this->conversationId = $conversation->id;
-            $this->stepId = $conversation->context_type === LearningStep::class
-                ? $conversation->context_id
+            $this->stepId = $conversation->contextable_type === LearningStep::class
+                ? $conversation->contextable_id
                 : null;
         }
     }
@@ -104,11 +94,12 @@ class TutorChat extends Component
 
         return AiTutorConversation::create([
             'user_id' => auth()->id(),
-            'context_type' => $step ? get_class($step) : null,
-            'context_id' => $this->stepId,
+            'contextable_type' => $step ? get_class($step) : null,
+            'contextable_id' => $this->stepId,
             'title' => $step
                 ? __('Konversation zu: :title', ['title' => $step->title])
                 : __('Allgemeine Konversation'),
+            'is_active' => true,
         ]);
     }
 

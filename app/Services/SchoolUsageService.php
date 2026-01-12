@@ -80,11 +80,11 @@ class SchoolUsageService
 
     protected function getAIStats(Team $team, ?array $plan): array
     {
-        $todayCount = \App\Models\AIUsageLog::where('team_id', $team->id)
+        $todayCount = \App\Models\AiUsageLog::where('team_id', $team->id)
             ->whereDate('created_at', today())
             ->count();
 
-        $monthCount = \App\Models\AIUsageLog::where('team_id', $team->id)
+        $monthCount = \App\Models\AiUsageLog::where('team_id', $team->id)
             ->whereMonth('created_at', now()->month)
             ->whereYear('created_at', now()->year)
             ->count();

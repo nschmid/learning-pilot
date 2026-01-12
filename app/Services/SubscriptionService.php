@@ -269,7 +269,7 @@ class SubscriptionService
         return Cache::remember(
             "team.{$team->id}.ai_requests_today",
             now()->addMinutes(5),
-            fn () => \App\Models\AIUsageLog::where('team_id', $team->id)
+            fn () => \App\Models\AiUsageLog::where('team_id', $team->id)
                 ->whereDate('created_at', today())
                 ->count()
         );
