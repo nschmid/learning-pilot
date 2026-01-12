@@ -47,19 +47,22 @@ class AIUsageService
         int $tokensInput,
         int $tokensOutput,
         int $latencyMs,
-        ?Model $contentable = null
+        ?string $model = null,
+        ?Model $contextModel = null
     ): AiUsageLog {
         $totalTokens = $tokensInput + $tokensOutput;
 
         $log = AiUsageLog::create([
             'user_id' => $user->id,
             'service_type' => $serviceType,
+            'model' => $model ?? config('lernpfad.ai.models.default', 'claude-haiku'),
             'tokens_input' => $tokensInput,
             'tokens_output' => $tokensOutput,
             'tokens_total' => $totalTokens,
             'latency_ms' => $latencyMs,
-            'contentable_type' => $contentable ? get_class($contentable) : null,
-            'contentable_id' => $contentable?->id,
+            'context_type' => $contextModel ? get_class($contextModel) : null,
+            'context_id' => $contextModel?->id,
+            'created_at' => now(),
         ]);
 
         $this->updateQuotaCounters($user, $totalTokens);
