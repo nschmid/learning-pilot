@@ -293,6 +293,7 @@ class AssessmentGradingService
             $userAnswer = json_decode($response->user_answer, true) ?? $response->user_answer;
 
             $results[] = [
+                'response_id' => $response->id,
                 'question' => [
                     'id' => $question->id,
                     'type' => $question->question_type->value,

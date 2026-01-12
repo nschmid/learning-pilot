@@ -243,7 +243,7 @@
                         @if($result['is_correct'] === false)
                             <div class="ml-11 mt-4">
                                 <button
-                                    wire:click="$dispatch('show-explanation', { questionId: '{{ $result['question']['id'] }}', userAnswer: '{{ is_array($result['user_answer']) ? implode(',', $result['user_answer']) : $result['user_answer'] }}' })"
+                                    wire:click="$dispatch('show-explanation', { responseId: '{{ $result['response_id'] }}' })"
                                     class="inline-flex items-center gap-2 rounded-lg border border-teal-200 bg-teal-50 px-4 py-2 text-sm font-medium text-teal-700 transition hover:bg-teal-100"
                                 >
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

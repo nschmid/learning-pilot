@@ -1,1 +1,2 @@
-- 
+- setup reverb in app and on laravel forge
+- use websockets / reverb to make app more responsive
