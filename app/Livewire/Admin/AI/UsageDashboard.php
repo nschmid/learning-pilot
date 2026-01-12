@@ -47,8 +47,12 @@ class UsageDashboard extends Component
             ->groupBy('service_type')
             ->get()
             ->map(fn ($item) => [
-                'service' => AiServiceType::tryFrom($item->service_type)?->label() ?? $item->service_type,
-                'service_key' => $item->service_type,
+                'service' => $item->service_type instanceof AiServiceType
+                    ? $item->service_type->label()
+                    : (AiServiceType::tryFrom($item->service_type)?->label() ?? $item->service_type),
+                'service_key' => $item->service_type instanceof AiServiceType
+                    ? $item->service_type->value
+                    : $item->service_type,
                 'count' => $item->count,
                 'tokens' => $item->tokens ?? 0,
             ])
