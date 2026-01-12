@@ -4,8 +4,8 @@ namespace App\Livewire\Learner\AI;
 
 use App\Enums\AIPracticeDifficulty;
 use App\Enums\Difficulty;
-use App\Models\AIPracticeQuestion;
-use App\Models\AIPracticeSession as PracticeSessionModel;
+use App\Models\AiPracticeQuestion;
+use App\Models\AiPracticeSession as PracticeSessionModel;
 use App\Models\Module;
 use App\Services\AI\AIPracticeGeneratorService;
 use Livewire\Attributes\Layout;
@@ -81,7 +81,7 @@ class PracticeSession extends Component
             return;
         }
 
-        $question = AIPracticeQuestion::find($this->currentQuestion['id']);
+        $question = AiPracticeQuestion::find($this->currentQuestion['id']);
 
         if (!$question) {
             return;
@@ -141,7 +141,7 @@ class PracticeSession extends Component
         ];
     }
 
-    protected function checkAnswer(AIPracticeQuestion $question, string $answer): bool
+    protected function checkAnswer(AiPracticeQuestion $question, string $answer): bool
     {
         $correctAnswer = $question->correct_answer;
 

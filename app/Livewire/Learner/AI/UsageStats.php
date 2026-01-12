@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Learner\AI;
 
-use App\Models\AIUserQuota;
+use App\Models\AiUserQuota;
 use App\Services\AI\AIUsageService;
 use Livewire\Component;
 
@@ -13,7 +13,7 @@ class UsageStats extends Component
         $user = auth()->user();
         $usageService = app(AIUsageService::class);
 
-        $quota = AIUserQuota::where('user_id', $user->id)->first();
+        $quota = AiUserQuota::where('user_id', $user->id)->first();
         $todayData = $usageService->getTodayUsage($user);
         $monthlyData = $usageService->getMonthlyUsage($user);
 

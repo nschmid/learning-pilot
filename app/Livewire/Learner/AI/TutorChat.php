@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Learner\AI;
 
-use App\Models\AITutorConversation;
-use App\Models\AITutorMessage;
+use App\Models\AiTutorConversation;
+use App\Models\AiTutorMessage;
 use App\Models\LearningStep;
 use App\Services\AI\AITutorService;
 use Illuminate\Support\Collection;
@@ -29,7 +29,7 @@ class TutorChat extends Component
 
         // Load existing conversation if provided
         if ($conversation) {
-            $conv = AITutorConversation::find($conversation);
+            $conv = AiTutorConversation::find($conversation);
             if ($conv && $conv->user_id === auth()->id()) {
                 $this->conversationId = $conv->id;
                 $this->stepId = $conv->context_type === LearningStep::class
@@ -84,7 +84,7 @@ class TutorChat extends Component
 
     public function loadConversation(string $id): void
     {
-        $conversation = AITutorConversation::find($id);
+        $conversation = AiTutorConversation::find($id);
 
         if ($conversation && $conversation->user_id === auth()->id()) {
             $this->conversationId = $conversation->id;
@@ -94,15 +94,15 @@ class TutorChat extends Component
         }
     }
 
-    protected function getOrCreateConversation(): AITutorConversation
+    protected function getOrCreateConversation(): AiTutorConversation
     {
         if ($this->conversationId) {
-            return AITutorConversation::findOrFail($this->conversationId);
+            return AiTutorConversation::findOrFail($this->conversationId);
         }
 
         $step = $this->stepId ? LearningStep::find($this->stepId) : null;
 
-        return AITutorConversation::create([
+        return AiTutorConversation::create([
             'user_id' => auth()->id(),
             'context_type' => $step ? get_class($step) : null,
             'context_id' => $this->stepId,
@@ -118,14 +118,14 @@ class TutorChat extends Component
             return collect();
         }
 
-        return AITutorMessage::where('conversation_id', $this->conversationId)
+        return AiTutorMessage::where('conversation_id', $this->conversationId)
             ->orderBy('created_at')
             ->get();
     }
 
     public function getConversationsProperty(): Collection
     {
-        return AITutorConversation::where('user_id', auth()->id())
+        return AiTutorConversation::where('user_id', auth()->id())
             ->orderByDesc('updated_at')
             ->limit(20)
             ->get();

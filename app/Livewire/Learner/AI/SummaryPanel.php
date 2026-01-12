@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Learner\AI;
 
-use App\Models\AIGeneratedContent;
+use App\Models\AiGeneratedContent;
 use App\Models\Module;
 use App\Services\AI\AISummaryService;
 use Livewire\Attributes\Layout;
@@ -30,7 +30,7 @@ class SummaryPanel extends Component
 
         try {
             // Try to load existing summary
-            $content = AIGeneratedContent::where('contentable_type', Module::class)
+            $content = AiGeneratedContent::where('contentable_type', Module::class)
                 ->where('contentable_id', $this->moduleId)
                 ->where('content_type', 'summary')
                 ->where('user_id', auth()->id())
@@ -68,7 +68,7 @@ class SummaryPanel extends Component
     public function regenerateSummary(): void
     {
         // Delete existing summary
-        AIGeneratedContent::where('contentable_type', Module::class)
+        AiGeneratedContent::where('contentable_type', Module::class)
             ->where('contentable_id', $this->moduleId)
             ->where('content_type', 'summary')
             ->where('user_id', auth()->id())

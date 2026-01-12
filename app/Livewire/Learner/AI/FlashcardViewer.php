@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Learner\AI;
 
-use App\Models\AIGeneratedContent;
+use App\Models\AiGeneratedContent;
 use App\Models\Module;
 use App\Services\AI\AISummaryService;
 use Illuminate\Support\Collection;
@@ -39,7 +39,7 @@ class FlashcardViewer extends Component
         }
 
         // Try to load existing flashcards
-        $content = AIGeneratedContent::where('contentable_type', Module::class)
+        $content = AiGeneratedContent::where('contentable_type', Module::class)
             ->where('contentable_id', $this->moduleId)
             ->where('content_type', 'flashcards')
             ->where('user_id', auth()->id())
