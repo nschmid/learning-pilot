@@ -32,9 +32,7 @@ class TutorChat extends Component
             $conv = AiTutorConversation::find($conversation);
             if ($conv && $conv->user_id === auth()->id()) {
                 $this->conversationId = $conv->id;
-                $this->stepId = $conv->contextable_type === LearningStep::class
-                    ? $conv->contextable_id
-                    : null;
+                $this->stepId = $conv->step_id;
             }
         }
     }
@@ -78,9 +76,7 @@ class TutorChat extends Component
 
         if ($conversation && $conversation->user_id === auth()->id()) {
             $this->conversationId = $conversation->id;
-            $this->stepId = $conversation->contextable_type === LearningStep::class
-                ? $conversation->contextable_id
-                : null;
+            $this->stepId = $conversation->step_id;
         }
     }
 
@@ -94,12 +90,13 @@ class TutorChat extends Component
 
         return AiTutorConversation::create([
             'user_id' => auth()->id(),
-            'contextable_type' => $step ? get_class($step) : null,
-            'contextable_id' => $this->stepId,
+            'step_id' => $this->stepId,
+            'module_id' => $step?->module_id,
+            'learning_path_id' => $step?->module?->learning_path_id,
             'title' => $step
                 ? __('Konversation zu: :title', ['title' => $step->title])
                 : __('Allgemeine Konversation'),
-            'is_active' => true,
+            'status' => 'active',
         ]);
     }
 

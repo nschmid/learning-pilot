@@ -39,20 +39,17 @@ class AIPracticeGeneratorService
             $difficulty?->value
         );
 
-        // Use module if provided, otherwise use path as the source
-        $sourceable = $module ?? $path;
-
         $session = AiPracticeSession::create([
             'user_id' => $user->id,
-            'sourceable_type' => get_class($sourceable),
-            'sourceable_id' => $sourceable->id,
-            'difficulty_level' => ($difficulty ?? $path->difficulty)->value ?? 1,
+            'learning_path_id' => $path->id,
+            'module_id' => $module?->id,
+            'difficulty' => ($difficulty ?? $path->difficulty)->value ?? 'beginner',
             'question_count' => $questionCount,
             'questions_answered' => 0,
             'correct_answers' => 0,
-            'is_completed' => false,
+            'status' => 'active',
             'started_at' => now(),
-            'settings' => $context,
+            'focus_areas' => $context,
         ]);
 
         $this->generateQuestionsForSession($session, $user, $questionCount);
@@ -120,8 +117,8 @@ class AIPracticeGeneratorService
         return [
             'session' => [
                 'id' => $session->id,
-                'is_completed' => $session->is_completed,
-                'difficulty_level' => $session->difficulty_level,
+                'is_completed' => $session->isCompleted(),
+                'difficulty' => $session->difficulty,
                 'score_percent' => $session->scorePercent(),
                 'correct_answers' => $session->correct_answers,
                 'question_count' => $session->question_count,
@@ -206,14 +203,14 @@ class AIPracticeGeneratorService
     protected function completeSession(AiPracticeSession $session): void
     {
         $session->update([
-            'is_completed' => true,
+            'status' => 'completed',
             'completed_at' => now(),
         ]);
     }
 
     protected function buildGeneratorSystemPrompt(AiPracticeSession $session): string
     {
-        $difficulty = $session->difficulty_level;
+        $difficulty = $session->difficulty;
 
         return <<<PROMPT
 Du bist ein Experte für die Erstellung von Übungsfragen.
@@ -244,7 +241,7 @@ PROMPT;
 
     protected function buildGeneratorUserMessage(AiPracticeSession $session, int $count): string
     {
-        $context = $session->settings;
+        $context = $session->focus_areas;
         $pathTitle = $context['learning_path']['title'] ?? 'Unbekannt';
         $moduleTitle = $context['module']['title'] ?? null;
 
