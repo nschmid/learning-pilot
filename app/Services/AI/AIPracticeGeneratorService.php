@@ -171,6 +171,8 @@ class AIPracticeGeneratorService
                 'options' => $questionData['options'] ?? null,
                 'correct_answer' => $questionData['correct_answer'],
                 'explanation' => $questionData['explanation'] ?? null,
+                'difficulty' => $session->difficulty,
+                'position' => $index + 1,
             ]);
         }
     }
