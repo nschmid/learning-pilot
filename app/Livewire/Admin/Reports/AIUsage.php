@@ -50,9 +50,9 @@ class AIUsage extends Component
 
         return [
             'total_requests' => $query->clone()->count(),
-            'total_tokens' => $query->clone()->sum('tokens_used'),
+            'total_tokens' => $query->clone()->sum('tokens_total'),
             'unique_users' => $query->clone()->distinct('user_id')->count('user_id'),
-            'avg_response_time' => round($query->clone()->avg('response_time_ms') ?? 0),
+            'avg_response_time' => round($query->clone()->avg('latency_ms') ?? 0),
         ];
     }
 
@@ -61,13 +61,13 @@ class AIUsage extends Component
     {
         [$start, $end] = $this->dateRange;
 
-        return AiUsageLog::select('feature', DB::raw('COUNT(*) as count'), DB::raw('SUM(tokens_used) as tokens'))
+        return AiUsageLog::select('service_type', DB::raw('COUNT(*) as count'), DB::raw('SUM(tokens_total) as tokens'))
             ->whereBetween('created_at', [$start, $end])
-            ->groupBy('feature')
+            ->groupBy('service_type')
             ->orderByDesc('count')
             ->get()
             ->map(fn ($row) => [
-                'feature' => $row->feature,
+                'feature' => $row->service_type,
                 'count' => $row->count,
                 'tokens' => $row->tokens,
             ])
@@ -82,7 +82,7 @@ class AIUsage extends Component
         return AiUsageLog::select(
             DB::raw('DATE(created_at) as date'),
             DB::raw('COUNT(*) as requests'),
-            DB::raw('SUM(tokens_used) as tokens')
+            DB::raw('SUM(tokens_total) as tokens')
         )
             ->whereBetween('created_at', [$start, $end])
             ->groupBy('date')
@@ -103,7 +103,7 @@ class AIUsage extends Component
 
         return AiUsageLog::with('user')
             ->whereBetween('created_at', [$start, $end])
-            ->when($this->feature, fn ($q) => $q->where('feature', $this->feature))
+            ->when($this->feature, fn ($q) => $q->where('service_type', $this->feature))
             ->orderByDesc('created_at')
             ->paginate(20);
     }
@@ -111,8 +111,8 @@ class AIUsage extends Component
     #[Computed]
     public function availableFeatures(): array
     {
-        return AiUsageLog::distinct('feature')
-            ->pluck('feature')
+        return AiUsageLog::distinct('service_type')
+            ->pluck('service_type')
             ->toArray();
     }
 

@@ -54,6 +54,7 @@ class AIExplanationService
             $result['tokens_input'],
             $result['tokens_output'],
             $result['latency_ms'],
+            $result['model'],
             $response
         );
 
@@ -111,6 +112,7 @@ class AIExplanationService
             $result['tokens_input'],
             $result['tokens_output'],
             $result['latency_ms'],
+            $result['model'],
             $progress
         );
 

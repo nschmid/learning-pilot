@@ -51,6 +51,7 @@ class AISummaryService
             $result['tokens_input'],
             $result['tokens_output'],
             $result['latency_ms'],
+            $result['model'],
             $module
         );
 
@@ -106,6 +107,7 @@ class AISummaryService
             $result['tokens_input'],
             $result['tokens_output'],
             $result['latency_ms'],
+            $result['model'],
             $module
         );
 
@@ -179,6 +181,7 @@ class AISummaryService
             $result['tokens_input'],
             $result['tokens_output'],
             $result['latency_ms'],
+            $result['model'],
             $step
         );
 
