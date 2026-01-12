@@ -8,7 +8,6 @@ use App\Enums\QuestionType;
 use App\Models\AiPracticeQuestion;
 use App\Models\AiPracticeSession;
 use App\Models\LearningPath;
-use App\Models\LearningStep;
 use App\Models\Module;
 use App\Models\User;
 
@@ -163,6 +162,10 @@ class AIPracticeGeneratorService
 
         $questions = $this->parseGeneratedQuestions($result['content']);
 
+        if (empty($questions)) {
+            throw new \RuntimeException('Die KI konnte keine gültigen Übungsfragen generieren. Bitte versuche es erneut.');
+        }
+
         foreach ($questions as $index => $questionData) {
             AiPracticeQuestion::create([
                 'session_id' => $session->id,
@@ -287,7 +290,16 @@ PROMPT;
         try {
             $questions = json_decode($jsonMatch[0], true, 512, JSON_THROW_ON_ERROR);
 
-            return is_array($questions) ? $questions : [];
+            if (! is_array($questions)) {
+                return [];
+            }
+
+            // Filter out questions missing required fields
+            return array_filter($questions, function ($question) {
+                return is_array($question)
+                    && isset($question['question'])
+                    && isset($question['correct_answer']);
+            });
         } catch (\JsonException) {
             return [];
         }
