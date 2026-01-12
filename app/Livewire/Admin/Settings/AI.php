@@ -109,6 +109,17 @@ class AI extends Component
     }
 
     #[Computed]
+    public function aiConfig(): array
+    {
+        return [
+            'provider' => $this->provider,
+            'default_model' => $this->model_default ?? config('lernpfad.ai.models.default', 'claude-haiku'),
+            'tutor_model' => $this->model_tutor ?? config('lernpfad.ai.models.tutor', 'claude-sonnet'),
+            'practice_model' => config('lernpfad.ai.models.practice', 'claude-haiku'),
+        ];
+    }
+
+    #[Computed]
     public function usageStats(): array
     {
         $thisMonth = AiUsageLog::where('created_at', '>=', now()->startOfMonth());
