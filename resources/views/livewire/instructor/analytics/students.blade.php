@@ -5,7 +5,7 @@
             <h1 class="text-2xl font-bold text-gray-900">{{ __('Teilnehmer-Analytik') }}</h1>
             <p class="mt-1 text-gray-500">{{ __('Leistungsübersicht deiner Teilnehmer.') }}</p>
         </div>
-        <a href="{{ route('instructor.analytics.index') }}" wire:navigate class="text-sm text-indigo-600 hover:text-indigo-800">
+        <a href="{{ route('instructor.analytics.index') }}" wire:navigate class="text-sm text-teal-600 hover:text-teal-800">
             &larr; {{ __('Zurück zur Übersicht') }}
         </a>
     </div>
@@ -22,7 +22,7 @@
         </div>
         <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
             <p class="text-sm text-gray-500">{{ __('Ø Abschlussrate') }}</p>
-            <p class="text-3xl font-bold text-indigo-600">{{ $this->summary['avg_completion_rate'] }}%</p>
+            <p class="text-3xl font-bold text-teal-600">{{ $this->summary['avg_completion_rate'] }}%</p>
         </div>
         <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
             <p class="text-sm text-gray-500">{{ __('Gesamte Lernzeit') }}</p>
@@ -63,7 +63,7 @@
                         </td>
                         <td class="whitespace-nowrap px-6 py-4">
                             <div class="flex items-center">
-                                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-sm font-medium text-indigo-600">
+                                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-teal-100 text-sm font-medium text-teal-600">
                                     {{ substr($student['name'], 0, 2) }}
                                 </div>
                                 <div class="ml-4">
@@ -83,7 +83,7 @@
                         <td class="whitespace-nowrap px-6 py-4">
                             <div class="flex items-center gap-2">
                                 <div class="h-2 w-16 overflow-hidden rounded-full bg-gray-200">
-                                    <div class="h-full rounded-full bg-indigo-600" style="width: {{ $student['avg_progress'] }}%"></div>
+                                    <div class="h-full rounded-full bg-teal-600" style="width: {{ $student['avg_progress'] }}%"></div>
                                 </div>
                                 <span class="text-sm text-gray-600">{{ $student['avg_progress'] }}%</span>
                             </div>
@@ -92,7 +92,7 @@
                             {{ $student['total_time'] }}
                         </td>
                         <td class="whitespace-nowrap px-6 py-4">
-                            <span class="rounded-full bg-indigo-100 px-2.5 py-1 text-sm font-semibold text-indigo-800">
+                            <span class="rounded-full bg-teal-100 px-2.5 py-1 text-sm font-semibold text-teal-800">
                                 {{ number_format($student['total_points']) }}
                             </span>
                         </td>

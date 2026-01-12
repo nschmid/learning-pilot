@@ -17,7 +17,7 @@
     <!-- Main Card -->
     <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
         <!-- Header -->
-        <div class="border-b border-gray-200 bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-8 text-white">
+        <div class="border-b border-gray-200 bg-gradient-to-r from-purple-600 to-teal-600 px-6 py-8 text-white">
             <div class="mb-2 flex items-center gap-2">
                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -162,7 +162,7 @@
                                             <a
                                                 href="{{ route('learner.assessment.result', [$assessment->id, $attempt->id]) }}"
                                                 wire:navigate
-                                                class="text-indigo-600 hover:text-indigo-800"
+                                                class="text-teal-600 hover:text-teal-800"
                                             >
                                                 {{ __('Details') }}
                                             </a>

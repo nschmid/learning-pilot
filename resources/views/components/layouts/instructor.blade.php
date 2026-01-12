@@ -87,7 +87,7 @@
                             <div class="ms-3 relative">
                                 <x-dropdown align="right" width="48">
                                     <x-slot name="trigger">
-                                        <button class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">
+                                        <button class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
                                             <img class="size-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                         </button>
                                     </x-slot>

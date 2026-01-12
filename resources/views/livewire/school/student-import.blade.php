@@ -66,7 +66,7 @@
                             <li><strong>Klasse</strong> - {{ __('Optional') }}</li>
                             <li><strong>Rolle</strong> - {{ __('Optional (learner oder instructor, Standard: learner)') }}</li>
                         </ul>
-                        <button wire:click="downloadTemplate" class="mt-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                        <button wire:click="downloadTemplate" class="mt-3 text-sm font-medium text-teal-600 hover:text-teal-500">
                             {{ __('Vorlage herunterladen') }}
                         </button>
                     </div>
@@ -79,14 +79,14 @@
                             @dragleave.prevent="isDragging = false"
                             @drop.prevent="isDragging = false"
                             class="mt-1 flex justify-center rounded-lg border-2 border-dashed px-6 py-10 transition"
-                            :class="isDragging ? 'border-indigo-500 bg-indigo-50' : 'border-gray-300'"
+                            :class="isDragging ? 'border-teal-500 bg-teal-50' : 'border-gray-300'"
                         >
                             <div class="text-center">
                                 <svg class="mx-auto size-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12l-3-3m0 0l-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                                 </svg>
                                 <div class="mt-4 flex text-sm text-gray-600">
-                                    <label class="relative cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500">
+                                    <label class="relative cursor-pointer rounded-md font-medium text-teal-600 hover:text-teal-500">
                                         <span>{{ __('Datei auswählen') }}</span>
                                         <input type="file" wire:model="csvFile" accept=".csv,.txt" class="sr-only">
                                     </label>
@@ -95,7 +95,7 @@
                                 <p class="mt-1 text-xs text-gray-500">{{ __('CSV bis zu 2MB') }}</p>
 
                                 @if($csvFile)
-                                    <p class="mt-2 text-sm font-medium text-indigo-600">
+                                    <p class="mt-2 text-sm font-medium text-teal-600">
                                         {{ $csvFile->getClientOriginalName() }}
                                     </p>
                                 @endif
@@ -107,7 +107,7 @@
                             <button
                                 type="submit"
                                 @disabled(!$csvFile || $isImporting)
-                                class="w-full rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
+                                class="w-full rounded-lg bg-teal-600 px-4 py-3 text-sm font-semibold text-white hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-50"
                             >
                                 <span wire:loading.remove wire:target="import">{{ __('Importieren') }}</span>
                                 <span wire:loading wire:target="import">{{ __('Wird importiert...') }}</span>

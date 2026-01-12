@@ -13,7 +13,7 @@
                         <h3 class="text-lg font-medium leading-6 text-gray-900">{{ __('Rechnungshistorie') }}</h3>
                         <p class="mt-1 text-sm text-gray-500">{{ __('Alle Ihre bisherigen Rechnungen') }}</p>
                     </div>
-                    <a href="{{ route('billing.index') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                    <a href="{{ route('billing.index') }}" class="text-sm font-medium text-teal-600 hover:text-teal-500">
                         {{ __('Zurück zur Übersicht') }}
                     </a>
                 </div>
@@ -58,7 +58,7 @@
                                             @endif
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                                            <a href="{{ route('billing.invoices.download', $invoice['id']) }}" class="text-indigo-600 hover:text-indigo-900">
+                                            <a href="{{ route('billing.invoices.download', $invoice['id']) }}" class="text-teal-600 hover:text-teal-900">
                                                 {{ __('PDF herunterladen') }}
                                             </a>
                                         </td>

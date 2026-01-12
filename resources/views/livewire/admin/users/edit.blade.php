@@ -1,11 +1,11 @@
 <div class="mx-auto max-w-2xl">
     <!-- Breadcrumb -->
     <nav class="mb-6 flex items-center gap-2 text-sm text-gray-500">
-        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-gray-700">{{ __('Dashboard') }}</a>
+        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Dashboard') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
-        <a href="{{ route('admin.users.index') }}" wire:navigate class="hover:text-gray-700">{{ __('Benutzer') }}</a>
+        <a href="{{ route('admin.users.index') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Benutzer') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
@@ -31,7 +31,7 @@
                     wire:model="name"
                     type="text"
                     id="name"
-                    class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    class="mt-1 block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                 >
                 @error('name')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -47,7 +47,7 @@
                     wire:model="email"
                     type="email"
                     id="email"
-                    class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    class="mt-1 block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                 >
                 @error('email')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -64,7 +64,7 @@
                     type="password"
                     id="password"
                     placeholder="{{ __('Leer lassen um beizubehalten') }}"
-                    class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    class="mt-1 block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                 >
                 @error('password')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -79,7 +79,7 @@
                 <select
                     wire:model="role"
                     id="role"
-                    class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    class="mt-1 block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                 >
                     @foreach($this->roles as $r)
                         <option value="{{ $r['value'] }}">{{ $r['label'] }}</option>
@@ -98,7 +98,7 @@
                 <select
                     wire:model="teamId"
                     id="teamId"
-                    class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    class="mt-1 block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                 >
                     <option value="">{{ __('Kein Team') }}</option>
                     @foreach($this->teams as $team)
@@ -116,7 +116,7 @@
                     <input
                         wire:model="isActive"
                         type="checkbox"
-                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        class="rounded border-gray-300 text-teal-600 focus:ring-teal-500"
                     >
                     <span class="text-sm font-medium text-gray-700">{{ __('Benutzer ist aktiv') }}</span>
                 </label>
@@ -131,7 +131,7 @@
             <button
                 type="submit"
                 wire:loading.attr="disabled"
-                class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-2 font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+                class="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-6 py-2 font-medium text-white hover:bg-teal-700 disabled:opacity-50"
             >
                 <span wire:loading.remove wire:target="save">{{ __('Änderungen speichern') }}</span>
                 <span wire:loading wire:target="save">{{ __('Wird gespeichert...') }}</span>

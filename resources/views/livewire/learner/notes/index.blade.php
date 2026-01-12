@@ -17,7 +17,7 @@
                 type="text"
                 wire:model.live.debounce.300ms="search"
                 placeholder="{{ __('Notizen durchsuchen...') }}"
-                class="block w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-4 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                class="block w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-4 text-gray-900 placeholder-gray-500 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
             >
         </div>
     </div>
@@ -33,7 +33,7 @@
                             <a
                                 href="{{ route('learner.learn.step', ['path' => $note->step->module->learningPath->slug, 'step' => $note->step->position]) }}"
                                 wire:navigate
-                                class="font-medium text-gray-900 hover:text-indigo-600"
+                                class="font-medium text-gray-900 hover:text-teal-600"
                             >
                                 {{ $note->step->title }}
                             </a>
@@ -45,7 +45,7 @@
                             @if($editingNoteId !== $note->id)
                                 <button
                                     wire:click="startEditing('{{ $note->id }}')"
-                                    class="rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-indigo-600"
+                                    class="rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-teal-600"
                                     title="{{ __('Bearbeiten') }}"
                                 >
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,13 +72,13 @@
                             <textarea
                                 wire:model="editingContent"
                                 rows="4"
-                                class="w-full rounded-lg border border-gray-300 p-3 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                                class="w-full rounded-lg border border-gray-300 p-3 text-gray-900 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
                                 placeholder="{{ __('Notiz eingeben...') }}"
                             ></textarea>
                             <div class="flex items-center gap-2">
                                 <button
                                     wire:click="saveNote"
-                                    class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+                                    class="rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
                                 >
                                     {{ __('Speichern') }}
                                 </button>
@@ -122,7 +122,7 @@
             <a
                 href="{{ route('learner.catalog') }}"
                 wire:navigate
-                class="mt-4 inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+                class="mt-4 inline-flex items-center rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
             >
                 {{ __('Kurskatalog durchsuchen') }}
             </a>

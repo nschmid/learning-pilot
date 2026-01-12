@@ -3,6 +3,7 @@
 namespace App\Livewire\Learner\AI;
 
 use App\Enums\AIPracticeDifficulty;
+use App\Enums\Difficulty;
 use App\Models\AIPracticeQuestion;
 use App\Models\AIPracticeSession as PracticeSessionModel;
 use App\Models\Module;
@@ -47,10 +48,19 @@ class PracticeSession extends Component
             $module = Module::findOrFail($this->moduleId);
             $practiceService = app(AIPracticeGeneratorService::class);
 
-            $session = $practiceService->generatePracticeSession(
+            // Map AIPracticeDifficulty to Difficulty enum (adaptive uses null for path default)
+            $difficulty = match ($this->difficulty) {
+                'beginner' => Difficulty::Beginner,
+                'intermediate' => Difficulty::Intermediate,
+                'advanced' => Difficulty::Advanced,
+                default => null, // adaptive - use path's default difficulty
+            };
+
+            $session = $practiceService->startSession(
                 user: auth()->user(),
+                path: $module->learningPath,
                 module: $module,
-                difficulty: AIPracticeDifficulty::from($this->difficulty),
+                difficulty: $difficulty,
                 questionCount: $this->questionCount,
             );
 

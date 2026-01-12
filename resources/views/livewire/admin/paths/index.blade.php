@@ -31,7 +31,7 @@
                         type="search"
                         id="search"
                         placeholder="{{ __('Lernpfad suchen...') }}"
-                        class="block w-full rounded-lg border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500"
+                        class="block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 pl-10 focus:border-teal-500 focus:ring-teal-500"
                     >
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 <select
                     wire:model.live="status"
                     id="status"
-                    class="block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    class="block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 focus:border-teal-500 focus:ring-teal-500"
                 >
                     <option value="">{{ __('Alle Status') }}</option>
                     <option value="published">{{ __('Veröffentlicht') }}</option>
@@ -56,7 +56,7 @@
                 <select
                     wire:model.live="categoryId"
                     id="categoryId"
-                    class="block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    class="block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 focus:border-teal-500 focus:ring-teal-500"
                 >
                     <option value="">{{ __('Alle Kategorien') }}</option>
                     @foreach($this->categories as $category)
@@ -74,7 +74,7 @@
                 <select
                     wire:model.live="creatorId"
                     id="creatorId"
-                    class="block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    class="block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 focus:border-teal-500 focus:ring-teal-500"
                 >
                     <option value="">{{ __('Alle Ersteller') }}</option>
                     @foreach($this->creators as $creator)
@@ -87,7 +87,7 @@
 
     <!-- Paths Table -->
     <div class="overflow-hidden rounded-xl border border-gray-200 bg-white">
-        <table class="min-w-full divide-y divide-gray-200">
+        <table class="min-w-full divide-y divide-gray-100">
             <thead class="bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
@@ -127,7 +127,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200 bg-white">
+            <tbody class="divide-y divide-gray-100 bg-white">
                 @forelse($this->paths as $path)
                     <tr wire:key="path-{{ $path->id }}">
                         <td class="whitespace-nowrap px-6 py-4">
@@ -249,7 +249,7 @@
                         <button
                             wire:click="$set('showDeleteModal', false)"
                             type="button"
-                            class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm"
+                            class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm"
                         >
                             {{ __('Abbrechen') }}
                         </button>

@@ -37,9 +37,9 @@
     <div class="mb-6 flex flex-wrap gap-4">
         <div class="flex-1">
             <input type="text" wire:model.live.debounce.300ms="search" placeholder="{{ __('Benutzer suchen...') }}"
-                class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-indigo-500">
+                class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-teal-500 focus:ring-teal-500">
         </div>
-        <select wire:model.live="filter" class="rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-indigo-500">
+        <select wire:model.live="filter" class="rounded-lg border border-gray-300 px-4 py-2 focus:border-teal-500 focus:ring-teal-500">
             <option value="all">{{ __('Alle') }}</option>
             <option value="active">{{ __('Aktiv') }}</option>
             <option value="near_limit">{{ __('Nahe am Limit') }}</option>
@@ -51,7 +51,7 @@
     <!-- Quotas Table -->
     <div class="rounded-xl border border-gray-200 bg-white">
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
+            <table class="min-w-full divide-y divide-gray-100">
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Benutzer') }}</th>
@@ -62,7 +62,7 @@
                         <th class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Aktionen') }}</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200 bg-white">
+                <tbody class="divide-y divide-gray-100 bg-white">
                     @forelse($this->quotas as $quota)
                         @php
                             $tokenPercent = $quota->monthly_token_limit > 0 ? ($quota->tokens_used_this_month / $quota->monthly_token_limit) * 100 : 0;
@@ -114,7 +114,7 @@
                             </td>
                             <td class="whitespace-nowrap px-6 py-4 text-right">
                                 <div class="flex justify-end gap-2">
-                                    <button wire:click="editQuota('{{ $quota->id }}')" class="text-indigo-600 hover:text-indigo-900">
+                                    <button wire:click="editQuota('{{ $quota->id }}')" class="text-teal-600 hover:text-teal-900">
                                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                         </svg>
@@ -154,14 +154,14 @@
                         <div>
                             <label class="mb-1 block text-sm font-medium text-gray-700">{{ __('Monatliches Token-Limit') }}</label>
                             <input type="number" wire:model="monthlyTokenLimit" min="0" step="1000"
-                                class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-indigo-500">
+                                class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-teal-500 focus:ring-teal-500">
                             @error('monthlyTokenLimit') <span class="mt-1 text-sm text-red-600">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label class="mb-1 block text-sm font-medium text-gray-700">{{ __('Tägliches Anfrage-Limit') }}</label>
                             <input type="number" wire:model="dailyRequestLimit" min="0"
-                                class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-indigo-500">
+                                class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-teal-500 focus:ring-teal-500">
                             @error('dailyRequestLimit') <span class="mt-1 text-sm text-red-600">{{ $message }}</span> @enderror
                         </div>
 
@@ -169,19 +169,19 @@
                             <label class="mb-3 block text-sm font-medium text-gray-700">{{ __('Aktivierte Features') }}</label>
                             <div class="space-y-2">
                                 <label class="flex items-center gap-2">
-                                    <input type="checkbox" wire:model="featureExplanations" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <input type="checkbox" wire:model="featureExplanations" class="rounded border-gray-300 text-teal-600 focus:ring-teal-500">
                                     <span class="text-sm text-gray-700">{{ __('Erklärungen') }}</span>
                                 </label>
                                 <label class="flex items-center gap-2">
-                                    <input type="checkbox" wire:model="featureTutor" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <input type="checkbox" wire:model="featureTutor" class="rounded border-gray-300 text-teal-600 focus:ring-teal-500">
                                     <span class="text-sm text-gray-700">{{ __('KI-Tutor') }}</span>
                                 </label>
                                 <label class="flex items-center gap-2">
-                                    <input type="checkbox" wire:model="featurePractice" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <input type="checkbox" wire:model="featurePractice" class="rounded border-gray-300 text-teal-600 focus:ring-teal-500">
                                     <span class="text-sm text-gray-700">{{ __('Übungsgenerierung') }}</span>
                                 </label>
                                 <label class="flex items-center gap-2">
-                                    <input type="checkbox" wire:model="featureSummaries" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <input type="checkbox" wire:model="featureSummaries" class="rounded border-gray-300 text-teal-600 focus:ring-teal-500">
                                     <span class="text-sm text-gray-700">{{ __('Zusammenfassungen') }}</span>
                                 </label>
                             </div>
@@ -189,10 +189,10 @@
                     </div>
 
                     <div class="mt-6 flex justify-end gap-3">
-                        <button type="button" wire:click="closeModal" class="rounded-lg border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50">
+                        <button type="button" wire:click="closeModal" class="rounded-lg border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 transition">
                             {{ __('Abbrechen') }}
                         </button>
-                        <button type="submit" class="rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700">
+                        <button type="submit" class="rounded-lg bg-teal-600 px-4 py-2 text-white hover:bg-teal-700">
                             {{ __('Speichern') }}
                         </button>
                     </div>

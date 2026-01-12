@@ -84,7 +84,7 @@ class AIClientService
     protected function getDefaultModel(AiServiceType $serviceType): string
     {
         $configKey = match ($serviceType) {
-            AiServiceType::Tutor, AiServiceType::Practice => 'tutor',
+            AiServiceType::TutorChat, AiServiceType::PracticeGen => 'tutor',
             AiServiceType::Summary => 'summary',
             default => 'default',
         };
@@ -117,8 +117,8 @@ class AIClientService
     protected function getMaxTokens(AiServiceType $serviceType): int
     {
         return match ($serviceType) {
-            AiServiceType::Tutor => 2048,
-            AiServiceType::Practice => 4096,
+            AiServiceType::TutorChat => 2048,
+            AiServiceType::PracticeGen => 4096,
             AiServiceType::Summary => 2048,
             default => 1024,
         };

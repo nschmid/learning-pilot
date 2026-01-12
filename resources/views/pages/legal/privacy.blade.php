@@ -97,7 +97,7 @@
                 <p>{{ __('Bei Fragen zum Datenschutz wenden Sie sich bitte an:') }}</p>
                 <p>
                     E-Mail: privacy@learningpilot.ch<br>
-                    {{ __('oder nutzen Sie unser') }} <a href="{{ route('contact') }}" class="text-indigo-600 hover:text-indigo-500">{{ __('Kontaktformular') }}</a>
+                    {{ __('oder nutzen Sie unser') }} <a href="{{ route('contact') }}" class="text-teal-600 hover:text-teal-500">{{ __('Kontaktformular') }}</a>
                 </p>
 
                 <h2>11. {{ __('Änderungen') }}</h2>

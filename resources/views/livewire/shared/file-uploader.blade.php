@@ -5,7 +5,7 @@
         x-on:dragover.prevent="dragging = true"
         x-on:dragleave.prevent="dragging = false"
         x-on:drop.prevent="dragging = false; $refs.fileInput.files = $event.dataTransfer.files; $refs.fileInput.dispatchEvent(new Event('change'))"
-        :class="{ 'border-indigo-500 bg-indigo-50': dragging }"
+        :class="{ 'border-teal-500 bg-teal-50': dragging }"
         class="relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-300 p-8 transition-colors hover:border-gray-400"
     >
         <input
@@ -22,7 +22,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
             </svg>
             <p class="mt-2 text-sm text-gray-600">
-                <span class="font-medium text-indigo-600">{{ __('Datei auswählen') }}</span>
+                <span class="font-medium text-teal-600">{{ __('Datei auswählen') }}</span>
                 {{ __('oder per Drag & Drop') }}
             </p>
             <p class="mt-1 text-xs text-gray-500">
@@ -35,7 +35,7 @@
 
         <!-- Loading Indicator -->
         <div wire:loading wire:target="files" class="absolute inset-0 flex items-center justify-center rounded-xl bg-white/80">
-            <svg class="h-8 w-8 animate-spin text-indigo-600" fill="none" viewBox="0 0 24 24">
+            <svg class="h-8 w-8 animate-spin text-teal-600" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>

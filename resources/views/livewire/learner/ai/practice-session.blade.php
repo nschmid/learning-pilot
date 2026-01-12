@@ -30,7 +30,7 @@
                         <div class="space-y-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">{{ __('Schwierigkeitsgrad') }}</label>
-                                <select wire:model="difficulty" class="mt-1 block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+                                <select wire:model="difficulty" class="mt-1 block w-full rounded-lg border-gray-300 focus:border-teal-500 focus:ring-teal-500">
                                     @foreach($this->difficulties as $value => $label)
                                         <option value="{{ $value }}">{{ $label }}</option>
                                     @endforeach
@@ -44,14 +44,14 @@
                                     wire:model="questionCount"
                                     min="3"
                                     max="20"
-                                    class="mt-1 block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                                    class="mt-1 block w-full rounded-lg border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                                 >
                             </div>
 
                             <button
                                 wire:click="startSession"
                                 wire:loading.attr="disabled"
-                                class="w-full rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
+                                class="w-full rounded-lg bg-teal-600 px-4 py-3 text-sm font-semibold text-white hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-50"
                             >
                                 <span wire:loading.remove wire:target="startSession">{{ __('Session starten') }}</span>
                                 <span wire:loading wire:target="startSession">{{ __('Fragen werden generiert...') }}</span>
@@ -69,12 +69,12 @@
                         <h3 class="mt-4 text-xl font-semibold text-gray-900">{{ __('Session abgeschlossen!') }}</h3>
 
                         @if($this->session)
-                            <p class="mt-2 text-4xl font-bold text-indigo-600">{{ $this->session->score_percent }}%</p>
+                            <p class="mt-2 text-4xl font-bold text-teal-600">{{ $this->session->score_percent }}%</p>
                             <p class="text-sm text-gray-500">{{ __('Richtige Antworten') }}</p>
                         @endif
 
                         <div class="mt-8 flex justify-center gap-4">
-                            <a href="{{ route('learner.ai.practice', $moduleId) }}" class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500">
+                            <a href="{{ route('learner.ai.practice', $moduleId) }}" class="rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-500">
                                 {{ __('Neue Session') }}
                             </a>
                             <a href="{{ route('learner.modules.show', $moduleId) }}" class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
@@ -93,7 +93,7 @@
                                 {{ __('Frage :current von :total', ['current' => $currentQuestion['position'], 'total' => $currentQuestion['total']]) }}
                             </span>
                             <div class="h-2 w-32 overflow-hidden rounded-full bg-gray-200">
-                                <div class="h-2 bg-indigo-600" style="width: {{ ($currentQuestion['position'] / $currentQuestion['total']) * 100 }}%"></div>
+                                <div class="h-2 bg-teal-600" style="width: {{ ($currentQuestion['position'] / $currentQuestion['total']) * 100 }}%"></div>
                             </div>
                         </div>
                     </div>
@@ -109,12 +109,12 @@
                             @if(in_array($currentQuestion['type'], ['single_choice', 'multiple_choice']))
                                 <div class="space-y-3">
                                     @foreach($currentQuestion['options'] as $index => $option)
-                                        <label class="flex cursor-pointer items-center rounded-lg border p-4 hover:bg-gray-50 {{ $userAnswer === $option ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200' }}">
+                                        <label class="flex cursor-pointer items-center rounded-lg border p-4 hover:bg-gray-50 {{ $userAnswer === $option ? 'border-teal-500 bg-teal-50' : 'border-gray-200' }}">
                                             <input
                                                 type="radio"
                                                 wire:model="userAnswer"
                                                 value="{{ $option }}"
-                                                class="size-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                class="size-4 border-gray-300 text-teal-600 focus:ring-teal-500"
                                             >
                                             <span class="ml-3 text-sm text-gray-700">{{ $option }}</span>
                                         </label>
@@ -122,11 +122,11 @@
                                 </div>
                             @elseif($currentQuestion['type'] === 'true_false')
                                 <div class="flex gap-4">
-                                    <label class="flex-1 cursor-pointer rounded-lg border p-4 text-center hover:bg-gray-50 {{ $userAnswer === 'true' ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200' }}">
+                                    <label class="flex-1 cursor-pointer rounded-lg border p-4 text-center hover:bg-gray-50 {{ $userAnswer === 'true' ? 'border-teal-500 bg-teal-50' : 'border-gray-200' }}">
                                         <input type="radio" wire:model="userAnswer" value="true" class="sr-only">
                                         <span class="text-sm font-medium text-gray-700">{{ __('Wahr') }}</span>
                                     </label>
-                                    <label class="flex-1 cursor-pointer rounded-lg border p-4 text-center hover:bg-gray-50 {{ $userAnswer === 'false' ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200' }}">
+                                    <label class="flex-1 cursor-pointer rounded-lg border p-4 text-center hover:bg-gray-50 {{ $userAnswer === 'false' ? 'border-teal-500 bg-teal-50' : 'border-gray-200' }}">
                                         <input type="radio" wire:model="userAnswer" value="false" class="sr-only">
                                         <span class="text-sm font-medium text-gray-700">{{ __('Falsch') }}</span>
                                     </label>
@@ -135,7 +135,7 @@
                                 <textarea
                                     wire:model="userAnswer"
                                     rows="4"
-                                    class="block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                                    class="block w-full rounded-lg border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                                     placeholder="{{ __('Ihre Antwort...') }}"
                                 ></textarea>
                             @endif
@@ -143,7 +143,7 @@
                             <button
                                 wire:click="submitAnswer"
                                 @disabled(!$userAnswer)
-                                class="mt-6 w-full rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
+                                class="mt-6 w-full rounded-lg bg-teal-600 px-4 py-3 text-sm font-semibold text-white hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-50"
                             >
                                 {{ __('Antwort prüfen') }}
                             </button>
@@ -178,7 +178,7 @@
 
                             <button
                                 wire:click="nextQuestion"
-                                class="mt-6 w-full rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-500"
+                                class="mt-6 w-full rounded-lg bg-teal-600 px-4 py-3 text-sm font-semibold text-white hover:bg-teal-500"
                             >
                                 {{ __('Nächste Frage') }}
                             </button>

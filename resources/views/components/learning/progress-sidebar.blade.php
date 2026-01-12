@@ -10,7 +10,7 @@
         <h2 class="font-semibold text-gray-900 line-clamp-2">{{ $path->title }}</h2>
         <div class="mt-2 flex items-center gap-2">
             <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div class="h-full bg-indigo-600 rounded-full transition-all duration-300" style="width: {{ $enrollment->progress_percent }}%"></div>
+                <div class="h-full bg-teal-600 rounded-full transition-all duration-300" style="width: {{ $enrollment->progress_percent }}%"></div>
             </div>
             <span class="text-sm font-medium text-gray-600">{{ number_format($enrollment->progress_percent) }}%</span>
         </div>
@@ -81,10 +81,10 @@
 
                         <a
                             href="{{ route('learner.steps.show', $step) }}"
-                            class="flex items-center gap-2 px-3 py-2 pl-11 text-sm hover:bg-gray-100 transition-colors {{ $isCurrent ? 'bg-indigo-50 text-indigo-600' : 'text-gray-600' }}"
+                            class="flex items-center gap-2 px-3 py-2 pl-11 text-sm hover:bg-gray-100 transition-colors {{ $isCurrent ? 'bg-teal-50 text-teal-600' : 'text-gray-600' }}"
                         >
                             <div class="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center
-                                {{ $isCompleted ? 'bg-green-500 text-white' : ($isCurrent ? 'bg-indigo-500 text-white' : 'border-2 border-gray-300') }}">
+                                {{ $isCompleted ? 'bg-green-500 text-white' : ($isCurrent ? 'bg-teal-500 text-white' : 'border-2 border-gray-300') }}">
                                 @if ($isCompleted)
                                     <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>

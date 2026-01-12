@@ -22,17 +22,17 @@
 
             <!-- Trial Banner -->
             @if($trialDaysRemaining > 0)
-                <div class="mb-6 rounded-lg bg-indigo-50 p-4">
+                <div class="mb-6 rounded-lg bg-teal-50 p-4">
                     <div class="flex">
-                        <svg class="size-5 text-indigo-400" viewBox="0 0 20 20" fill="currentColor">
+                        <svg class="size-5 text-teal-400" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
                         </svg>
                         <div class="ml-3">
-                            <p class="text-sm font-medium text-indigo-800">
+                            <p class="text-sm font-medium text-teal-800">
                                 {{ __('Sie befinden sich in der Testphase.') }}
                                 {{ __(':days Tage verbleibend.', ['days' => $trialDaysRemaining]) }}
                             </p>
-                            <p class="mt-1 text-sm text-indigo-700">
+                            <p class="mt-1 text-sm text-teal-700">
                                 <a href="{{ route('billing.plans') }}" class="font-medium underline">{{ __('Jetzt einen Plan wählen') }}</a>
                             </p>
                         </div>
@@ -75,7 +75,7 @@
                                             {{ __('Aktiv') }}
                                         </span>
                                     @elseif($trialDaysRemaining > 0)
-                                        <span class="inline-flex items-center rounded-full bg-indigo-100 px-3 py-1 text-sm font-medium text-indigo-800">
+                                        <span class="inline-flex items-center rounded-full bg-teal-100 px-3 py-1 text-sm font-medium text-teal-800">
                                             {{ __('Testphase') }}
                                         </span>
                                     @endif
@@ -93,7 +93,7 @@
                                 @endif
 
                                 <div class="mt-6 flex gap-4">
-                                    <a href="{{ route('billing.plans') }}" class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500">
+                                    <a href="{{ route('billing.plans') }}" class="rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-500">
                                         {{ $isSubscribed ? __('Plan ändern') : __('Plan wählen') }}
                                     </a>
                                     @if($isSubscribed && !$isCancelled)
@@ -113,7 +113,7 @@
                                     </svg>
                                     <h3 class="mt-2 text-sm font-medium text-gray-900">{{ __('Kein aktiver Plan') }}</h3>
                                     <p class="mt-1 text-sm text-gray-500">{{ __('Wählen Sie einen Plan um alle Funktionen freizuschalten.') }}</p>
-                                    <a href="{{ route('billing.plans') }}" class="mt-4 inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500">
+                                    <a href="{{ route('billing.plans') }}" class="mt-4 inline-flex items-center rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-500">
                                         {{ __('Plan wählen') }}
                                     </a>
                                 </div>
@@ -162,7 +162,7 @@
                                         <span class="font-medium text-gray-900">{{ $usageStats['students']['current'] }} / {{ $usageStats['students']['limit'] }}</span>
                                     </div>
                                     <div class="mt-2 h-2 overflow-hidden rounded-full bg-gray-200">
-                                        <div class="h-2 rounded-full {{ $usageStats['students']['percent'] > 90 ? 'bg-red-500' : ($usageStats['students']['percent'] > 70 ? 'bg-yellow-500' : 'bg-indigo-600') }}" style="width: {{ $usageStats['students']['percent'] }}%"></div>
+                                        <div class="h-2 rounded-full {{ $usageStats['students']['percent'] > 90 ? 'bg-red-500' : ($usageStats['students']['percent'] > 70 ? 'bg-yellow-500' : 'bg-teal-600') }}" style="width: {{ $usageStats['students']['percent'] }}%"></div>
                                     </div>
                                 </div>
 
@@ -173,7 +173,7 @@
                                         <span class="font-medium text-gray-900">{{ $usageStats['instructors']['current'] }} / {{ $usageStats['instructors']['limit'] }}</span>
                                     </div>
                                     <div class="mt-2 h-2 overflow-hidden rounded-full bg-gray-200">
-                                        <div class="h-2 rounded-full {{ $usageStats['instructors']['percent'] > 90 ? 'bg-red-500' : ($usageStats['instructors']['percent'] > 70 ? 'bg-yellow-500' : 'bg-indigo-600') }}" style="width: {{ $usageStats['instructors']['percent'] }}%"></div>
+                                        <div class="h-2 rounded-full {{ $usageStats['instructors']['percent'] > 90 ? 'bg-red-500' : ($usageStats['instructors']['percent'] > 70 ? 'bg-yellow-500' : 'bg-teal-600') }}" style="width: {{ $usageStats['instructors']['percent'] }}%"></div>
                                     </div>
                                 </div>
 
@@ -184,7 +184,7 @@
                                         <span class="font-medium text-gray-900">{{ $usageStats['storage']['used_formatted'] }} / {{ $usageStats['storage']['limit_formatted'] }}</span>
                                     </div>
                                     <div class="mt-2 h-2 overflow-hidden rounded-full bg-gray-200">
-                                        <div class="h-2 rounded-full {{ $usageStats['storage']['percent'] > 90 ? 'bg-red-500' : ($usageStats['storage']['percent'] > 70 ? 'bg-yellow-500' : 'bg-indigo-600') }}" style="width: {{ $usageStats['storage']['percent'] }}%"></div>
+                                        <div class="h-2 rounded-full {{ $usageStats['storage']['percent'] > 90 ? 'bg-red-500' : ($usageStats['storage']['percent'] > 70 ? 'bg-yellow-500' : 'bg-teal-600') }}" style="width: {{ $usageStats['storage']['percent'] }}%"></div>
                                     </div>
                                 </div>
 
@@ -195,7 +195,7 @@
                                         <span class="font-medium text-gray-900">{{ $usageStats['ai_requests']['today'] }} / {{ $usageStats['ai_requests']['daily_limit'] }}</span>
                                     </div>
                                     <div class="mt-2 h-2 overflow-hidden rounded-full bg-gray-200">
-                                        <div class="h-2 rounded-full {{ $usageStats['ai_requests']['percent'] > 90 ? 'bg-red-500' : ($usageStats['ai_requests']['percent'] > 70 ? 'bg-yellow-500' : 'bg-indigo-600') }}" style="width: {{ $usageStats['ai_requests']['percent'] }}%"></div>
+                                        <div class="h-2 rounded-full {{ $usageStats['ai_requests']['percent'] > 90 ? 'bg-red-500' : ($usageStats['ai_requests']['percent'] > 70 ? 'bg-yellow-500' : 'bg-teal-600') }}" style="width: {{ $usageStats['ai_requests']['percent'] }}%"></div>
                                     </div>
                                 </div>
                             </div>

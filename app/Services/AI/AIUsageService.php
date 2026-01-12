@@ -176,8 +176,8 @@ class AIUsageService
     {
         return match ($serviceType) {
             AiServiceType::Explanation => $quota->feature_explanations_enabled,
-            AiServiceType::Tutor => $quota->feature_tutor_enabled,
-            AiServiceType::Practice => $quota->feature_practice_enabled,
+            AiServiceType::TutorChat => $quota->feature_tutor_enabled,
+            AiServiceType::PracticeGen => $quota->feature_practice_enabled,
             AiServiceType::Summary => $quota->feature_summaries_enabled,
             default => true,
         };

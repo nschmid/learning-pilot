@@ -4,25 +4,26 @@
             <x-authentication-card-logo />
         </x-slot>
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-gray-900">{{ __('Passwort bestätigen') }}</h1>
+            <p class="mt-2 text-sm text-gray-600">{{ __('Dies ist ein geschützter Bereich. Bitte bestätigen Sie Ihr Passwort, bevor Sie fortfahren.') }}</p>
         </div>
 
         <x-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('password.confirm') }}">
+        <form method="POST" action="{{ route('password.confirm') }}" class="space-y-5">
             @csrf
 
             <div>
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" autofocus />
+                <label for="password" class="block text-sm font-medium text-gray-700">{{ __('Passwort') }}</label>
+                <input id="password" type="password" name="password" required autocomplete="current-password" autofocus
+                       class="mt-1 block w-full rounded-xl border-gray-200 px-4 py-3 text-gray-900 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" />
             </div>
 
-            <div class="flex justify-end mt-4">
-                <x-button class="ms-4">
-                    {{ __('Confirm') }}
-                </x-button>
-            </div>
+            <button type="submit"
+                    class="w-full rounded-xl bg-teal-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition-all">
+                {{ __('Bestätigen') }}
+            </button>
         </form>
     </x-authentication-card>
 </x-guest-layout>

@@ -29,12 +29,12 @@
                 <form wire:submit="saveSettings" class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700">{{ __('Titel') }}</label>
-                        <input wire:model="title" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm" required>
+                        <input wire:model="title" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 text-sm" required>
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700">{{ __('Typ') }}</label>
-                        <select wire:model="assessmentType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
+                        <select wire:model="assessmentType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 text-sm">
                             <option value="quiz">{{ __('Quiz') }}</option>
                             <option value="exam">{{ __('Prüfung') }}</option>
                             <option value="survey">{{ __('Umfrage') }}</option>
@@ -43,45 +43,45 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700">{{ __('Beschreibung') }}</label>
-                        <textarea wire:model="description" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"></textarea>
+                        <textarea wire:model="description" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 text-sm"></textarea>
                     </div>
 
                     <div class="grid grid-cols-2 gap-3">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">{{ __('Zeitlimit (Min.)') }}</label>
-                            <input wire:model="timeLimit" type="number" min="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
+                            <input wire:model="timeLimit" type="number" min="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 text-sm">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">{{ __('Bestehensgrenze (%)') }}</label>
-                            <input wire:model="passingScore" type="number" min="0" max="100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
+                            <input wire:model="passingScore" type="number" min="0" max="100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 text-sm">
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700">{{ __('Max. Versuche') }}</label>
-                        <input wire:model="maxAttempts" type="number" min="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm" placeholder="{{ __('Unbegrenzt') }}">
+                        <input wire:model="maxAttempts" type="number" min="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 text-sm" placeholder="{{ __('Unbegrenzt') }}">
                     </div>
 
                     <div class="space-y-2">
                         <label class="flex items-center">
-                            <input wire:model="shuffleQuestions" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600">
+                            <input wire:model="shuffleQuestions" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-teal-600">
                             <span class="ml-2 text-sm text-gray-700">{{ __('Fragen mischen') }}</span>
                         </label>
                         <label class="flex items-center">
-                            <input wire:model="shuffleAnswers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600">
+                            <input wire:model="shuffleAnswers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-teal-600">
                             <span class="ml-2 text-sm text-gray-700">{{ __('Antworten mischen') }}</span>
                         </label>
                         <label class="flex items-center">
-                            <input wire:model="showCorrectAnswers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600">
+                            <input wire:model="showCorrectAnswers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-teal-600">
                             <span class="ml-2 text-sm text-gray-700">{{ __('Richtige Antworten zeigen') }}</span>
                         </label>
                         <label class="flex items-center">
-                            <input wire:model="showScoreImmediately" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600">
+                            <input wire:model="showScoreImmediately" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-teal-600">
                             <span class="ml-2 text-sm text-gray-700">{{ __('Ergebnis sofort zeigen') }}</span>
                         </label>
                     </div>
 
-                    <button type="submit" class="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm">{{ __('Einstellungen speichern') }}</button>
+                    <button type="submit" class="w-full px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 text-sm">{{ __('Einstellungen speichern') }}</button>
                 </form>
 
                 <!-- Stats -->
@@ -109,7 +109,7 @@
                         <button wire:click="addTrueFalseQuestion" class="inline-flex items-center px-3 py-1.5 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
                             {{ __('Richtig/Falsch') }}
                         </button>
-                        <button wire:click="openQuestionModal" class="inline-flex items-center px-3 py-1.5 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                        <button wire:click="openQuestionModal" class="inline-flex items-center px-3 py-1.5 text-sm bg-teal-600 text-white rounded-lg hover:bg-teal-700">
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                             {{ __('Frage hinzufügen') }}
                         </button>
@@ -172,7 +172,7 @@
                                 <div class="grid grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">{{ __('Fragetyp') }}</label>
-                                        <select wire:model.live="questionType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                        <select wire:model.live="questionType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
                                             <option value="single_choice">{{ __('Einzelauswahl') }}</option>
                                             <option value="multiple_choice">{{ __('Mehrfachauswahl') }}</option>
                                             <option value="true_false">{{ __('Richtig/Falsch') }}</option>
@@ -181,13 +181,13 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">{{ __('Punkte') }}</label>
-                                        <input wire:model="questionPoints" type="number" min="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                        <input wire:model="questionPoints" type="number" min="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
                                     </div>
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">{{ __('Frage') }}</label>
-                                    <textarea wire:model="questionText" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required></textarea>
+                                    <textarea wire:model="questionText" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required></textarea>
                                     @error('questionText') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                 </div>
 
@@ -200,11 +200,11 @@
                                             @foreach ($questionOptions as $index => $option)
                                                 <div class="flex items-center gap-2">
                                                     @if ($questionType === 'single_choice')
-                                                        <input type="radio" wire:click="setCorrectOption({{ $index }})" {{ $option['is_correct'] ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-indigo-600">
+                                                        <input type="radio" wire:click="setCorrectOption({{ $index }})" {{ $option['is_correct'] ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-teal-600">
                                                     @else
-                                                        <input type="checkbox" wire:model="questionOptions.{{ $index }}.is_correct" class="h-4 w-4 rounded border-gray-300 text-indigo-600">
+                                                        <input type="checkbox" wire:model="questionOptions.{{ $index }}.is_correct" class="h-4 w-4 rounded border-gray-300 text-teal-600">
                                                     @endif
-                                                    <input wire:model="questionOptions.{{ $index }}.text" type="text" placeholder="{{ __('Antwortoption') }}" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
+                                                    <input wire:model="questionOptions.{{ $index }}.text" type="text" placeholder="{{ __('Antwortoption') }}" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 text-sm">
                                                     @if (count($questionOptions) > 2 && $questionType !== 'true_false')
                                                         <button type="button" wire:click="removeOption({{ $index }})" class="p-1 text-red-400 hover:text-red-600">
                                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -215,19 +215,19 @@
                                         </div>
 
                                         @if ($questionType !== 'true_false' && count($questionOptions) < 10)
-                                            <button type="button" wire:click="addOption" class="mt-2 text-sm text-indigo-600 hover:text-indigo-800">+ {{ __('Option hinzufügen') }}</button>
+                                            <button type="button" wire:click="addOption" class="mt-2 text-sm text-teal-600 hover:text-teal-800">+ {{ __('Option hinzufügen') }}</button>
                                         @endif
                                     </div>
                                 @endif
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">{{ __('Erklärung (optional)') }}</label>
-                                    <textarea wire:model="questionExplanation" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="{{ __('Wird nach Beantwortung angezeigt') }}"></textarea>
+                                    <textarea wire:model="questionExplanation" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" placeholder="{{ __('Wird nach Beantwortung angezeigt') }}"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse gap-2">
-                            <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">{{ __('Speichern') }}</button>
+                            <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700">{{ __('Speichern') }}</button>
                             <button type="button" wire:click="closeQuestionModal" class="mt-3 sm:mt-0 w-full sm:w-auto inline-flex justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 ring-1 ring-gray-300 hover:bg-gray-50">{{ __('Abbrechen') }}</button>
                         </div>
                     </form>

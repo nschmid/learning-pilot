@@ -10,7 +10,7 @@
                 $dailyPercent = $dailyLimit > 0 ? min(100, ($todayUsage / $dailyLimit) * 100) : 0;
             @endphp
             <div
-                class="h-2 {{ $dailyPercent > 90 ? 'bg-red-500' : ($dailyPercent > 70 ? 'bg-yellow-500' : 'bg-indigo-600') }}"
+                class="h-2 {{ $dailyPercent > 90 ? 'bg-red-500' : ($dailyPercent > 70 ? 'bg-yellow-500' : 'bg-teal-600') }}"
                 style="width: {{ $dailyPercent }}%"
             ></div>
         </div>

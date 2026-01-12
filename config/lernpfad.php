@@ -198,26 +198,42 @@ return [
     |
     */
 
+    /*
+    |--------------------------------------------------------------------------
+    | Per-Student Pricing Model
+    |--------------------------------------------------------------------------
+    |
+    | Pricing is based on number of active students. Schools pay per student
+    | per month, with yearly billing offering ~17% discount.
+    |
+    */
+
+    'pricing_model' => 'per_student', // 'per_student' or 'flat'
+
     'plans' => [
         'starter' => [
             'name' => 'Starter',
-            'description' => 'Ideal für kleine Schulen und Nachhilfe',
-            'stripe_prices' => [
-                'chf' => env('STRIPE_PRICE_STARTER_CHF', 'price_starter_chf'),
-                'eur' => env('STRIPE_PRICE_STARTER_EUR', 'price_starter_eur'),
-                'usd' => env('STRIPE_PRICE_STARTER_USD', 'price_starter_usd'),
+            'description' => 'Ideal für kleine Schulen und Nachhilfe-Anbieter',
+            'pricing_type' => 'per_student',
+            'per_student_price' => [
+                'chf' => ['monthly' => 24, 'yearly' => 240],  // CHF 24/student/month
+                'eur' => ['monthly' => 22, 'yearly' => 220],
+                'usd' => ['monthly' => 26, 'yearly' => 260],
             ],
-            'prices' => [
-                'chf' => 49,
-                'eur' => 45,
-                'usd' => 49,
+            'min_students' => 10,
+            'stripe_price_ids' => [
+                'chf_monthly' => env('STRIPE_PRICE_STARTER_CHF_MONTHLY'),
+                'chf_yearly' => env('STRIPE_PRICE_STARTER_CHF_YEARLY'),
+                'eur_monthly' => env('STRIPE_PRICE_STARTER_EUR_MONTHLY'),
+                'eur_yearly' => env('STRIPE_PRICE_STARTER_EUR_YEARLY'),
+                'usd_monthly' => env('STRIPE_PRICE_STARTER_USD_MONTHLY'),
+                'usd_yearly' => env('STRIPE_PRICE_STARTER_USD_YEARLY'),
             ],
-            'billing_period' => 'monthly',
             'limits' => [
-                'students' => 50,
-                'instructors' => 3,
-                'storage_gb' => 5,
-                'ai_daily_requests' => 0,
+                'instructors_per_50_students' => 3,
+                'learning_paths' => -1, // unlimited
+                'storage_gb_per_10_students' => 5,
+                'ai_requests_per_student_monthly' => 0, // No AI
             ],
             'features' => [
                 'ai_tutor' => false,
@@ -226,28 +242,34 @@ return [
                 'advanced_analytics' => false,
                 'custom_branding' => false,
                 'api_access' => false,
+                'sso' => false,
                 'priority_support' => false,
             ],
         ],
         'professional' => [
             'name' => 'Professional',
-            'description' => 'Für wachsende Bildungseinrichtungen',
-            'stripe_prices' => [
-                'chf' => env('STRIPE_PRICE_PRO_CHF', 'price_pro_chf'),
-                'eur' => env('STRIPE_PRICE_PRO_EUR', 'price_pro_eur'),
-                'usd' => env('STRIPE_PRICE_PRO_USD', 'price_pro_usd'),
+            'description' => 'Mit KI-Tutor, Übungen und erweiterten Funktionen',
+            'pricing_type' => 'per_student',
+            'per_student_price' => [
+                'chf' => ['monthly' => 32, 'yearly' => 320],  // CHF 32/student/month
+                'eur' => ['monthly' => 30, 'yearly' => 300],
+                'usd' => ['monthly' => 34, 'yearly' => 340],
             ],
-            'prices' => [
-                'chf' => 149,
-                'eur' => 139,
-                'usd' => 149,
+            'min_students' => 10,
+            'highlighted' => true,
+            'stripe_price_ids' => [
+                'chf_monthly' => env('STRIPE_PRICE_PRO_CHF_MONTHLY'),
+                'chf_yearly' => env('STRIPE_PRICE_PRO_CHF_YEARLY'),
+                'eur_monthly' => env('STRIPE_PRICE_PRO_EUR_MONTHLY'),
+                'eur_yearly' => env('STRIPE_PRICE_PRO_EUR_YEARLY'),
+                'usd_monthly' => env('STRIPE_PRICE_PRO_USD_MONTHLY'),
+                'usd_yearly' => env('STRIPE_PRICE_PRO_USD_YEARLY'),
             ],
-            'billing_period' => 'monthly',
             'limits' => [
-                'students' => 200,
-                'instructors' => 10,
-                'storage_gb' => 25,
-                'ai_daily_requests' => 500,
+                'instructors_per_50_students' => 5,
+                'learning_paths' => -1, // unlimited
+                'storage_gb_per_10_students' => 10,
+                'ai_requests_per_student_monthly' => 50,
             ],
             'features' => [
                 'ai_tutor' => true,
@@ -256,28 +278,26 @@ return [
                 'advanced_analytics' => true,
                 'custom_branding' => false,
                 'api_access' => false,
-                'priority_support' => false,
+                'sso' => false,
+                'priority_support' => true,
             ],
         ],
         'enterprise' => [
             'name' => 'Enterprise',
-            'description' => 'Für grosse Institutionen mit individuellen Anforderungen',
-            'stripe_prices' => [
-                'chf' => env('STRIPE_PRICE_ENTERPRISE_CHF', 'price_enterprise_chf'),
-                'eur' => env('STRIPE_PRICE_ENTERPRISE_EUR', 'price_enterprise_eur'),
-                'usd' => env('STRIPE_PRICE_ENTERPRISE_USD', 'price_enterprise_usd'),
+            'description' => 'Massgeschneiderte Lösung für grosse Institutionen',
+            'pricing_type' => 'contact_sales',
+            'per_student_price' => [
+                'chf' => ['monthly' => null, 'yearly' => null], // CHF 5-7/student negotiated
+                'eur' => ['monthly' => null, 'yearly' => null],
+                'usd' => ['monthly' => null, 'yearly' => null],
             ],
-            'prices' => [
-                'chf' => 399,
-                'eur' => 369,
-                'usd' => 399,
-            ],
-            'billing_period' => 'monthly',
+            'min_students' => 500,
+            'contact_sales' => true,
             'limits' => [
-                'students' => -1, // unlimited
-                'instructors' => -1,
-                'storage_gb' => 100,
-                'ai_daily_requests' => -1, // unlimited
+                'instructors_per_50_students' => -1, // unlimited
+                'learning_paths' => -1,
+                'storage_gb_per_10_students' => -1, // unlimited
+                'ai_requests_per_student_monthly' => -1, // unlimited
             ],
             'features' => [
                 'ai_tutor' => true,
@@ -286,7 +306,11 @@ return [
                 'advanced_analytics' => true,
                 'custom_branding' => true,
                 'api_access' => true,
+                'sso' => true,
                 'priority_support' => true,
+                'dedicated_support' => true,
+                'custom_integrations' => true,
+                'sla' => true,
             ],
         ],
     ],

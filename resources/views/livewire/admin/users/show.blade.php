@@ -1,11 +1,11 @@
 <div>
     <!-- Breadcrumb -->
     <nav class="mb-6 flex items-center gap-2 text-sm text-gray-500">
-        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-gray-700">{{ __('Dashboard') }}</a>
+        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Dashboard') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
-        <a href="{{ route('admin.users.index') }}" wire:navigate class="hover:text-gray-700">{{ __('Benutzer') }}</a>
+        <a href="{{ route('admin.users.index') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Benutzer') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
@@ -24,7 +24,7 @@
         <div class="flex items-center gap-3">
             <button
                 wire:click="toggleStatus"
-                class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
             >
                 @if($user->is_active)
                     <span class="h-2 w-2 rounded-full bg-green-500"></span>
@@ -34,7 +34,7 @@
                     {{ __('Inaktiv') }}
                 @endif
             </button>
-            <a href="{{ route('admin.users.edit', $user) }}" class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700">
+            <a href="{{ route('admin.users.edit', $user) }}" class="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-4 py-2 font-medium text-white hover:bg-teal-700">
                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                 </svg>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="rounded-xl border border-gray-200 bg-white p-4">
                     <p class="text-sm text-gray-500">{{ __('Punkte') }}</p>
-                    <p class="mt-1 text-2xl font-bold text-indigo-600">{{ number_format($stats['total_points']) }}</p>
+                    <p class="mt-1 text-2xl font-bold text-teal-600">{{ number_format($stats['total_points']) }}</p>
                 </div>
                 <div class="rounded-xl border border-gray-200 bg-white p-4">
                     <p class="text-sm text-gray-500">{{ __('Lernzeit') }}</p>
@@ -81,7 +81,7 @@
                                 <div class="text-right">
                                     <div class="flex items-center gap-2">
                                         <div class="h-2 w-20 overflow-hidden rounded-full bg-gray-200">
-                                            <div class="h-full rounded-full bg-indigo-600" style="width: {{ $enrollment->progress_percent }}%"></div>
+                                            <div class="h-full rounded-full bg-teal-600" style="width: {{ $enrollment->progress_percent }}%"></div>
                                         </div>
                                         <span class="text-sm text-gray-600">{{ $enrollment->progress_percent }}%</span>
                                     </div>
@@ -158,7 +158,7 @@
                             <li class="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2">
                                 <span class="font-medium text-gray-900">{{ $team->name }}</span>
                                 @if($team->id === $user->current_team_id)
-                                    <span class="text-xs text-indigo-600">{{ __('Aktuell') }}</span>
+                                    <span class="text-xs text-teal-600">{{ __('Aktuell') }}</span>
                                 @endif
                             </li>
                         @endforeach

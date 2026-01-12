@@ -81,8 +81,8 @@
                             <tbody class="divide-y divide-gray-200 bg-white">
                                 @foreach($task->rubric as $criterion)
                                     <tr>
-                                        <td class="px-4 py-3 text-sm text-gray-900">{{ $criterion['name'] ?? $criterion }}</td>
-                                        <td class="px-4 py-3 text-right text-sm font-medium text-gray-900">{{ $criterion['points'] ?? '-' }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-900">{{ is_array($criterion) ? ($criterion['name'] ?? json_encode($criterion)) : $criterion }}</td>
+                                        <td class="px-4 py-3 text-right text-sm font-medium text-gray-900">{{ is_array($criterion) ? ($criterion['points'] ?? '-') : '-' }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

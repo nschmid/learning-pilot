@@ -24,10 +24,10 @@
             <!-- Plans Grid -->
             <div class="grid gap-8 lg:grid-cols-3">
                 @foreach($plans as $plan)
-                    <div class="relative rounded-2xl {{ $plan['highlighted'] ?? false ? 'bg-gray-900 ring-2 ring-indigo-500' : 'bg-white ring-1 ring-gray-200' }} p-8 shadow-sm">
+                    <div class="relative rounded-2xl {{ $plan['highlighted'] ?? false ? 'bg-gray-900 ring-2 ring-teal-500' : 'bg-white ring-1 ring-gray-200' }} p-8 shadow-sm">
                         @if($plan['highlighted'] ?? false)
                             <div class="absolute -top-4 left-1/2 -translate-x-1/2">
-                                <span class="inline-flex items-center rounded-full bg-indigo-500 px-4 py-1 text-xs font-semibold text-white">
+                                <span class="inline-flex items-center rounded-full bg-teal-500 px-4 py-1 text-xs font-semibold text-white">
                                     {{ __('Beliebt') }}
                                 </span>
                             </div>
@@ -69,7 +69,7 @@
                         @else
                             <button
                                 wire:click="checkout('{{ $plan['id'] }}')"
-                                class="w-full rounded-lg {{ $plan['highlighted'] ?? false ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-indigo-600 text-white hover:bg-indigo-500' }} px-4 py-3 text-sm font-semibold transition"
+                                class="w-full rounded-lg {{ $plan['highlighted'] ?? false ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-teal-600 text-white hover:bg-teal-500' }} px-4 py-3 text-sm font-semibold transition"
                             >
                                 {{ $currentPlanId ? __('Wechseln') : __('Auswählen') }}
                             </button>
@@ -78,7 +78,7 @@
                         <ul class="mt-8 space-y-3">
                             @if(isset($plan['limits']['students']))
                                 <li class="flex items-center gap-x-3">
-                                    <svg class="size-5 flex-none {{ $plan['highlighted'] ?? false ? 'text-white' : 'text-indigo-600' }}" viewBox="0 0 20 20" fill="currentColor">
+                                    <svg class="size-5 flex-none {{ $plan['highlighted'] ?? false ? 'text-white' : 'text-teal-600' }}" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                                     </svg>
                                     <span class="text-sm {{ $plan['highlighted'] ?? false ? 'text-gray-300' : 'text-gray-600' }}">
@@ -89,7 +89,7 @@
 
                             @if(isset($plan['limits']['instructors']))
                                 <li class="flex items-center gap-x-3">
-                                    <svg class="size-5 flex-none {{ $plan['highlighted'] ?? false ? 'text-white' : 'text-indigo-600' }}" viewBox="0 0 20 20" fill="currentColor">
+                                    <svg class="size-5 flex-none {{ $plan['highlighted'] ?? false ? 'text-white' : 'text-teal-600' }}" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                                     </svg>
                                     <span class="text-sm {{ $plan['highlighted'] ?? false ? 'text-gray-300' : 'text-gray-600' }}">
@@ -100,7 +100,7 @@
 
                             @if(isset($plan['limits']['storage_gb']))
                                 <li class="flex items-center gap-x-3">
-                                    <svg class="size-5 flex-none {{ $plan['highlighted'] ?? false ? 'text-white' : 'text-indigo-600' }}" viewBox="0 0 20 20" fill="currentColor">
+                                    <svg class="size-5 flex-none {{ $plan['highlighted'] ?? false ? 'text-white' : 'text-teal-600' }}" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                                     </svg>
                                     <span class="text-sm {{ $plan['highlighted'] ?? false ? 'text-gray-300' : 'text-gray-600' }}">
@@ -112,7 +112,7 @@
                             @foreach($plan['features'] ?? [] as $feature => $enabled)
                                 @if($enabled)
                                     <li class="flex items-center gap-x-3">
-                                        <svg class="size-5 flex-none {{ $plan['highlighted'] ?? false ? 'text-white' : 'text-indigo-600' }}" viewBox="0 0 20 20" fill="currentColor">
+                                        <svg class="size-5 flex-none {{ $plan['highlighted'] ?? false ? 'text-white' : 'text-teal-600' }}" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                                         </svg>
                                         <span class="text-sm {{ $plan['highlighted'] ?? false ? 'text-gray-300' : 'text-gray-600' }}">
@@ -172,7 +172,7 @@
                         </button>
                         <p x-show="open" x-cloak class="mt-4 text-sm text-gray-600">
                             {{ __('Ja, für öffentliche Bildungseinrichtungen bieten wir Sonderkonditionen an.') }}
-                            <a href="{{ route('contact') }}" class="text-indigo-600 hover:text-indigo-500">{{ __('Kontaktieren Sie uns') }}</a>
+                            <a href="{{ route('contact') }}" class="text-teal-600 hover:text-teal-500">{{ __('Kontaktieren Sie uns') }}</a>
                             {{ __('für ein individuelles Angebot.') }}
                         </p>
                     </div>

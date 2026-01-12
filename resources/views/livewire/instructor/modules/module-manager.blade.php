@@ -20,7 +20,7 @@
             </nav>
             <h1 class="mt-2 text-2xl font-bold text-gray-900">{{ __('Module verwalten') }}</h1>
         </div>
-        <button wire:click="openModuleModal" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+        <button wire:click="openModuleModal" class="inline-flex items-center px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             {{ __('Modul hinzufügen') }}
         </button>
@@ -91,7 +91,7 @@
                         </div>
                     @endforeach
 
-                    <button wire:click="openStepModal('{{ $module->id }}')" class="w-full p-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-indigo-500 hover:text-indigo-500 transition-colors">
+                    <button wire:click="openStepModal('{{ $module->id }}')" class="w-full p-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-teal-500 hover:text-teal-500 transition-colors">
                         <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                         <span class="text-sm">{{ __('Schritt hinzufügen') }}</span>
                     </button>
@@ -102,7 +102,7 @@
                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                 <h3 class="mt-2 text-sm font-medium text-gray-900">{{ __('Keine Module') }}</h3>
                 <p class="mt-1 text-sm text-gray-500">{{ __('Füge dein erstes Modul hinzu, um Inhalte zu strukturieren.') }}</p>
-                <button wire:click="openModuleModal" class="mt-4 inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                <button wire:click="openModuleModal" class="mt-4 inline-flex items-center px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700">
                     {{ __('Modul hinzufügen') }}
                 </button>
             </div>
@@ -122,18 +122,18 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">{{ __('Titel') }}</label>
-                                    <input wire:model="moduleTitle" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                                    <input wire:model="moduleTitle" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
                                     @error('moduleTitle') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">{{ __('Beschreibung') }}</label>
-                                    <textarea wire:model="moduleDescription" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                                    <textarea wire:model="moduleDescription" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"></textarea>
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">{{ __('Entsperrbedingung') }}</label>
-                                    <select wire:model.live="unlockCondition" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <select wire:model.live="unlockCondition" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
                                         <option value="sequential">{{ __('Sequentiell (vorheriges Modul abschließen)') }}</option>
                                         <option value="completion_percent">{{ __('Nach Fortschritt') }}</option>
                                         <option value="manual">{{ __('Immer verfügbar') }}</option>
@@ -143,18 +143,18 @@
                                 @if ($unlockCondition === 'completion_percent')
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">{{ __('Erforderlicher Fortschritt (%)') }}</label>
-                                        <input wire:model="unlockValue" type="number" min="1" max="100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                        <input wire:model="unlockValue" type="number" min="1" max="100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
                                     </div>
                                 @endif
 
                                 <div class="flex items-center">
-                                    <input wire:model="moduleIsRequired" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <input wire:model="moduleIsRequired" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500">
                                     <label class="ml-2 text-sm text-gray-700">{{ __('Pflichtmodul') }}</label>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse gap-2">
-                            <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">{{ __('Speichern') }}</button>
+                            <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700">{{ __('Speichern') }}</button>
                             <button type="button" wire:click="closeModuleModal" class="mt-3 sm:mt-0 w-full sm:w-auto inline-flex justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 ring-1 ring-gray-300 hover:bg-gray-50">{{ __('Abbrechen') }}</button>
                         </div>
                     </form>
@@ -176,13 +176,13 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">{{ __('Titel') }}</label>
-                                    <input wire:model="stepTitle" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                                    <input wire:model="stepTitle" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
                                     @error('stepTitle') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">{{ __('Typ') }}</label>
-                                    <select wire:model="stepType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <select wire:model="stepType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
                                         <option value="material">{{ __('Lernmaterial') }}</option>
                                         <option value="task">{{ __('Aufgabe') }}</option>
                                         <option value="assessment">{{ __('Prüfung') }}</option>
@@ -191,34 +191,34 @@
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">{{ __('Beschreibung') }}</label>
-                                    <textarea wire:model="stepDescription" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                                    <textarea wire:model="stepDescription" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"></textarea>
                                 </div>
 
                                 <div class="grid grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">{{ __('Punkte') }}</label>
-                                        <input wire:model="stepPointsValue" type="number" min="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                        <input wire:model="stepPointsValue" type="number" min="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">{{ __('Geschätzte Zeit (Min.)') }}</label>
-                                        <input wire:model="stepEstimatedMinutes" type="number" min="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                        <input wire:model="stepEstimatedMinutes" type="number" min="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500">
                                     </div>
                                 </div>
 
                                 <div class="flex items-center gap-4">
                                     <label class="flex items-center">
-                                        <input wire:model="stepIsRequired" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <input wire:model="stepIsRequired" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500">
                                         <span class="ml-2 text-sm text-gray-700">{{ __('Pflicht') }}</span>
                                     </label>
                                     <label class="flex items-center">
-                                        <input wire:model="stepIsPreview" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <input wire:model="stepIsPreview" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500">
                                         <span class="ml-2 text-sm text-gray-700">{{ __('Vorschau') }}</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse gap-2">
-                            <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">{{ $editingStepId ? __('Speichern') : __('Erstellen & Bearbeiten') }}</button>
+                            <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700">{{ $editingStepId ? __('Speichern') : __('Erstellen & Bearbeiten') }}</button>
                             <button type="button" wire:click="closeStepModal" class="mt-3 sm:mt-0 w-full sm:w-auto inline-flex justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 ring-1 ring-gray-300 hover:bg-gray-50">{{ __('Abbrechen') }}</button>
                         </div>
                     </form>

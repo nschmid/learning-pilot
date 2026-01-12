@@ -1,11 +1,11 @@
 <div>
     <!-- Breadcrumb -->
     <nav class="mb-6 flex items-center gap-2 text-sm text-gray-500">
-        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-gray-700">{{ __('Dashboard') }}</a>
+        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Dashboard') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
-        <a href="{{ route('admin.teams.index') }}" wire:navigate class="hover:text-gray-700">{{ __('Teams') }}</a>
+        <a href="{{ route('admin.teams.index') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Teams') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
@@ -134,7 +134,7 @@
     <div class="mt-6 rounded-xl border border-gray-200 bg-white p-6">
         <h2 class="mb-4 text-lg font-semibold text-gray-900">{{ __('Letzte Einschreibungen') }}</h2>
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
+            <table class="min-w-full divide-y divide-gray-100">
                 <thead>
                     <tr>
                         <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Mitglied') }}</th>
@@ -143,7 +143,7 @@
                         <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Status') }}</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200">
+                <tbody class="divide-y divide-gray-100">
                     @forelse($this->recentEnrollments as $enrollment)
                         <tr>
                             <td class="whitespace-nowrap px-4 py-3">
@@ -156,7 +156,7 @@
                             <td class="whitespace-nowrap px-4 py-3">
                                 <div class="flex items-center gap-2">
                                     <div class="h-2 w-16 overflow-hidden rounded-full bg-gray-200">
-                                        <div class="h-full rounded-full bg-indigo-600" style="width: {{ $enrollment->progress_percent }}%"></div>
+                                        <div class="h-full rounded-full bg-teal-600" style="width: {{ $enrollment->progress_percent }}%"></div>
                                     </div>
                                     <span class="text-sm text-gray-600">{{ $enrollment->progress_percent }}%</span>
                                 </div>

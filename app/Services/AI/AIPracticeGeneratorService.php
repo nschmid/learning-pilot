@@ -30,7 +30,7 @@ class AIPracticeGeneratorService
         ?Difficulty $difficulty = null,
         int $questionCount = 5
     ): AiPracticeSession {
-        $this->usageService->checkQuota($user, AiServiceType::Practice);
+        $this->usageService->checkQuota($user, AiServiceType::PracticeGen);
 
         $context = $this->contextBuilder->buildPracticeContext(
             $user,
@@ -147,14 +147,14 @@ class AIPracticeGeneratorService
         $userMessage = $this->buildGeneratorUserMessage($session, $count);
 
         $result = $this->client->createMessage(
-            AiServiceType::Practice,
+            AiServiceType::PracticeGen,
             $systemPrompt,
             [['role' => 'user', 'content' => $userMessage]]
         );
 
         $this->usageService->logUsage(
             $user,
-            AiServiceType::Practice,
+            AiServiceType::PracticeGen,
             $result['tokens_input'],
             $result['tokens_output'],
             $result['latency_ms'],

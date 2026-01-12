@@ -37,7 +37,7 @@
         @if($submission->status->value === 'pending')
             <button
                 wire:click="review"
-                class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+                class="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
             >
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -158,7 +158,7 @@
                     @if($submission->enrollment->user->profile_photo_url)
                         <img class="h-12 w-12 rounded-full object-cover" src="{{ $submission->enrollment->user->profile_photo_url }}" alt="">
                     @else
-                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-sm font-medium text-indigo-600">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 text-sm font-medium text-teal-600">
                             {{ substr($submission->enrollment->user->name, 0, 2) }}
                         </div>
                     @endif
@@ -168,7 +168,7 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <a href="{{ route('instructor.students.show', $submission->enrollment->id) }}" wire:navigate class="text-sm text-indigo-600 hover:text-indigo-800">
+                    <a href="{{ route('instructor.students.show', $submission->enrollment->id) }}" wire:navigate class="text-sm text-teal-600 hover:text-teal-800">
                         {{ __('Teilnehmer-Profil anzeigen') }} &rarr;
                     </a>
                 </div>

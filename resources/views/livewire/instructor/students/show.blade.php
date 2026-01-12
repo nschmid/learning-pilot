@@ -18,7 +18,7 @@
             @if($enrollment->user->profile_photo_url)
                 <img class="h-16 w-16 rounded-full object-cover" src="{{ $enrollment->user->profile_photo_url }}" alt="">
             @else
-                <div class="flex h-16 w-16 items-center justify-center rounded-full bg-indigo-100 text-xl font-medium text-indigo-600">
+                <div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal-100 text-xl font-medium text-teal-600">
                     {{ substr($enrollment->user->name, 0, 2) }}
                 </div>
             @endif
@@ -50,7 +50,7 @@
                 <h2 class="text-lg font-semibold text-gray-900">{{ $enrollment->learningPath->title }}</h2>
                 <p class="text-sm text-gray-500">{{ __('Lernpfad') }}</p>
             </div>
-            <a href="{{ route('instructor.paths.show', $enrollment->learningPath->slug) }}" wire:navigate class="text-sm text-indigo-600 hover:text-indigo-800">
+            <a href="{{ route('instructor.paths.show', $enrollment->learningPath->slug) }}" wire:navigate class="text-sm text-teal-600 hover:text-teal-800">
                 {{ __('Lernpfad anzeigen') }} &rarr;
             </a>
         </div>
@@ -60,7 +60,7 @@
                 <span class="font-medium text-gray-900">{{ $enrollment->progress_percent }}%</span>
             </div>
             <div class="mt-2 h-3 overflow-hidden rounded-full bg-gray-200">
-                <div class="h-full rounded-full bg-indigo-600 transition-all" style="width: {{ $enrollment->progress_percent }}%"></div>
+                <div class="h-full rounded-full bg-teal-600 transition-all" style="width: {{ $enrollment->progress_percent }}%"></div>
             </div>
         </div>
     </div>
@@ -103,7 +103,7 @@
                             <span class="text-sm text-gray-500">{{ $module['completed_steps'] }}/{{ $module['total_steps'] }}</span>
                         </div>
                         <div class="mt-2 h-2 overflow-hidden rounded-full bg-gray-200">
-                            <div class="h-full rounded-full {{ $module['progress'] === 100 ? 'bg-green-500' : 'bg-indigo-600' }}" style="width: {{ $module['progress'] }}%"></div>
+                            <div class="h-full rounded-full {{ $module['progress'] === 100 ? 'bg-green-500' : 'bg-teal-600' }}" style="width: {{ $module['progress'] }}%"></div>
                         </div>
                     </div>
                 @empty
@@ -134,7 +134,7 @@
                                 @elseif($submission['status'] === 'reviewed')
                                     <span class="text-sm font-medium text-gray-900">{{ $submission['score'] }}/{{ $submission['max_points'] }}</span>
                                 @endif
-                                <button wire:click="viewSubmission('{{ $submission['id'] }}')" class="text-sm text-indigo-600 hover:text-indigo-800">
+                                <button wire:click="viewSubmission('{{ $submission['id'] }}')" class="text-sm text-teal-600 hover:text-teal-800">
                                     {{ __('Ansehen') }}
                                 </button>
                             </div>

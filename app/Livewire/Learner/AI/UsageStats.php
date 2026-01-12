@@ -14,13 +14,13 @@ class UsageStats extends Component
         $usageService = app(AIUsageService::class);
 
         $quota = AIUserQuota::where('user_id', $user->id)->first();
-        $todayUsage = $usageService->getTodayUsage($user);
-        $monthlyUsage = $usageService->getMonthlyUsage($user);
+        $todayData = $usageService->getTodayUsage($user);
+        $monthlyData = $usageService->getMonthlyUsage($user);
 
         return view('livewire.learner.ai.usage-stats', [
             'quota' => $quota,
-            'todayUsage' => $todayUsage,
-            'monthlyUsage' => $monthlyUsage,
+            'todayUsage' => $todayData['requests'] ?? 0,
+            'monthlyUsage' => $monthlyData['tokens'] ?? 0,
             'dailyLimit' => $quota?->daily_request_limit ?? config('lernpfad.ai.default_daily_requests', 100),
             'monthlyTokenLimit' => $quota?->monthly_token_limit ?? config('lernpfad.ai.default_monthly_tokens', 100000),
         ]);

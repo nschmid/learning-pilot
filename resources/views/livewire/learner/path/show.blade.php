@@ -1,6 +1,6 @@
 <div>
     <!-- Hero Section -->
-    <div class="relative -mx-4 -mt-6 mb-8 overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-800 px-4 py-12 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <div class="relative -mx-4 -mt-6 mb-8 overflow-hidden bg-gradient-to-br from-teal-600 via-purple-600 to-teal-800 px-4 py-12 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <!-- Background Pattern -->
         <div class="absolute inset-0 opacity-10">
             <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg">
@@ -15,7 +15,7 @@
 
         <div class="relative mx-auto max-w-4xl">
             <!-- Breadcrumb -->
-            <nav class="mb-4 flex items-center gap-2 text-sm text-indigo-200">
+            <nav class="mb-4 flex items-center gap-2 text-sm text-teal-200">
                 <a href="{{ route('learner.catalog') }}" wire:navigate class="hover:text-white">{{ __('Katalog') }}</a>
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -54,10 +54,10 @@
             <h1 class="mb-4 text-3xl font-bold text-white sm:text-4xl">{{ $path->title }}</h1>
 
             <!-- Description -->
-            <p class="mb-6 max-w-2xl text-lg text-indigo-100">{{ $path->description }}</p>
+            <p class="mb-6 max-w-2xl text-lg text-teal-100">{{ $path->description }}</p>
 
             <!-- Stats Row -->
-            <div class="mb-6 flex flex-wrap items-center gap-6 text-sm text-indigo-100">
+            <div class="mb-6 flex flex-wrap items-center gap-6 text-sm text-teal-100">
                 @if($this->stats['rating'] > 0)
                     <div class="flex items-center gap-1">
                         <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -100,7 +100,7 @@
                         @endif
                     </div>
                     <div>
-                        <p class="text-sm text-indigo-200">{{ __('Erstellt von') }}</p>
+                        <p class="text-sm text-teal-200">{{ __('Erstellt von') }}</p>
                         <p class="font-medium text-white">{{ $path->creator->name }}</p>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
                                     class="flex w-full items-center justify-between p-4 text-left hover:bg-gray-50"
                                 >
                                     <div class="flex items-center gap-3">
-                                        <span class="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-sm font-semibold text-indigo-600">
+                                        <span class="flex h-8 w-8 items-center justify-center rounded-full bg-teal-100 text-sm font-semibold text-teal-600">
                                             {{ $loop->iteration }}
                                         </span>
                                         <div>
@@ -208,7 +208,7 @@
                     <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                         <div class="mb-6 flex items-center justify-between">
                             <h2 class="text-xl font-semibold text-gray-900">{{ __('Bewertungen') }}</h2>
-                            <a href="{{ route('learner.path.reviews', $path->slug) }}" wire:navigate class="text-sm text-indigo-600 hover:text-indigo-800">
+                            <a href="{{ route('learner.path.reviews', $path->slug) }}" wire:navigate class="text-sm text-teal-600 hover:text-teal-800">
                                 {{ __('Alle ansehen') }}
                             </a>
                         </div>
@@ -254,7 +254,7 @@
             <div class="lg:col-span-1">
                 <div class="sticky top-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                     <!-- Thumbnail -->
-                    <div class="mb-6 aspect-video overflow-hidden rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600">
+                    <div class="mb-6 aspect-video overflow-hidden rounded-lg bg-gradient-to-br from-teal-500 to-purple-600">
                         @if($path->thumbnail)
                             <img src="{{ $path->thumbnail }}" alt="{{ $path->title }}" class="h-full w-full object-cover">
                         @else
@@ -292,7 +292,7 @@
 
                             <button
                                 wire:click="continueLearning"
-                                class="flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700"
+                                class="flex w-full items-center justify-center gap-2 rounded-lg bg-teal-600 px-6 py-3 font-semibold text-white transition hover:bg-teal-700"
                             >
                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
@@ -305,7 +305,7 @@
                         <button
                             wire:click="enroll"
                             wire:loading.attr="disabled"
-                            class="mb-6 flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-wait disabled:opacity-75"
+                            class="mb-6 flex w-full items-center justify-center gap-2 rounded-lg bg-teal-600 px-6 py-3 font-semibold text-white transition hover:bg-teal-700 disabled:cursor-wait disabled:opacity-75"
                         >
                             <span wire:loading.remove wire:target="enroll">{{ __('Jetzt starten') }}</span>
                             <span wire:loading wire:target="enroll">{{ __('Wird eingeschrieben...') }}</span>

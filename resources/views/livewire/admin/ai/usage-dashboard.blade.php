@@ -8,15 +8,15 @@
     <!-- Period Filter -->
     <div class="mb-6 flex gap-2">
         <button wire:click="setPeriod('week')"
-            class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $period === 'week' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300' }}">
+            class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $period === 'week' ? 'bg-teal-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 transition border border-gray-300' }}">
             {{ __('Letzte Woche') }}
         </button>
         <button wire:click="setPeriod('month')"
-            class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $period === 'month' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300' }}">
+            class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $period === 'month' ? 'bg-teal-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 transition border border-gray-300' }}">
             {{ __('Letzter Monat') }}
         </button>
         <button wire:click="setPeriod('year')"
-            class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $period === 'year' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300' }}">
+            class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $period === 'year' ? 'bg-teal-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 transition border border-gray-300' }}">
             {{ __('Letztes Jahr') }}
         </button>
     </div>
@@ -30,8 +30,8 @@
                     <p class="text-sm font-medium text-gray-500">{{ __('Tokens verbraucht') }}</p>
                     <p class="mt-1 text-3xl font-bold text-gray-900">{{ number_format($this->totalTokensUsed) }}</p>
                 </div>
-                <div class="rounded-full bg-indigo-100 p-3">
-                    <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="rounded-full bg-teal-100 p-3">
+                    <svg class="h-6 w-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                     </svg>
                 </div>
@@ -111,7 +111,7 @@
             <div class="overflow-x-auto">
                 <table class="min-w-full">
                     <thead>
-                        <tr class="border-b border-gray-200">
+                        <tr class="border-b border-gray-100">
                             <th class="pb-3 text-left text-sm font-medium text-gray-500">{{ __('Service') }}</th>
                             <th class="pb-3 text-right text-sm font-medium text-gray-500">{{ __('Anfragen') }}</th>
                             <th class="pb-3 text-right text-sm font-medium text-gray-500">{{ __('Tokens') }}</th>
@@ -141,7 +141,7 @@
         <div class="rounded-xl border border-gray-200 bg-white p-6">
             <div class="mb-4 flex items-center justify-between">
                 <h2 class="text-lg font-semibold text-gray-900">{{ __('Top-Nutzer (nach Tokens)') }}</h2>
-                <a href="{{ route('admin.ai.quotas') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-800">{{ __('Alle anzeigen') }}</a>
+                <a href="{{ route('admin.ai.quotas') }}" class="text-sm font-medium text-teal-600 hover:text-teal-800">{{ __('Alle anzeigen') }}</a>
             </div>
             <div class="divide-y divide-gray-100">
                 @forelse($this->topUsers as $usage)

@@ -14,8 +14,8 @@
                     <p class="text-sm font-medium text-gray-500">{{ __('Benutzer gesamt') }}</p>
                     <p class="mt-1 text-3xl font-bold text-gray-900">{{ number_format($this->totalUsers) }}</p>
                 </div>
-                <div class="rounded-full bg-indigo-100 p-3">
-                    <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="rounded-full bg-teal-100 p-3">
+                    <svg class="h-6 w-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                     </svg>
                 </div>
@@ -143,26 +143,26 @@
         <div class="rounded-xl border border-gray-200 bg-white p-6">
             <h2 class="mb-4 text-lg font-semibold text-gray-900">{{ __('Schnellzugriff') }}</h2>
             <div class="grid grid-cols-2 gap-3">
-                <a href="{{ route('admin.users.create') }}" class="flex flex-col items-center rounded-lg border border-gray-200 p-4 text-center transition hover:border-indigo-500 hover:bg-indigo-50">
-                    <svg class="mb-2 h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="{{ route('admin.users.create') }}" class="flex flex-col items-center rounded-lg border border-gray-200 p-4 text-center transition hover:border-teal-500 hover:bg-teal-50">
+                    <svg class="mb-2 h-6 w-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
                     </svg>
                     <span class="text-sm font-medium text-gray-700">{{ __('Benutzer') }}</span>
                 </a>
-                <a href="{{ route('admin.teams.create') }}" class="flex flex-col items-center rounded-lg border border-gray-200 p-4 text-center transition hover:border-indigo-500 hover:bg-indigo-50">
-                    <svg class="mb-2 h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="{{ route('admin.teams.create') }}" class="flex flex-col items-center rounded-lg border border-gray-200 p-4 text-center transition hover:border-teal-500 hover:bg-teal-50">
+                    <svg class="mb-2 h-6 w-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                     </svg>
                     <span class="text-sm font-medium text-gray-700">{{ __('Team') }}</span>
                 </a>
-                <a href="{{ route('admin.categories.index') }}" class="flex flex-col items-center rounded-lg border border-gray-200 p-4 text-center transition hover:border-indigo-500 hover:bg-indigo-50">
-                    <svg class="mb-2 h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="{{ route('admin.categories.index') }}" class="flex flex-col items-center rounded-lg border border-gray-200 p-4 text-center transition hover:border-teal-500 hover:bg-teal-50">
+                    <svg class="mb-2 h-6 w-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
                     </svg>
                     <span class="text-sm font-medium text-gray-700">{{ __('Kategorien') }}</span>
                 </a>
-                <a href="{{ route('admin.reports.index') }}" class="flex flex-col items-center rounded-lg border border-gray-200 p-4 text-center transition hover:border-indigo-500 hover:bg-indigo-50">
-                    <svg class="mb-2 h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="{{ route('admin.reports.index') }}" class="flex flex-col items-center rounded-lg border border-gray-200 p-4 text-center transition hover:border-teal-500 hover:bg-teal-50">
+                    <svg class="mb-2 h-6 w-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
                     <span class="text-sm font-medium text-gray-700">{{ __('Berichte') }}</span>
@@ -177,7 +177,7 @@
         <div class="rounded-xl border border-gray-200 bg-white p-6">
             <div class="mb-4 flex items-center justify-between">
                 <h2 class="text-lg font-semibold text-gray-900">{{ __('Neue Benutzer') }}</h2>
-                <a href="{{ route('admin.users.index') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-800">{{ __('Alle anzeigen') }}</a>
+                <a href="{{ route('admin.users.index') }}" class="text-sm font-medium text-teal-600 hover:text-teal-800">{{ __('Alle anzeigen') }}</a>
             </div>
             <div class="divide-y divide-gray-100">
                 @forelse($this->recentUsers as $user)
@@ -208,7 +208,7 @@
         <div class="rounded-xl border border-gray-200 bg-white p-6">
             <div class="mb-4 flex items-center justify-between">
                 <h2 class="text-lg font-semibold text-gray-900">{{ __('Beliebteste Lernpfade') }}</h2>
-                <a href="{{ route('admin.paths.index') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-800">{{ __('Alle anzeigen') }}</a>
+                <a href="{{ route('admin.paths.index') }}" class="text-sm font-medium text-teal-600 hover:text-teal-800">{{ __('Alle anzeigen') }}</a>
             </div>
             <div class="divide-y divide-gray-100">
                 @forelse($this->topPaths as $path)
@@ -244,7 +244,7 @@
             <h2 class="text-lg font-semibold text-gray-900">{{ __('Letzte Einschreibungen') }}</h2>
         </div>
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
+            <table class="min-w-full divide-y divide-gray-100">
                 <thead>
                     <tr>
                         <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Benutzer') }}</th>
@@ -254,7 +254,7 @@
                         <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Datum') }}</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200">
+                <tbody class="divide-y divide-gray-100">
                     @forelse($this->recentEnrollments as $enrollment)
                         <tr>
                             <td class="whitespace-nowrap px-4 py-3">
@@ -277,7 +277,7 @@
                             <td class="whitespace-nowrap px-4 py-3">
                                 <div class="flex items-center gap-2">
                                     <div class="h-2 w-20 overflow-hidden rounded-full bg-gray-200">
-                                        <div class="h-full rounded-full bg-indigo-600" style="width: {{ $enrollment->progress_percent }}%"></div>
+                                        <div class="h-full rounded-full bg-teal-600" style="width: {{ $enrollment->progress_percent }}%"></div>
                                     </div>
                                     <span class="text-sm text-gray-600">{{ $enrollment->progress_percent }}%</span>
                                 </div>

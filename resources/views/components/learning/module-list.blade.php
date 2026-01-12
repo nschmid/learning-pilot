@@ -25,7 +25,7 @@
             >
                 <div class="flex items-center gap-3">
                     <div class="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center
-                        {{ $progressPercent >= 100 ? 'bg-green-100 text-green-600' : 'bg-indigo-100 text-indigo-600' }}">
+                        {{ $progressPercent >= 100 ? 'bg-green-100 text-green-600' : 'bg-teal-100 text-teal-600' }}">
                         @if ($progressPercent >= 100)
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -50,7 +50,7 @@
                         <svg class="w-10 h-10 transform -rotate-90">
                             <circle cx="20" cy="20" r="16" stroke="currentColor" stroke-width="3" fill="none" class="text-gray-200"/>
                             <circle cx="20" cy="20" r="16" stroke="currentColor" stroke-width="3" fill="none"
-                                class="{{ $progressPercent >= 100 ? 'text-green-500' : 'text-indigo-500' }}"
+                                class="{{ $progressPercent >= 100 ? 'text-green-500' : 'text-teal-500' }}"
                                 stroke-dasharray="{{ 2 * 3.14159 * 16 }}"
                                 stroke-dashoffset="{{ 2 * 3.14159 * 16 * (1 - $progressPercent / 100) }}"
                                 stroke-linecap="round"/>
@@ -78,10 +78,10 @@
 
                         <a
                             href="{{ route('learner.steps.show', $step) }}"
-                            class="flex items-center gap-3 p-4 hover:bg-gray-50 transition-colors {{ $isCurrent ? 'bg-indigo-50' : '' }}"
+                            class="flex items-center gap-3 p-4 hover:bg-gray-50 transition-colors {{ $isCurrent ? 'bg-teal-50' : '' }}"
                         >
                             <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center
-                                {{ $isCompleted ? 'bg-green-100 text-green-600' : ($isInProgress || $isCurrent ? 'bg-indigo-100 text-indigo-600' : 'bg-gray-100 text-gray-400') }}">
+                                {{ $isCompleted ? 'bg-green-100 text-green-600' : ($isInProgress || $isCurrent ? 'bg-teal-100 text-teal-600' : 'bg-gray-100 text-gray-400') }}">
                                 @if ($isCompleted)
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -107,7 +107,7 @@
                                 @endif
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="font-medium text-gray-900 truncate {{ $isCurrent ? 'text-indigo-600' : '' }}">
+                                <p class="font-medium text-gray-900 truncate {{ $isCurrent ? 'text-teal-600' : '' }}">
                                     {{ $step->title }}
                                 </p>
                                 <p class="text-sm text-gray-500">

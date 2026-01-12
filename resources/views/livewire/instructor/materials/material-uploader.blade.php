@@ -4,7 +4,7 @@
             <h1 class="text-2xl font-bold text-gray-900">{{ __('Materialien') }}</h1>
             <p class="text-gray-500">{{ $step->title }}</p>
         </div>
-        <button wire:click="openModal" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+        <button wire:click="openModal" class="inline-flex items-center px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             {{ __('Material hinzufügen') }}
         </button>
@@ -96,7 +96,7 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">{{ __('Typ') }}</label>
-                                    <select wire:model.live="materialType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" {{ $editingMaterialId ? 'disabled' : '' }}>
+                                    <select wire:model.live="materialType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" {{ $editingMaterialId ? 'disabled' : '' }}>
                                         <option value="text">{{ __('Text') }}</option>
                                         <option value="video">{{ __('Video') }}</option>
                                         <option value="audio">{{ __('Audio') }}</option>
@@ -108,26 +108,26 @@
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">{{ __('Titel') }}</label>
-                                    <input wire:model="title" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                                    <input wire:model="title" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
                                     @error('title') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                 </div>
 
                                 @if ($materialType === 'text')
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">{{ __('Inhalt') }}</label>
-                                        <textarea wire:model="content" rows="6" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                                        <textarea wire:model="content" rows="6" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"></textarea>
                                         @error('content') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                     </div>
                                 @elseif ($materialType === 'link')
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">{{ __('URL') }}</label>
-                                        <input wire:model="externalUrl" type="url" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="https://">
+                                        <input wire:model="externalUrl" type="url" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" placeholder="https://">
                                         @error('externalUrl') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                     </div>
                                 @elseif ($materialType === 'video')
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">{{ __('Video-URL (YouTube, Vimeo, Loom)') }}</label>
-                                        <input wire:model.live="externalUrl" type="url" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="https://youtube.com/watch?v=...">
+                                        <input wire:model.live="externalUrl" type="url" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" placeholder="https://youtube.com/watch?v=...">
                                         @if ($videoSourceType)
                                             <p class="mt-1 text-sm text-green-600">{{ ucfirst($videoSourceType) }} {{ __('erkannt') }}</p>
                                         @endif
@@ -135,7 +135,7 @@
                                     <div class="text-center text-gray-500 text-sm">{{ __('oder') }}</div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">{{ __('Video hochladen') }}</label>
-                                        <input wire:model="file" type="file" accept="video/mp4,video/webm,video/quicktime" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                                        <input wire:model="file" type="file" accept="video/mp4,video/webm,video/quicktime" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100">
                                         <p class="mt-1 text-xs text-gray-500">MP4, WebM, MOV · {{ __('Max.') }} 500MB</p>
                                     </div>
                                 @elseif (in_array($materialType, ['audio', 'pdf', 'image']))
@@ -146,18 +146,18 @@
                                             'pdf' => 'application/pdf',
                                             'image' => 'image/*',
                                             default => '*'
-                                        } }}" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                                        } }}" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100">
                                         @error('file') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                     </div>
                                 @endif
 
-                                <div wire:loading wire:target="file" class="text-sm text-indigo-600">
+                                <div wire:loading wire:target="file" class="text-sm text-teal-600">
                                     {{ __('Datei wird hochgeladen...') }}
                                 </div>
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse gap-2">
-                            <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700" wire:loading.attr="disabled">{{ __('Speichern') }}</button>
+                            <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700" wire:loading.attr="disabled">{{ __('Speichern') }}</button>
                             <button type="button" wire:click="closeModal" class="mt-3 sm:mt-0 w-full sm:w-auto inline-flex justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 ring-1 ring-gray-300 hover:bg-gray-50">{{ __('Abbrechen') }}</button>
                         </div>
                     </form>

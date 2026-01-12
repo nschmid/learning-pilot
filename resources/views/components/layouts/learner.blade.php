@@ -53,7 +53,7 @@
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
                             <!-- Search -->
                             <div class="relative">
-                                <input type="text" placeholder="{{ __('Suchen...') }}" class="block w-64 rounded-full border-gray-300 bg-gray-100 py-2 ps-10 pe-4 text-sm focus:border-sky-500 focus:bg-white focus:ring-sky-500">
+                                <input type="text" placeholder="{{ __('Suchen...') }}" class="block w-64 rounded-full border-gray-300 bg-gray-100 py-2 ps-10 pe-4 text-sm focus:border-teal-500 focus:bg-white focus:ring-teal-500">
                                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                     <svg class="size-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -72,7 +72,7 @@
                             <div class="ms-3 relative">
                                 <x-dropdown align="right" width="48">
                                     <x-slot name="trigger">
-                                        <button class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
+                                        <button class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
                                             <img class="size-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                         </button>
                                     </x-slot>

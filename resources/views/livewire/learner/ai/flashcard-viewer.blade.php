@@ -31,7 +31,7 @@
                         <button
                             wire:click="generateFlashcards"
                             wire:loading.attr="disabled"
-                            class="mt-6 inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500 disabled:opacity-50"
+                            class="mt-6 inline-flex items-center rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-500 disabled:opacity-50"
                         >
                             <span wire:loading.remove wire:target="generateFlashcards">{{ __('Lernkarten generieren') }}</span>
                             <span wire:loading wire:target="generateFlashcards">{{ __('Wird generiert...') }}</span>
@@ -45,12 +45,12 @@
                         <div class="text-sm text-gray-600">
                             {{ __(':reviewed von :total Karten durchgearbeitet', ['reviewed' => $this->progressStats['reviewed'], 'total' => $this->progressStats['total']]) }}
                         </div>
-                        <div class="text-sm font-medium text-indigo-600">
+                        <div class="text-sm font-medium text-teal-600">
                             {{ $this->progressStats['mastered'] }} {{ __('gemeistert') }}
                         </div>
                     </div>
                     <div class="mt-2 h-2 overflow-hidden rounded-full bg-gray-200">
-                        <div class="h-2 bg-indigo-600" style="width: {{ $this->progressStats['percent'] }}%"></div>
+                        <div class="h-2 bg-teal-600" style="width: {{ $this->progressStats['percent'] }}%"></div>
                     </div>
                 </div>
 
@@ -64,7 +64,7 @@
                             @if(!$isFlipped)
                                 <!-- Front (Question) -->
                                 <div class="text-center">
-                                    <p class="text-xs font-medium uppercase tracking-wider text-indigo-600">{{ __('Frage') }}</p>
+                                    <p class="text-xs font-medium uppercase tracking-wider text-teal-600">{{ __('Frage') }}</p>
                                     <p class="mt-4 text-xl font-medium text-gray-900">{{ $this->currentCard['front'] ?? $this->currentCard['question'] ?? '' }}</p>
                                     <p class="mt-8 text-sm text-gray-400">{{ __('Zum Umdrehen klicken') }}</p>
                                 </div>
@@ -106,7 +106,7 @@
                             </button>
                             <button
                                 wire:click="markCard('easy')"
-                                class="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-3 text-sm font-medium text-indigo-700 hover:bg-indigo-100"
+                                class="rounded-lg border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-medium text-teal-700 hover:bg-teal-100"
                             >
                                 {{ __('Einfach') }}
                             </button>
@@ -140,7 +140,7 @@
                         @foreach($flashcards as $index => $card)
                             <button
                                 wire:click="goToCard({{ $index }})"
-                                class="size-3 rounded-full {{ $currentIndex === $index ? 'bg-indigo-600' : 'bg-gray-300 hover:bg-gray-400' }}"
+                                class="size-3 rounded-full {{ $currentIndex === $index ? 'bg-teal-600' : 'bg-gray-300 hover:bg-gray-400' }}"
                             ></button>
                         @endforeach
                     </div>

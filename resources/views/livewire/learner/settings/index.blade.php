@@ -21,24 +21,24 @@
                     <form wire:submit="updateProfile" class="mt-6 space-y-4">
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700">{{ __('Name') }}</label>
-                            <input wire:model="name" type="text" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                            <input wire:model="name" type="text" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" required>
                             @error('name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700">{{ __('E-Mail') }}</label>
-                            <input wire:model="email" type="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                            <input wire:model="email" type="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" required>
                             @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label for="bio" class="block text-sm font-medium text-gray-700">{{ __('Bio') }}</label>
-                            <textarea wire:model="bio" id="bio" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                            <textarea wire:model="bio" id="bio" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"></textarea>
                             @error('bio') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="flex justify-end">
-                            <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-teal-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
                                 {{ __('Speichern') }}
                             </button>
                         </div>
@@ -61,23 +61,23 @@
                     <form wire:submit="updatePassword" class="mt-6 space-y-4">
                         <div>
                             <label for="current_password" class="block text-sm font-medium text-gray-700">{{ __('Aktuelles Passwort') }}</label>
-                            <input wire:model="current_password" type="password" id="current_password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" autocomplete="current-password">
+                            <input wire:model="current_password" type="password" id="current_password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" autocomplete="current-password">
                             @error('current_password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label for="password" class="block text-sm font-medium text-gray-700">{{ __('Neues Passwort') }}</label>
-                            <input wire:model="password" type="password" id="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" autocomplete="new-password">
+                            <input wire:model="password" type="password" id="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" autocomplete="new-password">
                             @error('password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label for="password_confirmation" class="block text-sm font-medium text-gray-700">{{ __('Passwort bestätigen') }}</label>
-                            <input wire:model="password_confirmation" type="password" id="password_confirmation" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" autocomplete="new-password">
+                            <input wire:model="password_confirmation" type="password" id="password_confirmation" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" autocomplete="new-password">
                         </div>
 
                         <div class="flex justify-end">
-                            <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-teal-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
                                 {{ __('Passwort ändern') }}
                             </button>
                         </div>
@@ -101,7 +101,7 @@
                         <div class="space-y-4">
                             <div class="flex items-start">
                                 <div class="flex h-5 items-center">
-                                    <input wire:model="email_progress" id="email_progress" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <input wire:model="email_progress" id="email_progress" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500">
                                 </div>
                                 <div class="ml-3 text-sm">
                                     <label for="email_progress" class="font-medium text-gray-700">{{ __('Fortschrittsbenachrichtigungen') }}</label>
@@ -111,7 +111,7 @@
 
                             <div class="flex items-start">
                                 <div class="flex h-5 items-center">
-                                    <input wire:model="email_feedback" id="email_feedback" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <input wire:model="email_feedback" id="email_feedback" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500">
                                 </div>
                                 <div class="ml-3 text-sm">
                                     <label for="email_feedback" class="font-medium text-gray-700">{{ __('Feedback-Benachrichtigungen') }}</label>
@@ -121,7 +121,7 @@
 
                             <div class="flex items-start">
                                 <div class="flex h-5 items-center">
-                                    <input wire:model="email_certificates" id="email_certificates" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <input wire:model="email_certificates" id="email_certificates" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500">
                                 </div>
                                 <div class="ml-3 text-sm">
                                     <label for="email_certificates" class="font-medium text-gray-700">{{ __('Zertifikat-Benachrichtigungen') }}</label>
@@ -131,7 +131,7 @@
                         </div>
 
                         <div class="mt-6 flex justify-end">
-                            <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-teal-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
                                 {{ __('Einstellungen speichern') }}
                             </button>
                         </div>
@@ -155,7 +155,7 @@
                         <div class="space-y-4">
                             <div>
                                 <label for="theme" class="block text-sm font-medium text-gray-700">{{ __('Erscheinungsbild') }}</label>
-                                <select wire:model="theme" id="theme" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                <select wire:model="theme" id="theme" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm">
                                     <option value="light">{{ __('Hell') }}</option>
                                     <option value="dark">{{ __('Dunkel') }}</option>
                                     <option value="system">{{ __('Systemeinstellung') }}</option>
@@ -164,7 +164,7 @@
 
                             <div class="flex items-start">
                                 <div class="flex h-5 items-center">
-                                    <input wire:model="autoplay" id="autoplay" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <input wire:model="autoplay" id="autoplay" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500">
                                 </div>
                                 <div class="ml-3 text-sm">
                                     <label for="autoplay" class="font-medium text-gray-700">{{ __('Video-Autoplay') }}</label>
@@ -174,7 +174,7 @@
                         </div>
 
                         <div class="mt-6 flex justify-end">
-                            <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-teal-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
                                 {{ __('Speichern') }}
                             </button>
                         </div>

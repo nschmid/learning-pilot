@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Learner\AI;
 
-use App\Models\Question;
+use App\Models\QuestionResponse;
 use App\Services\AI\AIExplanationService;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -10,16 +10,14 @@ use Livewire\Component;
 class ExplanationModal extends Component
 {
     public bool $show = false;
-    public ?string $questionId = null;
-    public ?string $userAnswer = null;
+    public ?string $responseId = null;
     public ?string $explanation = null;
     public bool $isLoading = false;
 
     #[On('show-explanation')]
-    public function showExplanation(string $questionId, string $userAnswer): void
+    public function showExplanation(string $responseId): void
     {
-        $this->questionId = $questionId;
-        $this->userAnswer = $userAnswer;
+        $this->responseId = $responseId;
         $this->explanation = null;
         $this->show = true;
         $this->generateExplanation();
@@ -30,14 +28,11 @@ class ExplanationModal extends Component
         $this->isLoading = true;
 
         try {
-            $question = Question::findOrFail($this->questionId);
+            $response = QuestionResponse::findOrFail($this->responseId);
             $explanationService = app(AIExplanationService::class);
 
-            $this->explanation = $explanationService->generateExplanation(
-                user: auth()->user(),
-                question: $question,
-                userAnswer: $this->userAnswer,
-            );
+            $result = $explanationService->generateExplanation($response, auth()->user());
+            $this->explanation = $result->content;
 
         } catch (\Exception $e) {
             $this->explanation = __('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.');
@@ -49,14 +44,13 @@ class ExplanationModal extends Component
     public function close(): void
     {
         $this->show = false;
-        $this->questionId = null;
-        $this->userAnswer = null;
+        $this->responseId = null;
         $this->explanation = null;
     }
 
-    public function getQuestionProperty(): ?Question
+    public function getResponseProperty(): ?QuestionResponse
     {
-        return $this->questionId ? Question::find($this->questionId) : null;
+        return $this->responseId ? QuestionResponse::with('question')->find($this->responseId) : null;
     }
 
     public function render()

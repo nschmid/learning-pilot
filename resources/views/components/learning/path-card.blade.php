@@ -10,7 +10,7 @@
         @if ($path->thumbnail)
             <img src="{{ Storage::url($path->thumbnail) }}" alt="{{ $path->title }}" class="w-full h-full object-cover">
         @else
-            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
+            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-teal-500 to-purple-600">
                 <svg class="w-16 h-16 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                 </svg>
@@ -47,14 +47,14 @@
     <div class="p-4">
         {{-- Category --}}
         @if ($path->category)
-            <p class="text-xs font-medium text-indigo-600 uppercase tracking-wide mb-1">
+            <p class="text-xs font-medium text-teal-600 uppercase tracking-wide mb-1">
                 {{ $path->category->name }}
             </p>
         @endif
 
         {{-- Title --}}
         <h3 class="font-semibold text-gray-900 line-clamp-2 mb-2">
-            <a href="{{ route('learner.paths.show', $path) }}" class="hover:text-indigo-600">
+            <a href="{{ route('learner.paths.show', $path) }}" class="hover:text-teal-600">
                 {{ $path->title }}
             </a>
         </h3>
@@ -112,7 +112,7 @@
     {{-- Footer --}}
     @if ($showProgress && $enrollment)
         <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
-            <a href="{{ route('learner.paths.learn', $path) }}" class="block w-full text-center py-2 px-4 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+            <a href="{{ route('learner.paths.learn', $path) }}" class="block w-full text-center py-2 px-4 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition-colors">
                 {{ __('Weiterlernen') }}
             </a>
         </div>

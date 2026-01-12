@@ -1,11 +1,11 @@
 <div>
     <!-- Breadcrumb -->
     <nav class="mb-6 flex items-center gap-2 text-sm text-gray-500">
-        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-gray-700">{{ __('Dashboard') }}</a>
+        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Dashboard') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
-        <a href="{{ route('admin.paths.index') }}" wire:navigate class="hover:text-gray-700">{{ __('Lernpfade') }}</a>
+        <a href="{{ route('admin.paths.index') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Lernpfade') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
@@ -46,7 +46,7 @@
         <div class="flex items-center gap-3">
             <button
                 wire:click="togglePublished"
-                class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
             >
                 @if($path->is_published)
                     <span class="h-2 w-2 rounded-full bg-green-500"></span>
@@ -144,7 +144,7 @@
                             <div class="flex items-center gap-4">
                                 <div class="flex items-center gap-2">
                                     <div class="h-2 w-16 overflow-hidden rounded-full bg-gray-200">
-                                        <div class="h-full rounded-full bg-indigo-600" style="width: {{ $enrollment->progress_percent }}%"></div>
+                                        <div class="h-full rounded-full bg-teal-600" style="width: {{ $enrollment->progress_percent }}%"></div>
                                     </div>
                                     <span class="text-sm text-gray-600">{{ $enrollment->progress_percent }}%</span>
                                 </div>

@@ -78,7 +78,7 @@
                 @foreach($this->activeEnrollments as $enrollment)
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
                         <!-- Thumbnail -->
-                        <div class="h-32 bg-gradient-to-br from-sky-500 to-indigo-600 relative">
+                        <div class="h-32 bg-gradient-to-br from-sky-500 to-teal-600 relative">
                             @if($enrollment->learningPath->thumbnail)
                                 <img src="{{ $enrollment->learningPath->thumbnail }}" alt="" class="w-full h-full object-cover">
                             @endif
@@ -159,7 +159,7 @@
                             </svg>
                         </div>
                         <div class="ml-4 flex-1 min-w-0">
-                            <h3 class="font-medium text-gray-900 truncate">{{ $enrollment->learningPath->title }}</h3>
+                            <h3 class="font-medium text-gray-900 truncate">{{ $enrollment->learningPath?->title }}</h3>
                             <p class="text-sm text-gray-500">
                                 {{ __('Abgeschlossen am :date', ['date' => $enrollment->completed_at->format('d.m.Y')]) }}
                             </p>
@@ -192,7 +192,7 @@
                 @foreach($this->recommendedPaths as $path)
                     <a href="{{ route('learner.path.show', $path->slug) }}" class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow group">
                         <!-- Thumbnail -->
-                        <div class="h-28 bg-gradient-to-br from-indigo-500 to-purple-600 relative">
+                        <div class="h-28 bg-gradient-to-br from-teal-500 to-purple-600 relative">
                             @if($path->thumbnail)
                                 <img src="{{ $path->thumbnail }}" alt="" class="w-full h-full object-cover">
                             @endif

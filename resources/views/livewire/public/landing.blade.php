@@ -1,6 +1,6 @@
 <div>
     <!-- Hero Section -->
-    <div class="relative isolate overflow-hidden bg-gradient-to-b from-indigo-100/20">
+    <div class="relative isolate overflow-hidden bg-gradient-to-b from-teal-100/20">
         <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
             <div class="mx-auto max-w-2xl text-center">
                 <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
@@ -10,10 +10,10 @@
                     {{ __('LearningPilot ist die All-in-One Lernplattform für Schulen und Bildungseinrichtungen. Erstellen Sie Lernpfade, verfolgen Sie den Fortschritt und nutzen Sie KI-gestützte Unterstützung.') }}
                 </p>
                 <div class="mt-10 flex items-center justify-center gap-x-6">
-                    <a href="{{ route('register') }}" class="rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition">
+                    <a href="{{ route('register') }}" class="rounded-lg bg-teal-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 transition">
                         {{ __('Kostenlos starten') }}
                     </a>
-                    <a href="{{ route('features') }}" class="text-sm font-semibold leading-6 text-gray-900 hover:text-indigo-600 transition">
+                    <a href="{{ route('features') }}" class="text-sm font-semibold leading-6 text-gray-900 hover:text-teal-600 transition">
                         {{ __('Mehr erfahren') }} <span aria-hidden="true">&rarr;</span>
                     </a>
                 </div>
@@ -22,7 +22,7 @@
 
         <!-- Background decoration -->
         <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-            <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-indigo-200 to-indigo-400 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
+            <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-teal-200 to-teal-400 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
         </div>
     </div>
 
@@ -44,7 +44,7 @@
     <div class="bg-gray-50 py-24 sm:py-32">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-2xl text-center">
-                <h2 class="text-base font-semibold text-indigo-600">{{ __('Alles was Sie brauchen') }}</h2>
+                <h2 class="text-base font-semibold text-teal-600">{{ __('Alles was Sie brauchen') }}</h2>
                 <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                     {{ __('Funktionen für modernes Lernen') }}
                 </p>
@@ -57,7 +57,7 @@
                     @foreach($features as $feature)
                         <div class="relative bg-white rounded-2xl p-8 shadow-sm ring-1 ring-gray-200 hover:shadow-md transition">
                             <dt class="text-base font-semibold text-gray-900">
-                                <div class="mb-4 flex size-10 items-center justify-center rounded-lg bg-indigo-600">
+                                <div class="mb-4 flex size-10 items-center justify-center rounded-lg bg-teal-600">
                                     @if($feature['icon'] === 'path')
                                         <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
@@ -95,18 +95,18 @@
     </div>
 
     <!-- CTA Section -->
-    <div class="bg-indigo-600">
+    <div class="bg-teal-600">
         <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:justify-between lg:px-8">
             <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                 {{ __('Bereit loszulegen?') }}
                 <br>
-                <span class="text-indigo-200">{{ __('Starten Sie noch heute kostenlos.') }}</span>
+                <span class="text-teal-200">{{ __('Starten Sie noch heute kostenlos.') }}</span>
             </h2>
             <div class="mt-10 flex items-center gap-x-6 lg:mt-0 lg:shrink-0">
-                <a href="{{ route('register') }}" class="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition">
+                <a href="{{ route('register') }}" class="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-teal-600 shadow-sm hover:bg-teal-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition">
                     {{ __('Jetzt registrieren') }}
                 </a>
-                <a href="{{ route('contact') }}" class="text-sm font-semibold text-white hover:text-indigo-200 transition">
+                <a href="{{ route('contact') }}" class="text-sm font-semibold text-white hover:text-teal-200 transition">
                     {{ __('Kontakt aufnehmen') }} <span aria-hidden="true">&rarr;</span>
                 </a>
             </div>

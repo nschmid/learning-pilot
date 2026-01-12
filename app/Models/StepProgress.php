@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class StepProgress extends Model
 {
@@ -47,6 +48,11 @@ class StepProgress extends Model
     public function step(): BelongsTo
     {
         return $this->belongsTo(LearningStep::class, 'step_id');
+    }
+
+    public function aiGeneratedContents(): MorphMany
+    {
+        return $this->morphMany(AiGeneratedContent::class, 'contentable');
     }
 
     // Scopes

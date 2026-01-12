@@ -15,7 +15,7 @@
             :title="__('Editor wird geladen')"
             :description="__('Der Aufgabeneditor wird in Kürze verfügbar sein.')"
         >
-            <a href="{{ url()->previous() }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+            <a href="{{ url()->previous() }}" class="inline-flex items-center px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700">
                 {{ __('Zurück') }}
             </a>
         </x-ui.empty-state>

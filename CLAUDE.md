@@ -2025,6 +2025,7 @@ composer require spatie/laravel-cookie-consent
 
 ## Documentation Reference
 
+- `design-spec.md` - Complete UI design system specification (colors, typography, components, spacing)
 - `docs/MIGRATIONS.md` - All 23 core migration schemas
 - `docs/AI_MIGRATIONS.md` - All 8 AI migration schemas
 - `docs/ENUMS.md` - All 15 enum definitions with helper methods

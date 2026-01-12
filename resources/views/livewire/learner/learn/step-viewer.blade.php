@@ -30,7 +30,7 @@
             </div>
             <div class="h-2 overflow-hidden rounded-full bg-gray-200">
                 <div
-                    class="h-full rounded-full bg-indigo-600 transition-all duration-500"
+                    class="h-full rounded-full bg-teal-600 transition-all duration-500"
                     style="width: {{ $this->progress }}%"
                 ></div>
             </div>
@@ -39,8 +39,8 @@
         <!-- AI Learning Aids -->
         @if($currentStep)
             <div class="border-b border-gray-200 px-4 py-3">
-                <div class="rounded-lg border border-indigo-200 bg-indigo-50 p-3">
-                    <h4 class="flex items-center gap-2 text-sm font-medium text-indigo-900">
+                <div class="rounded-lg border border-teal-200 bg-teal-50 p-3">
+                    <h4 class="flex items-center gap-2 text-sm font-medium text-teal-900">
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                         </svg>
@@ -50,7 +50,7 @@
                         <a
                             href="{{ route('learner.ai.tutor.step', $currentStep->id) }}"
                             wire:navigate
-                            class="flex items-center gap-2 rounded px-2 py-1.5 text-sm text-indigo-700 hover:bg-indigo-100"
+                            class="flex items-center gap-2 rounded px-2 py-1.5 text-sm text-teal-700 hover:bg-teal-100"
                         >
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
@@ -60,7 +60,7 @@
                         <a
                             href="{{ route('learner.ai.practice', $currentStep->module_id) }}"
                             wire:navigate
-                            class="flex items-center gap-2 rounded px-2 py-1.5 text-sm text-indigo-700 hover:bg-indigo-100"
+                            class="flex items-center gap-2 rounded px-2 py-1.5 text-sm text-teal-700 hover:bg-teal-100"
                         >
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"></path>
@@ -70,7 +70,7 @@
                         <a
                             href="{{ route('learner.ai.flashcards', $currentStep->module_id) }}"
                             wire:navigate
-                            class="flex items-center gap-2 rounded px-2 py-1.5 text-sm text-indigo-700 hover:bg-indigo-100"
+                            class="flex items-center gap-2 rounded px-2 py-1.5 text-sm text-teal-700 hover:bg-teal-100"
                         >
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
@@ -80,7 +80,7 @@
                         <a
                             href="{{ route('learner.ai.summary', $currentStep->module_id) }}"
                             wire:navigate
-                            class="flex items-center gap-2 rounded px-2 py-1.5 text-sm text-indigo-700 hover:bg-indigo-100"
+                            class="flex items-center gap-2 rounded px-2 py-1.5 text-sm text-teal-700 hover:bg-teal-100"
                         >
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -120,14 +120,14 @@
                                     <button
                                         wire:click="goToStep({{ $stepCounter }})"
                                         class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm transition
-                                            {{ $isCurrent ? 'bg-indigo-50 text-indigo-700' : ($isCompleted ? 'text-gray-600 hover:bg-gray-50' : 'text-gray-500 hover:bg-gray-50') }}"
+                                            {{ $isCurrent ? 'bg-teal-50 text-teal-700' : ($isCompleted ? 'text-gray-600 hover:bg-gray-50' : 'text-gray-500 hover:bg-gray-50') }}"
                                     >
                                         @if($isCompleted)
                                             <svg class="h-4 w-4 flex-shrink-0 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                             </svg>
                                         @elseif($isCurrent)
-                                            <div class="h-4 w-4 flex-shrink-0 rounded-full border-2 border-indigo-500 bg-indigo-500"></div>
+                                            <div class="h-4 w-4 flex-shrink-0 rounded-full border-2 border-teal-500 bg-teal-500"></div>
                                         @else
                                             <div class="h-4 w-4 flex-shrink-0 rounded-full border-2 border-gray-300"></div>
                                         @endif
@@ -264,7 +264,7 @@
                                                     <a
                                                         href="{{ Storage::url($material->file_path) }}"
                                                         target="_blank"
-                                                        class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800"
+                                                        class="inline-flex items-center gap-2 text-teal-600 hover:text-teal-800"
                                                     >
                                                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
@@ -428,7 +428,7 @@
                     <button
                         wire:click="nextStep"
                         @disabled($stepNumber >= $this->totalSteps)
-                        class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-2 font-medium text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+                        class="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-6 py-2 font-medium text-white transition hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         {{ $stepNumber >= $this->totalSteps ? __('Abgeschlossen') : __('Weiter') }}
                         @if($stepNumber < $this->totalSteps)

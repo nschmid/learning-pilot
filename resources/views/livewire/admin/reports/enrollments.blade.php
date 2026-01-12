@@ -1,11 +1,11 @@
 <div>
     <!-- Breadcrumb -->
     <nav class="mb-6 flex items-center gap-2 text-sm text-gray-500">
-        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-gray-700">{{ __('Dashboard') }}</a>
+        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Dashboard') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
-        <a href="{{ route('admin.reports.index') }}" wire:navigate class="hover:text-gray-700">{{ __('Berichte') }}</a>
+        <a href="{{ route('admin.reports.index') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Berichte') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
@@ -18,7 +18,7 @@
             <h1 class="text-2xl font-bold text-gray-900">{{ __('Einschreibungs-Bericht') }}</h1>
             <p class="mt-1 text-gray-500">{{ __('Übersicht aller Kurs-Einschreibungen.') }}</p>
         </div>
-        <select wire:model.live="period" class="rounded-lg border-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+        <select wire:model.live="period" class="rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 text-sm shadow-sm focus:border-teal-500 focus:ring-teal-500">
             <option value="week">{{ __('Letzte Woche') }}</option>
             <option value="month">{{ __('Letzter Monat') }}</option>
             <option value="quarter">{{ __('Letztes Quartal') }}</option>
@@ -57,15 +57,15 @@
 
     <div class="grid gap-8 lg:grid-cols-3">
         <!-- Top Paths -->
-        <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
-            <div class="border-b border-gray-200 px-6 py-4">
+        <div class="rounded-xl bg-white shadow-sm ring-1 ring-gray-900/5">
+            <div class="border-b border-gray-100 px-6 py-4">
                 <h2 class="text-lg font-semibold text-gray-900">{{ __('Beliebteste Lernpfade') }}</h2>
             </div>
             <div class="divide-y divide-gray-100">
                 @forelse($this->topPathsByEnrollments as $index => $item)
                     <div class="flex items-center justify-between px-6 py-3">
                         <div class="flex items-center gap-3">
-                            <span class="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-600">
+                            <span class="flex h-6 w-6 items-center justify-center rounded-full bg-teal-100 text-xs font-bold text-teal-600">
                                 {{ $index + 1 }}
                             </span>
                             <span class="text-sm text-gray-900">{{ $item['path_title'] }}</span>
@@ -81,10 +81,10 @@
         </div>
 
         <!-- Recent Enrollments Table -->
-        <div class="rounded-xl border border-gray-200 bg-white shadow-sm lg:col-span-2">
-            <div class="flex items-center justify-between border-b border-gray-200 px-6 py-4">
+        <div class="rounded-xl bg-white shadow-sm ring-1 ring-gray-900/5 lg:col-span-2">
+            <div class="flex items-center justify-between border-b border-gray-100 px-6 py-4">
                 <h2 class="text-lg font-semibold text-gray-900">{{ __('Einschreibungen') }}</h2>
-                <select wire:model.live="status" class="rounded-lg border-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <select wire:model.live="status" class="rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 text-sm shadow-sm focus:border-teal-500 focus:ring-teal-500">
                     <option value="">{{ __('Alle Status') }}</option>
                     <option value="active">{{ __('Aktiv') }}</option>
                     <option value="completed">{{ __('Abgeschlossen') }}</option>
@@ -92,7 +92,7 @@
                 </select>
             </div>
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
+                <table class="min-w-full divide-y divide-gray-100">
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Teilnehmer') }}</th>
@@ -102,12 +102,12 @@
                             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Datum') }}</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200 bg-white">
+                    <tbody class="divide-y divide-gray-100 bg-white">
                         @forelse($this->recentEnrollments as $enrollment)
-                            <tr class="hover:bg-gray-50">
+                            <tr class="hover:bg-gray-50 transition">
                                 <td class="whitespace-nowrap px-6 py-4">
                                     <div class="flex items-center">
-                                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-xs font-medium text-indigo-600">
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-teal-100 text-xs font-medium text-teal-600">
                                             {{ substr($enrollment->user->name ?? '', 0, 2) }}
                                         </div>
                                         <div class="ml-3">
@@ -134,7 +134,7 @@
                                 <td class="whitespace-nowrap px-6 py-4">
                                     <div class="flex items-center gap-2">
                                         <div class="h-2 w-16 overflow-hidden rounded-full bg-gray-200">
-                                            <div class="h-full rounded-full bg-indigo-600" style="width: {{ $enrollment->progress_percent }}%"></div>
+                                            <div class="h-full rounded-full bg-teal-600" style="width: {{ $enrollment->progress_percent }}%"></div>
                                         </div>
                                         <span class="text-sm text-gray-600">{{ $enrollment->progress_percent }}%</span>
                                     </div>

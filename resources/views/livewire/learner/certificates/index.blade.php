@@ -52,7 +52,7 @@
             @foreach($this->certificates as $certificate)
                 <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md">
                     <!-- Certificate Header with Gradient -->
-                    <div class="bg-gradient-to-r from-indigo-500 to-purple-600 p-6 text-white">
+                    <div class="bg-gradient-to-r from-teal-500 to-purple-600 p-6 text-white">
                         <div class="flex items-start justify-between">
                             <div>
                                 <div class="text-sm font-medium opacity-90">{{ __('Zertifikat') }}</div>

@@ -14,18 +14,18 @@
                     </div>
 
                     <!-- Question -->
-                    @if($this->question)
+                    @if($this->response?->question)
                         <div class="mt-4 rounded-lg bg-gray-50 p-4">
                             <p class="text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Frage') }}</p>
-                            <p class="mt-1 text-sm text-gray-900">{{ $this->question->question_text }}</p>
+                            <p class="mt-1 text-sm text-gray-900">{{ $this->response->question->question_text }}</p>
                         </div>
                     @endif
 
                     <!-- User's Answer -->
-                    @if($userAnswer)
+                    @if($this->response?->user_answer)
                         <div class="mt-4">
                             <p class="text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Ihre Antwort') }}</p>
-                            <p class="mt-1 text-sm text-red-600">{{ $userAnswer }}</p>
+                            <p class="mt-1 text-sm text-red-600">{{ is_array($this->response->user_answer) ? implode(', ', $this->response->user_answer) : $this->response->user_answer }}</p>
                         </div>
                     @endif
 
@@ -33,14 +33,14 @@
                     <div class="mt-4">
                         @if($isLoading)
                             <div class="flex items-center justify-center py-8">
-                                <svg class="size-8 animate-spin text-indigo-600" fill="none" viewBox="0 0 24 24">
+                                <svg class="size-8 animate-spin text-teal-600" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
                             </div>
                         @elseif($explanation)
-                            <div class="rounded-lg border border-indigo-200 bg-indigo-50 p-4">
-                                <p class="text-xs font-medium uppercase tracking-wider text-indigo-600">{{ __('KI-Erklärung') }}</p>
+                            <div class="rounded-lg border border-teal-200 bg-teal-50 p-4">
+                                <p class="text-xs font-medium uppercase tracking-wider text-teal-600">{{ __('KI-Erklärung') }}</p>
                                 <div class="mt-2 prose prose-sm prose-indigo max-w-none">
                                     {!! \Illuminate\Support\Str::markdown($explanation) !!}
                                 </div>
@@ -52,7 +52,7 @@
                     <div class="mt-6">
                         <button
                             wire:click="close"
-                            class="w-full rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500"
+                            class="w-full rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-500"
                         >
                             {{ __('Verstanden') }}
                         </button>

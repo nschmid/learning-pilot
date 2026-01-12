@@ -5,7 +5,7 @@
             <div class="p-4">
                 <button
                     wire:click="startNewConversation"
-                    class="flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500"
+                    class="flex w-full items-center justify-center gap-2 rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-500"
                 >
                     <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -21,7 +21,7 @@
                         <li>
                             <button
                                 wire:click="loadConversation('{{ $conv->id }}')"
-                                class="w-full rounded-lg px-3 py-2 text-left text-sm {{ $conversationId === $conv->id ? 'bg-indigo-100 text-indigo-700' : 'text-gray-700 hover:bg-gray-100' }}"
+                                class="w-full rounded-lg px-3 py-2 text-left text-sm {{ $conversationId === $conv->id ? 'bg-teal-100 text-teal-700' : 'text-gray-700 hover:bg-gray-100' }}"
                             >
                                 <p class="truncate font-medium">{{ $conv->title }}</p>
                                 <p class="truncate text-xs text-gray-500">{{ $conv->updated_at->diffForHumans() }}</p>
@@ -62,11 +62,11 @@
                 <div class="space-y-6">
                     @foreach($this->messages as $msg)
                         <div class="flex {{ $msg->role === 'user' ? 'justify-end' : 'justify-start' }}">
-                            <div class="max-w-2xl {{ $msg->role === 'user' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-900' }} rounded-2xl px-4 py-3">
+                            <div class="max-w-2xl {{ $msg->role === 'user' ? 'bg-teal-600 text-white' : 'bg-gray-100 text-gray-900' }} rounded-2xl px-4 py-3">
                                 <div class="prose prose-sm {{ $msg->role === 'user' ? 'prose-invert' : '' }} max-w-none">
                                     {!! \Illuminate\Support\Str::markdown($msg->content) !!}
                                 </div>
-                                <p class="mt-1 text-xs {{ $msg->role === 'user' ? 'text-indigo-200' : 'text-gray-500' }}">
+                                <p class="mt-1 text-xs {{ $msg->role === 'user' ? 'text-teal-200' : 'text-gray-500' }}">
                                     {{ $msg->created_at->format('H:i') }}
                                 </p>
                             </div>
@@ -95,12 +95,12 @@
                     type="text"
                     wire:model="message"
                     placeholder="{{ __('Stellen Sie eine Frage...') }}"
-                    class="flex-1 rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    class="flex-1 rounded-lg border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                     @disabled($isTyping)
                 >
                 <button
                     type="submit"
-                    class="rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
+                    class="rounded-lg bg-teal-600 px-4 py-2 text-white hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-50"
                     @disabled($isTyping || !$message)
                 >
                     <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">

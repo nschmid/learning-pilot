@@ -4,16 +4,21 @@
             <x-authentication-card-logo />
         </x-slot>
 
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-gray-900">{{ __('Willkommen zurück') }}</h1>
+            <p class="mt-2 text-sm text-gray-600">{{ __('Melden Sie sich bei Ihrem Konto an') }}</p>
+        </div>
+
         <x-validation-errors class="mb-4" />
 
         @session('status')
-            <div class="mb-4 font-medium text-sm text-success-600 dark:text-success-400">
+            <div class="mb-4 rounded-lg bg-green-50 p-4 text-sm text-green-700">
                 {{ $value }}
             </div>
         @endsession
 
         @if(session('error'))
-            <div class="mb-4 font-medium text-sm text-danger-600 dark:text-danger-400">
+            <div class="mb-4 rounded-lg bg-red-50 p-4 text-sm text-red-700">
                 {{ session('error') }}
             </div>
         @endif
@@ -21,7 +26,7 @@
         {{-- Social Login Buttons --}}
         <div class="space-y-3 mb-6">
             <a href="{{ route('auth.social.redirect', 'google') }}"
-               class="w-full inline-flex items-center justify-center gap-3 rounded-lg border border-secondary-300 bg-white px-4 py-2.5 text-sm font-medium text-secondary-700 shadow-sm hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors dark:bg-secondary-800 dark:border-secondary-600 dark:text-secondary-200 dark:hover:bg-secondary-700">
+               class="w-full inline-flex items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition-all">
                 <svg class="h-5 w-5" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                     <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -32,7 +37,7 @@
             </a>
 
             <a href="{{ route('auth.social.redirect', 'microsoft') }}"
-               class="w-full inline-flex items-center justify-center gap-3 rounded-lg border border-secondary-300 bg-white px-4 py-2.5 text-sm font-medium text-secondary-700 shadow-sm hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors dark:bg-secondary-800 dark:border-secondary-600 dark:text-secondary-200 dark:hover:bg-secondary-700">
+               class="w-full inline-flex items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition-all">
                 <svg class="h-5 w-5" viewBox="0 0 23 23">
                     <path fill="#f35325" d="M1 1h10v10H1z"/>
                     <path fill="#81bc06" d="M12 1h10v10H12z"/>
@@ -45,44 +50,53 @@
 
         <div class="relative my-6">
             <div class="absolute inset-0 flex items-center">
-                <div class="w-full border-t border-secondary-300 dark:border-secondary-600"></div>
+                <div class="w-full border-t border-gray-200"></div>
             </div>
             <div class="relative flex justify-center text-sm">
-                <span class="bg-white px-2 text-secondary-500 dark:bg-secondary-900 dark:text-secondary-400">{{ __('oder') }}</span>
+                <span class="bg-white px-4 text-gray-500">{{ __('oder mit E-Mail') }}</span>
             </div>
         </div>
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login') }}" class="space-y-5">
             @csrf
 
             <div>
-                <x-label for="email" value="{{ __('E-Mail') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <label for="email" class="block text-sm font-medium text-gray-700">{{ __('E-Mail-Adresse') }}</label>
+                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username"
+                       class="mt-1 block w-full rounded-xl border-gray-200 px-4 py-3 text-gray-900 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" />
             </div>
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Passwort') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">{{ __('Passwort') }}</label>
+                <input id="password" type="password" name="password" required autocomplete="current-password"
+                       class="mt-1 block w-full rounded-xl border-gray-200 px-4 py-3 text-gray-900 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" />
             </div>
 
-            <div class="block mt-4">
+            <div class="flex items-center justify-between">
                 <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm text-secondary-600 dark:text-secondary-400">{{ __('Angemeldet bleiben') }}</span>
+                    <input id="remember_me" type="checkbox" name="remember"
+                           class="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" />
+                    <span class="ml-2 text-sm text-gray-600">{{ __('Angemeldet bleiben') }}</span>
                 </label>
-            </div>
 
-            <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-secondary-600 hover:text-secondary-900 dark:text-secondary-400 dark:hover:text-secondary-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" href="{{ route('password.request') }}">
+                    <a href="{{ route('password.request') }}" class="text-sm font-medium text-teal-600 hover:text-teal-500">
                         {{ __('Passwort vergessen?') }}
                     </a>
                 @endif
-
-                <x-button class="ms-4">
-                    {{ __('Anmelden') }}
-                </x-button>
             </div>
+
+            <button type="submit"
+                    class="w-full rounded-xl bg-teal-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition-all">
+                {{ __('Anmelden') }}
+            </button>
         </form>
+
+        <p class="mt-6 text-center text-sm text-gray-600">
+            {{ __('Noch kein Konto?') }}
+            <a href="{{ route('register') }}" class="font-medium text-teal-600 hover:text-teal-500">
+                {{ __('Jetzt registrieren') }}
+            </a>
+        </p>
     </x-authentication-card>
 </x-guest-layout>

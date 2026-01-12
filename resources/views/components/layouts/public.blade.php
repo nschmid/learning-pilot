@@ -41,27 +41,27 @@
 
                 <!-- Desktop navigation -->
                 <div class="hidden lg:flex lg:gap-x-8">
-                    <a href="{{ route('features') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-600 transition {{ request()->routeIs('features') ? 'text-indigo-600' : '' }}">
+                    <a href="{{ route('features') }}" class="text-sm font-medium text-gray-700 hover:text-teal-600 transition {{ request()->routeIs('features') ? 'text-teal-600' : '' }}">
                         {{ __('Funktionen') }}
                     </a>
-                    <a href="{{ route('pricing') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-600 transition {{ request()->routeIs('pricing') ? 'text-indigo-600' : '' }}">
+                    <a href="{{ route('pricing') }}" class="text-sm font-medium text-gray-700 hover:text-teal-600 transition {{ request()->routeIs('pricing') ? 'text-teal-600' : '' }}">
                         {{ __('Preise') }}
                     </a>
-                    <a href="{{ route('contact') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-600 transition {{ request()->routeIs('contact') ? 'text-indigo-600' : '' }}">
+                    <a href="{{ route('contact') }}" class="text-sm font-medium text-gray-700 hover:text-teal-600 transition {{ request()->routeIs('contact') ? 'text-teal-600' : '' }}">
                         {{ __('Kontakt') }}
                     </a>
                 </div>
 
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-4">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-600 transition">
+                        <a href="{{ route('dashboard') }}" class="text-sm font-medium text-gray-700 hover:text-teal-600 transition">
                             {{ __('Dashboard') }}
                         </a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-600 transition">
+                        <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-teal-600 transition">
                             {{ __('Anmelden') }}
                         </a>
-                        <a href="{{ route('register') }}" class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500 transition">
+                        <a href="{{ route('register') }}" class="rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-500 transition">
                             {{ __('Kostenlos testen') }}
                         </a>
                     @endauth
@@ -101,7 +101,7 @@
                                     <a href="{{ route('dashboard') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium text-gray-900 hover:bg-gray-50">{{ __('Dashboard') }}</a>
                                 @else
                                     <a href="{{ route('login') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium text-gray-900 hover:bg-gray-50">{{ __('Anmelden') }}</a>
-                                    <a href="{{ route('register') }}" class="-mx-3 mt-2 block rounded-lg bg-indigo-600 px-3 py-2.5 text-base font-medium text-white hover:bg-indigo-500">{{ __('Kostenlos testen') }}</a>
+                                    <a href="{{ route('register') }}" class="-mx-3 mt-2 block rounded-lg bg-teal-600 px-3 py-2.5 text-base font-medium text-white hover:bg-teal-500">{{ __('Kostenlos testen') }}</a>
                                 @endauth
                             </div>
                         </div>

@@ -17,7 +17,7 @@
                 type="text"
                 wire:model.live.debounce.300ms="search"
                 placeholder="{{ __('Lesezeichen durchsuchen...') }}"
-                class="block w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-4 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                class="block w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-4 text-gray-900 placeholder-gray-500 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
             >
         </div>
     </div>
@@ -28,7 +28,7 @@
             @foreach($this->bookmarks as $bookmark)
                 <div class="group flex items-start gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
                     <!-- Icon -->
-                    <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600">
+                    <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-teal-100 text-teal-600">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
                         </svg>
@@ -41,7 +41,7 @@
                             wire:navigate
                             class="block"
                         >
-                            <h3 class="font-medium text-gray-900 group-hover:text-indigo-600">
+                            <h3 class="font-medium text-gray-900 group-hover:text-teal-600">
                                 {{ $bookmark->step->title }}
                             </h3>
                             <p class="mt-1 text-sm text-gray-500">
@@ -58,7 +58,7 @@
                         <a
                             href="{{ route('learner.learn.step', ['path' => $bookmark->step->module->learningPath->slug, 'step' => $bookmark->step->position]) }}"
                             wire:navigate
-                            class="rounded-lg bg-indigo-50 px-3 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-100"
+                            class="rounded-lg bg-teal-50 px-3 py-2 text-sm font-medium text-teal-600 hover:bg-teal-100"
                         >
                             {{ __('Öffnen') }}
                         </a>
@@ -92,7 +92,7 @@
             <a
                 href="{{ route('learner.catalog') }}"
                 wire:navigate
-                class="mt-4 inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+                class="mt-4 inline-flex items-center rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
             >
                 {{ __('Kurskatalog durchsuchen') }}
             </a>

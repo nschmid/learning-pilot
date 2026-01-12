@@ -36,7 +36,7 @@
                         type="text"
                         id="title"
                         wire:model="title"
-                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                     >
                     @error('title') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
@@ -46,7 +46,7 @@
                     <select
                         id="task_type"
                         wire:model="task_type"
-                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                     >
                         @foreach($taskTypes as $type)
                             <option value="{{ $type->value }}">{{ $type->label() }}</option>
@@ -61,7 +61,7 @@
                         id="instructions"
                         wire:model="instructions"
                         rows="6"
-                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                         placeholder="{{ __('Beschreibe die Aufgabe im Detail...') }}"
                     ></textarea>
                     @error('instructions') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
@@ -82,7 +82,7 @@
                         wire:model="max_points"
                         min="1"
                         max="1000"
-                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                     >
                     @error('max_points') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
@@ -95,7 +95,7 @@
                         wire:model="due_days"
                         min="1"
                         placeholder="{{ __('Optional') }}"
-                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                     >
                     @error('due_days') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
@@ -105,7 +105,7 @@
             <div class="mt-6">
                 <div class="flex items-center justify-between">
                     <label class="block text-sm font-medium text-gray-700">{{ __('Bewertungskriterien') }}</label>
-                    <button type="button" wire:click="addRubricItem" class="text-sm text-indigo-600 hover:text-indigo-800">
+                    <button type="button" wire:click="addRubricItem" class="text-sm text-teal-600 hover:text-teal-800">
                         + {{ __('Kriterium hinzufügen') }}
                     </button>
                 </div>
@@ -117,14 +117,14 @@
                                     type="text"
                                     wire:model="rubric.{{ $index }}.name"
                                     placeholder="{{ __('Kriteriumsname') }}"
-                                    class="flex-1 rounded-lg border-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    class="flex-1 rounded-lg border-gray-300 text-sm shadow-sm focus:border-teal-500 focus:ring-teal-500"
                                 >
                                 <input
                                     type="number"
                                     wire:model="rubric.{{ $index }}.points"
                                     min="0"
                                     placeholder="{{ __('Punkte') }}"
-                                    class="w-24 rounded-lg border-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    class="w-24 rounded-lg border-gray-300 text-sm shadow-sm focus:border-teal-500 focus:ring-teal-500"
                                 >
                                 <button
                                     type="button"
@@ -153,7 +153,7 @@
                     <input
                         type="checkbox"
                         wire:model="allow_late"
-                        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        class="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
                     >
                     <span class="text-sm text-gray-700">{{ __('Verspätete Abgaben erlauben') }}</span>
                 </label>
@@ -162,7 +162,7 @@
                     <input
                         type="checkbox"
                         wire:model="allow_resubmit"
-                        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        class="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
                     >
                     <span class="text-sm text-gray-700">{{ __('Erneute Einreichung erlauben') }}</span>
                 </label>
@@ -173,7 +173,7 @@
                     <label class="block text-sm font-medium text-gray-700">{{ __('Erlaubte Dateitypen') }}</label>
                     <div class="mt-2 flex flex-wrap gap-2">
                         @foreach($fileTypes as $type)
-                            <label class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm {{ in_array($type, $allowed_file_types) ? 'border-indigo-300 bg-indigo-50 text-indigo-700' : 'border-gray-300 bg-white text-gray-700' }}">
+                            <label class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm {{ in_array($type, $allowed_file_types) ? 'border-teal-300 bg-teal-50 text-teal-700' : 'border-gray-300 bg-white text-gray-700' }}">
                                 <input
                                     type="checkbox"
                                     value="{{ $type }}"
@@ -194,7 +194,7 @@
                         wire:model="max_file_size_mb"
                         min="1"
                         max="100"
-                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                     >
                     @error('max_file_size_mb') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
@@ -208,7 +208,7 @@
             </a>
             <button
                 type="submit"
-                class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+                class="rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
             >
                 {{ __('Speichern') }}
             </button>

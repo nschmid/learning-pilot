@@ -5,7 +5,7 @@
             <h1 class="text-2xl font-bold text-gray-900">{{ __('Benutzerverwaltung') }}</h1>
             <p class="mt-1 text-gray-500">{{ __('Verwalte alle Benutzer der Plattform') }}</p>
         </div>
-        <a href="{{ route('admin.users.create') }}" class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700">
+        <a href="{{ route('admin.users.create') }}" class="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-4 py-2 font-medium text-white hover:bg-teal-700">
             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
             </svg>
@@ -37,7 +37,7 @@
                         type="search"
                         id="search"
                         placeholder="{{ __('Name oder E-Mail suchen...') }}"
-                        class="block w-full rounded-lg border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500"
+                        class="block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 pl-10 focus:border-teal-500 focus:ring-teal-500"
                     >
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 <select
                     wire:model.live="role"
                     id="role"
-                    class="block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    class="block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 focus:border-teal-500 focus:ring-teal-500"
                 >
                     <option value="">{{ __('Alle Rollen') }}</option>
                     @foreach($this->roles as $r)
@@ -63,7 +63,7 @@
                 <select
                     wire:model.live="status"
                     id="status"
-                    class="block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    class="block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 focus:border-teal-500 focus:ring-teal-500"
                 >
                     <option value="">{{ __('Alle Status') }}</option>
                     <option value="active">{{ __('Aktiv') }}</option>
@@ -75,7 +75,7 @@
 
     <!-- Users Table -->
     <div class="overflow-hidden rounded-xl border border-gray-200 bg-white">
-        <table class="min-w-full divide-y divide-gray-200">
+        <table class="min-w-full divide-y divide-gray-100">
             <thead class="bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
@@ -109,7 +109,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200 bg-white">
+            <tbody class="divide-y divide-gray-100 bg-white">
                 @forelse($this->users as $user)
                     <tr wire:key="user-{{ $user->id }}">
                         <td class="whitespace-nowrap px-6 py-4">
@@ -151,7 +151,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                     </svg>
                                 </a>
-                                <a href="{{ route('admin.users.edit', $user) }}" class="rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-indigo-600">
+                                <a href="{{ route('admin.users.edit', $user) }}" class="rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-teal-600">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                     </svg>
@@ -225,7 +225,7 @@
                         <button
                             wire:click="$set('showDeleteModal', false)"
                             type="button"
-                            class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm"
+                            class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm"
                         >
                             {{ __('Abbrechen') }}
                         </button>

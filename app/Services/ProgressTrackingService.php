@@ -157,7 +157,7 @@ class ProgressTrackingService
         $path = $enrollment->learningPath;
 
         // Get required steps count
-        $requiredSteps = $path->steps()->where('is_required', true)->count();
+        $requiredSteps = $path->steps()->where('learning_steps.is_required', true)->count();
 
         if ($requiredSteps === 0) {
             // If no required steps, use all steps
@@ -166,7 +166,7 @@ class ProgressTrackingService
 
         // Get completed required steps
         $completedRequired = $enrollment->stepProgress()
-            ->whereHas('step', fn ($q) => $q->where('is_required', true))
+            ->whereHas('step', fn ($q) => $q->where('learning_steps.is_required', true))
             ->where('status', StepProgressStatus::Completed)
             ->count();
 

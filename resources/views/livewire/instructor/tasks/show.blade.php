@@ -121,7 +121,7 @@
                             <td class="whitespace-nowrap px-6 py-4">
                                 <div class="flex items-center">
                                     <div class="h-8 w-8 flex-shrink-0">
-                                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-xs font-medium text-indigo-600">
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-teal-100 text-xs font-medium text-teal-600">
                                             {{ substr($submission->enrollment->user->name, 0, 2) }}
                                         </div>
                                     </div>
@@ -156,7 +156,7 @@
                             <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                                 <button
                                     wire:click="reviewSubmission('{{ $submission->id }}')"
-                                    class="text-indigo-600 hover:text-indigo-900"
+                                    class="text-teal-600 hover:text-teal-900"
                                 >
                                     {{ $submission->status->value === 'pending' ? __('Bewerten') : __('Ansehen') }}
                                 </button>

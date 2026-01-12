@@ -97,7 +97,7 @@
             @foreach($this->paths as $path)
                 <div class="group overflow-hidden rounded-xl border border-gray-200 bg-white transition hover:shadow-md">
                     <!-- Thumbnail -->
-                    <div class="relative aspect-video bg-gradient-to-br from-indigo-500 to-purple-600">
+                    <div class="relative aspect-video bg-gradient-to-br from-teal-500 to-purple-600">
                         @if($path->thumbnail)
                             <img
                                 src="{{ Storage::url($path->thumbnail) }}"

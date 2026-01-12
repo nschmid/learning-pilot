@@ -32,7 +32,7 @@
 
                 <h2>4. {{ __('Preise und Zahlung') }}</h2>
                 <h3>4.1 {{ __('Preise') }}</h3>
-                <p>{{ __('Die aktuellen Preise finden Sie auf unserer') }} <a href="{{ route('pricing') }}" class="text-indigo-600 hover:text-indigo-500">{{ __('Preisseite') }}</a>. {{ __('Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer.') }}</p>
+                <p>{{ __('Die aktuellen Preise finden Sie auf unserer') }} <a href="{{ route('pricing') }}" class="text-teal-600 hover:text-teal-500">{{ __('Preisseite') }}</a>. {{ __('Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer.') }}</p>
 
                 <h3>4.2 {{ __('Testphase') }}</h3>
                 <p>{{ __('Neue Nutzer erhalten eine kostenlose Testphase von 30 Tagen. Nach Ablauf wird das Konto pausiert, bis ein kostenpflichtiges Abonnement abgeschlossen wird.') }}</p>
@@ -79,7 +79,7 @@
                 <p>{{ __('Wir führen regelmässige Backups durch, übernehmen jedoch keine Haftung für Datenverluste. Wir empfehlen, wichtige Daten zusätzlich zu sichern.') }}</p>
 
                 <h2>9. {{ __('Datenschutz') }}</h2>
-                <p>{{ __('Die Verarbeitung personenbezogener Daten erfolgt gemäss unserer') }} <a href="{{ route('legal.privacy') }}" class="text-indigo-600 hover:text-indigo-500">{{ __('Datenschutzerklärung') }}</a>.</p>
+                <p>{{ __('Die Verarbeitung personenbezogener Daten erfolgt gemäss unserer') }} <a href="{{ route('legal.privacy') }}" class="text-teal-600 hover:text-teal-500">{{ __('Datenschutzerklärung') }}</a>.</p>
 
                 <h2>10. {{ __('Änderungen der AGB') }}</h2>
                 <p>{{ __('Wir behalten uns vor, diese AGB zu ändern. Wesentliche Änderungen werden mindestens 30 Tage im Voraus per E-Mail angekündigt. Bei Widerspruch können Sie das Abonnement kündigen.') }}</p>

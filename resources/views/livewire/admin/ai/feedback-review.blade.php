@@ -39,24 +39,24 @@
     <div class="mb-6 flex flex-wrap gap-4">
         <div class="flex gap-2">
             <button wire:click="setFilter('all')"
-                class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $filter === 'all' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300' }}">
+                class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $filter === 'all' ? 'bg-teal-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 transition border border-gray-300' }}">
                 {{ __('Alle') }}
             </button>
             <button wire:click="setFilter('unresolved')"
-                class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $filter === 'unresolved' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300' }}">
+                class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $filter === 'unresolved' ? 'bg-teal-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 transition border border-gray-300' }}">
                 {{ __('Ungelöst') }}
             </button>
             <button wire:click="setFilter('resolved')"
-                class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $filter === 'resolved' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300' }}">
+                class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $filter === 'resolved' ? 'bg-teal-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 transition border border-gray-300' }}">
                 {{ __('Gelöst') }}
             </button>
             <button wire:click="setFilter('negative')"
-                class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $filter === 'negative' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300' }}">
+                class="rounded-lg px-4 py-2 text-sm font-medium transition {{ $filter === 'negative' ? 'bg-teal-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50 transition border border-gray-300' }}">
                 {{ __('Negativ') }}
             </button>
         </div>
 
-        <select wire:model.live="typeFilter" class="rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-indigo-500">
+        <select wire:model.live="typeFilter" class="rounded-lg border border-gray-300 px-4 py-2 focus:border-teal-500 focus:ring-teal-500">
             <option value="">{{ __('Alle Typen') }}</option>
             @foreach($this->feedbackTypes as $type)
                 <option value="{{ $type['value'] }}">{{ $type['label'] }} ({{ $type['count'] }})</option>
@@ -67,7 +67,7 @@
     <!-- Feedback Table -->
     <div class="rounded-xl border border-gray-200 bg-white">
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
+            <table class="min-w-full divide-y divide-gray-100">
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Benutzer') }}</th>
@@ -79,7 +79,7 @@
                         <th class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Aktionen') }}</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200 bg-white">
+                <tbody class="divide-y divide-gray-100 bg-white">
                     @forelse($this->feedback as $item)
                         <tr>
                             <td class="whitespace-nowrap px-6 py-4">
@@ -121,7 +121,7 @@
                             </td>
                             <td class="whitespace-nowrap px-6 py-4 text-right">
                                 <div class="flex justify-end gap-2">
-                                    <button wire:click="viewDetails('{{ $item->id }}')" class="text-indigo-600 hover:text-indigo-900" title="{{ __('Details') }}">
+                                    <button wire:click="viewDetails('{{ $item->id }}')" class="text-teal-600 hover:text-teal-900" title="{{ __('Details') }}">
                                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -218,12 +218,12 @@
                         <form wire:submit="markAsResolved">
                             <div>
                                 <label class="mb-1 block text-sm font-medium text-gray-700">{{ __('Notizen zur Lösung') }}</label>
-                                <textarea wire:model="resolverNotes" rows="3" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-indigo-500" placeholder="{{ __('Optional: Notizen hinzufügen...') }}"></textarea>
+                                <textarea wire:model="resolverNotes" rows="3" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-teal-500 focus:ring-teal-500" placeholder="{{ __('Optional: Notizen hinzufügen...') }}"></textarea>
                                 @error('resolverNotes') <span class="mt-1 text-sm text-red-600">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="mt-4 flex justify-end gap-3">
-                                <button type="button" wire:click="closeModal" class="rounded-lg border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50">
+                                <button type="button" wire:click="closeModal" class="rounded-lg border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 transition">
                                     {{ __('Abbrechen') }}
                                 </button>
                                 <button type="submit" class="rounded-lg bg-green-600 px-4 py-2 text-white hover:bg-green-700">

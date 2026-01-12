@@ -18,7 +18,7 @@
                 type="text"
                 wire:model.live.debounce.300ms="search"
                 placeholder="{{ __('Lernpfade durchsuchen...') }}"
-                class="block w-full rounded-lg border border-gray-300 bg-white py-3 pl-10 pr-4 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                class="block w-full rounded-lg border border-gray-300 bg-white py-3 pl-10 pr-4 text-gray-900 placeholder-gray-500 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
             >
         </div>
 
@@ -30,7 +30,7 @@
                     @click="open = !open"
                     @click.away="open = false"
                     type="button"
-                    class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500"
                 >
                     <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
@@ -56,7 +56,7 @@
                         <button
                             wire:click="setCategory(null)"
                             @click="open = false"
-                            class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 {{ !$category ? 'bg-indigo-50 text-indigo-700' : '' }}"
+                            class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 {{ !$category ? 'bg-teal-50 text-teal-700' : '' }}"
                         >
                             {{ __('Alle Kategorien') }}
                         </button>
@@ -64,7 +64,7 @@
                             <button
                                 wire:click="setCategory('{{ $cat->slug }}')"
                                 @click="open = false"
-                                class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 {{ $category === $cat->slug ? 'bg-indigo-50 text-indigo-700' : '' }}"
+                                class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 {{ $category === $cat->slug ? 'bg-teal-50 text-teal-700' : '' }}"
                             >
                                 {{ $cat->name }}
                                 <span class="text-gray-400">({{ $cat->learning_paths_count }})</span>
@@ -80,7 +80,7 @@
                     @click="open = !open"
                     @click.away="open = false"
                     type="button"
-                    class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500"
                 >
                     <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -105,7 +105,7 @@
                         <button
                             wire:click="setDifficulty(null)"
                             @click="open = false"
-                            class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 {{ !$difficulty ? 'bg-indigo-50 text-indigo-700' : '' }}"
+                            class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 {{ !$difficulty ? 'bg-teal-50 text-teal-700' : '' }}"
                         >
                             {{ __('Alle Stufen') }}
                         </button>
@@ -113,7 +113,7 @@
                             <button
                                 wire:click="setDifficulty('{{ $diff->value }}')"
                                 @click="open = false"
-                                class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 {{ $difficulty === $diff->value ? 'bg-indigo-50 text-indigo-700' : '' }}"
+                                class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 {{ $difficulty === $diff->value ? 'bg-teal-50 text-teal-700' : '' }}"
                             >
                                 {{ $diff->label() }}
                             </button>
@@ -128,7 +128,7 @@
                     @click="open = !open"
                     @click.away="open = false"
                     type="button"
-                    class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500"
                 >
                     <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path>
@@ -155,7 +155,7 @@
                             <button
                                 wire:click="$set('sort', '{{ $value }}')"
                                 @click="open = false"
-                                class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 {{ $sort === $value ? 'bg-indigo-50 text-indigo-700' : '' }}"
+                                class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 {{ $sort === $value ? 'bg-teal-50 text-teal-700' : '' }}"
                             >
                                 {{ $label }}
                             </button>
@@ -168,7 +168,7 @@
             @if($search || $category || $difficulty || $sort !== 'popular')
                 <button
                     wire:click="clearFilters"
-                    class="inline-flex items-center gap-1 text-sm text-indigo-600 hover:text-indigo-800"
+                    class="inline-flex items-center gap-1 text-sm text-teal-600 hover:text-teal-800"
                 >
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -184,9 +184,9 @@
         <div class="mb-6 flex flex-wrap items-center gap-2">
             <span class="text-sm text-gray-500">{{ __('Aktive Filter:') }}</span>
             @if($search)
-                <span class="inline-flex items-center gap-1 rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-800">
+                <span class="inline-flex items-center gap-1 rounded-full bg-teal-100 px-3 py-1 text-sm text-teal-800">
                     "{{ $search }}"
-                    <button wire:click="$set('search', '')" class="hover:text-indigo-600">
+                    <button wire:click="$set('search', '')" class="hover:text-teal-600">
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
@@ -194,9 +194,9 @@
                 </span>
             @endif
             @if($category && $this->selectedCategory)
-                <span class="inline-flex items-center gap-1 rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-800">
+                <span class="inline-flex items-center gap-1 rounded-full bg-teal-100 px-3 py-1 text-sm text-teal-800">
                     {{ $this->selectedCategory->name }}
-                    <button wire:click="setCategory(null)" class="hover:text-indigo-600">
+                    <button wire:click="setCategory(null)" class="hover:text-teal-600">
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
@@ -204,9 +204,9 @@
                 </span>
             @endif
             @if($difficulty)
-                <span class="inline-flex items-center gap-1 rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-800">
+                <span class="inline-flex items-center gap-1 rounded-full bg-teal-100 px-3 py-1 text-sm text-teal-800">
                     {{ App\Enums\Difficulty::tryFrom($difficulty)?->label() }}
-                    <button wire:click="setDifficulty(null)" class="hover:text-indigo-600">
+                    <button wire:click="setDifficulty(null)" class="hover:text-teal-600">
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
@@ -229,7 +229,7 @@
             @foreach($this->learningPaths as $path)
                 <div class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md">
                     <!-- Thumbnail -->
-                    <div class="relative aspect-video overflow-hidden bg-gradient-to-br from-indigo-500 to-purple-600">
+                    <div class="relative aspect-video overflow-hidden bg-gradient-to-br from-teal-500 to-purple-600">
                         @if($path->thumbnail)
                             <img src="{{ $path->thumbnail }}" alt="{{ $path->title }}" class="h-full w-full object-cover transition group-hover:scale-105">
                         @else
@@ -256,7 +256,7 @@
 
                         <!-- Enrolled Badge -->
                         @if($this->isEnrolled($path->id))
-                            <span class="absolute right-3 top-3 rounded-full bg-indigo-600 px-2 py-1 text-xs font-medium text-white">
+                            <span class="absolute right-3 top-3 rounded-full bg-teal-600 px-2 py-1 text-xs font-medium text-white">
                                 {{ __('Eingeschrieben') }}
                             </span>
                         @endif
@@ -266,14 +266,14 @@
                     <div class="p-4">
                         <!-- Category -->
                         @if($path->category)
-                            <p class="mb-1 text-xs font-medium uppercase tracking-wide text-indigo-600">
+                            <p class="mb-1 text-xs font-medium uppercase tracking-wide text-teal-600">
                                 {{ $path->category->name }}
                             </p>
                         @endif
 
                         <!-- Title -->
                         <h3 class="mb-2 font-semibold text-gray-900 line-clamp-2">
-                            <a href="{{ route('learner.path.show', $path->slug) }}" class="hover:text-indigo-600" wire:navigate>
+                            <a href="{{ route('learner.path.show', $path->slug) }}" class="hover:text-teal-600" wire:navigate>
                                 {{ $path->title }}
                             </a>
                         </h3>
@@ -349,7 +349,7 @@
             <p class="mt-2 text-gray-500">{{ __('Versuche andere Suchbegriffe oder Filter.') }}</p>
             <button
                 wire:click="clearFilters"
-                class="mt-4 inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+                class="mt-4 inline-flex items-center rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
             >
                 {{ __('Filter zurücksetzen') }}
             </button>

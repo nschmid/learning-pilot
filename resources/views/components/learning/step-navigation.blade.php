@@ -39,7 +39,7 @@
     {{-- Next/Complete Button --}}
     <div>
         @if ($nextStep)
-            <a href="{{ route('learner.steps.show', $nextStep) }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors">
+            <a href="{{ route('learner.steps.show', $nextStep) }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-teal-600 rounded-lg hover:bg-teal-700 transition-colors">
                 <span class="hidden sm:inline">{{ Str::limit($nextStep->title, 20) }}</span>
                 <span class="sm:hidden">{{ __('Weiter') }}</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -154,7 +154,7 @@
 
     <div
         x-ref="editor"
-        class="prose prose-sm dark:prose-invert max-w-none p-4 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 {{ $showToolbar && !$disabled ? 'rounded-b-lg' : 'rounded-lg' }} {{ $disabled ? 'bg-gray-100 dark:bg-gray-800 cursor-not-allowed' : '' }}"
+        class="prose prose-sm dark:prose-invert max-w-none p-4 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus-within:ring-2 focus-within:ring-teal-500 focus-within:border-teal-500 {{ $showToolbar && !$disabled ? 'rounded-b-lg' : 'rounded-lg' }} {{ $disabled ? 'bg-gray-100 dark:bg-gray-800 cursor-not-allowed' : '' }}"
         style="min-height: {{ $minHeight }}px"
     ></div>
 

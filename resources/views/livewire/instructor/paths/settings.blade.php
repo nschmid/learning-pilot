@@ -50,7 +50,7 @@
                     <button
                         type="button"
                         wire:click="$toggle('isPublished')"
-                        class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 {{ $isPublished ? 'bg-indigo-600' : 'bg-gray-200' }}"
+                        class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 {{ $isPublished ? 'bg-teal-600' : 'bg-gray-200' }}"
                         role="switch"
                         aria-checked="{{ $isPublished ? 'true' : 'false' }}"
                     >
@@ -67,7 +67,7 @@
                     <button
                         type="button"
                         wire:click="$toggle('isFeatured')"
-                        class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 {{ $isFeatured ? 'bg-indigo-600' : 'bg-gray-200' }}"
+                        class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 {{ $isFeatured ? 'bg-teal-600' : 'bg-gray-200' }}"
                         role="switch"
                         aria-checked="{{ $isFeatured ? 'true' : 'false' }}"
                     >
@@ -95,7 +95,7 @@
                     <select
                         wire:model="difficulty"
                         id="difficulty"
-                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                     >
                         @foreach($this->difficulties as $diff)
                             <option value="{{ $diff['value'] }}">{{ $diff['label'] }}</option>
@@ -109,7 +109,7 @@
                     <select
                         wire:model="categoryId"
                         id="categoryId"
-                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                     >
                         <option value="">{{ __('Keine Kategorie') }}</option>
                         @foreach($this->categories as $category)
@@ -128,7 +128,7 @@
                                     type="checkbox"
                                     wire:model="selectedTags"
                                     value="{{ $tag->id }}"
-                                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    class="rounded border-gray-300 text-teal-600 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                                 >
                                 <span class="ml-2 text-sm text-gray-700">{{ $tag->name }}</span>
                             </label>
@@ -147,7 +147,7 @@
                         wire:model="estimatedHours"
                         id="estimatedHours"
                         min="1"
-                        class="mt-1 block w-32 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        class="mt-1 block w-32 rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                         placeholder="z.B. 10"
                     >
                     <p class="mt-1 text-sm text-gray-500">{{ __('Wird automatisch berechnet, wenn leer.') }}</p>
@@ -170,7 +170,7 @@
                     <button
                         type="button"
                         wire:click="$toggle('requiresApproval')"
-                        class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 {{ $requiresApproval ? 'bg-indigo-600' : 'bg-gray-200' }}"
+                        class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 {{ $requiresApproval ? 'bg-teal-600' : 'bg-gray-200' }}"
                         role="switch"
                     >
                         <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ $requiresApproval ? 'translate-x-5' : 'translate-x-0' }}"></span>
@@ -185,7 +185,7 @@
                         wire:model="maxEnrollments"
                         id="maxEnrollments"
                         min="1"
-                        class="mt-1 block w-32 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        class="mt-1 block w-32 rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                         placeholder="{{ __('Unbegrenzt') }}"
                     >
                     <p class="mt-1 text-sm text-gray-500">{{ __('Leer lassen für unbegrenzte Teilnahme.') }}</p>
@@ -200,7 +200,7 @@
                     <button
                         type="button"
                         wire:click="$toggle('certificateEnabled')"
-                        class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 {{ $certificateEnabled ? 'bg-indigo-600' : 'bg-gray-200' }}"
+                        class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 {{ $certificateEnabled ? 'bg-teal-600' : 'bg-gray-200' }}"
                         role="switch"
                     >
                         <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ $certificateEnabled ? 'translate-x-5' : 'translate-x-0' }}"></span>
@@ -215,7 +215,7 @@
                             wire:model="certificateValidityDays"
                             id="certificateValidityDays"
                             min="1"
-                            class="mt-1 block w-32 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-1 block w-32 rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                             placeholder="{{ __('Unbegrenzt') }}"
                         >
                         <p class="mt-1 text-sm text-gray-500">{{ __('Leer lassen für unbegrenzte Gültigkeit.') }}</p>
@@ -266,7 +266,7 @@
             <button
                 type="submit"
                 wire:loading.attr="disabled"
-                class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-2 font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-wait disabled:opacity-75"
+                class="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-6 py-2 font-semibold text-white transition hover:bg-teal-700 disabled:cursor-wait disabled:opacity-75"
             >
                 <span wire:loading.remove wire:target="save">{{ __('Speichern') }}</span>
                 <span wire:loading wire:target="save">{{ __('Wird gespeichert...') }}</span>

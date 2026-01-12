@@ -11,7 +11,7 @@
         <div class="w-full max-w-lg">
             <!-- Logo -->
             <div class="mb-8 text-center">
-                <a href="{{ url('/') }}" class="text-2xl font-bold text-indigo-600">LearningPilot</a>
+                <a href="{{ url('/') }}" class="text-2xl font-bold text-teal-600">LearningPilot</a>
             </div>
 
             <!-- Verification Card -->

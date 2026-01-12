@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             LearningPathSeeder::class,
             AssessmentSeeder::class,
             TaskSeeder::class,
+            ParticipationLearningPathSeeder::class,
             EnrollmentSeeder::class,
         ]);
 

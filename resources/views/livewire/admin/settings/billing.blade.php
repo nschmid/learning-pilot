@@ -1,11 +1,11 @@
 <div>
     <!-- Breadcrumb -->
     <nav class="mb-6 flex items-center gap-2 text-sm text-gray-500">
-        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-gray-700">{{ __('Dashboard') }}</a>
+        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Dashboard') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
-        <a href="{{ route('admin.settings.index') }}" wire:navigate class="hover:text-gray-700">{{ __('Einstellungen') }}</a>
+        <a href="{{ route('admin.settings.index') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Einstellungen') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
@@ -53,7 +53,7 @@
         </div>
         <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
             <p class="text-sm text-gray-500">{{ __('Mit Stripe-Konto') }}</p>
-            <p class="text-3xl font-bold text-indigo-600">{{ $this->billingStats['teams_with_billing'] }}</p>
+            <p class="text-3xl font-bold text-teal-600">{{ $this->billingStats['teams_with_billing'] }}</p>
         </div>
         <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
             <p class="text-sm text-gray-500">{{ __('Aktive Abonnements') }}</p>
@@ -63,8 +63,8 @@
 
     <div class="grid gap-8 lg:grid-cols-2">
         <!-- Configuration -->
-        <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
-            <div class="border-b border-gray-200 px-6 py-4">
+        <div class="rounded-xl bg-white shadow-sm ring-1 ring-gray-900/5">
+            <div class="border-b border-gray-100 px-6 py-4">
                 <h2 class="text-lg font-semibold text-gray-900">{{ __('Konfiguration') }}</h2>
             </div>
             <div class="p-6">
@@ -98,8 +98,8 @@
         </div>
 
         <!-- Teams with Billing -->
-        <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
-            <div class="border-b border-gray-200 px-6 py-4">
+        <div class="rounded-xl bg-white shadow-sm ring-1 ring-gray-900/5">
+            <div class="border-b border-gray-100 px-6 py-4">
                 <h2 class="text-lg font-semibold text-gray-900">{{ __('Teams mit Abrechnung') }}</h2>
             </div>
             <div class="divide-y divide-gray-100">

@@ -5,7 +5,7 @@
             <h1 class="text-2xl font-bold text-gray-900">{{ __('Lernpfad-Analytik') }}</h1>
             <p class="mt-1 text-gray-500">{{ __('Detaillierte Statistiken zu deinen Lernpfaden.') }}</p>
         </div>
-        <a href="{{ route('instructor.analytics.index') }}" wire:navigate class="text-sm text-indigo-600 hover:text-indigo-800">
+        <a href="{{ route('instructor.analytics.index') }}" wire:navigate class="text-sm text-teal-600 hover:text-teal-800">
             &larr; {{ __('Zurück zur Übersicht') }}
         </a>
     </div>
@@ -27,7 +27,7 @@
         </div>
         <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
             <p class="text-sm text-gray-500">{{ __('Abschlussrate') }}</p>
-            <p class="text-3xl font-bold text-indigo-600">
+            <p class="text-3xl font-bold text-teal-600">
                 {{ $this->totals['total_enrollments'] > 0 ? round(($this->totals['total_completed'] / $this->totals['total_enrollments']) * 100, 1) : 0 }}%
             </p>
         </div>
@@ -82,7 +82,7 @@
                         <td class="whitespace-nowrap px-6 py-4">
                             <div class="flex items-center gap-2">
                                 <div class="h-2 w-20 overflow-hidden rounded-full bg-gray-200">
-                                    <div class="h-full rounded-full bg-indigo-600" style="width: {{ $path['avg_progress'] }}%"></div>
+                                    <div class="h-full rounded-full bg-teal-600" style="width: {{ $path['avg_progress'] }}%"></div>
                                 </div>
                                 <span class="text-sm text-gray-600">{{ $path['avg_progress'] }}%</span>
                             </div>
@@ -91,7 +91,7 @@
                             {{ $path['avg_time_spent'] }}
                         </td>
                         <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                            <a href="{{ route('instructor.paths.show', $path['slug']) }}" wire:navigate class="text-indigo-600 hover:text-indigo-900">
+                            <a href="{{ route('instructor.paths.show', $path['slug']) }}" wire:navigate class="text-teal-600 hover:text-teal-900">
                                 {{ __('Details') }}
                             </a>
                         </td>
@@ -104,7 +104,7 @@
                             </svg>
                             <h3 class="mt-4 text-lg font-medium text-gray-900">{{ __('Keine Lernpfade') }}</h3>
                             <p class="mt-2 text-gray-500">{{ __('Erstelle deinen ersten Lernpfad, um Statistiken zu sehen.') }}</p>
-                            <a href="{{ route('instructor.paths.create') }}" wire:navigate class="mt-4 inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">
+                            <a href="{{ route('instructor.paths.create') }}" wire:navigate class="mt-4 inline-flex items-center gap-2 rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700">
                                 {{ __('Lernpfad erstellen') }}
                             </a>
                         </td>

@@ -38,9 +38,9 @@
                         <div class="border-b border-gray-100 last:border-b-0">
                             <button
                                 wire:click="selectModule('{{ $module->id }}')"
-                                class="flex w-full items-center justify-between px-4 py-3 text-left hover:bg-gray-50 {{ $selectedModuleId === $module->id ? 'bg-indigo-50' : '' }}"
+                                class="flex w-full items-center justify-between px-4 py-3 text-left hover:bg-gray-50 {{ $selectedModuleId === $module->id ? 'bg-teal-50' : '' }}"
                             >
-                                <span class="text-sm font-medium {{ $selectedModuleId === $module->id ? 'text-indigo-700' : 'text-gray-900' }}">
+                                <span class="text-sm font-medium {{ $selectedModuleId === $module->id ? 'text-teal-700' : 'text-gray-900' }}">
                                     {{ $module->title }}
                                 </span>
                                 <svg class="h-5 w-5 text-gray-400 transition {{ $selectedModuleId === $module->id ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,7 +52,7 @@
                                     @forelse($module->steps as $step)
                                         <button
                                             wire:click="selectStep('{{ $step->id }}')"
-                                            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm {{ $selectedStepId === $step->id ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-600 hover:bg-white hover:shadow-sm' }}"
+                                            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm {{ $selectedStepId === $step->id ? 'bg-white text-teal-700 shadow-sm' : 'text-gray-600 hover:bg-white hover:shadow-sm' }}"
                                         >
                                             @switch($step->step_type->value)
                                                 @case('material')
@@ -149,7 +149,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                                         </svg>
                                         <p class="mt-4 text-gray-500">{{ __('Keine Materialien hinzugefügt.') }}</p>
-                                        <a href="{{ route('instructor.steps.materials', $this->selectedStep->id) }}" wire:navigate class="mt-2 inline-block text-sm text-indigo-600 hover:text-indigo-800">
+                                        <a href="{{ route('instructor.steps.materials', $this->selectedStep->id) }}" wire:navigate class="mt-2 inline-block text-sm text-teal-600 hover:text-teal-800">
                                             {{ __('Materialien hinzufügen') }} &rarr;
                                         </a>
                                     </div>

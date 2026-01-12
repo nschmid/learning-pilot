@@ -7,7 +7,7 @@
         </div>
         <button
             wire:click="openCreateModal"
-            class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700"
+            class="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-4 py-2 font-medium text-white hover:bg-teal-700"
         >
             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
@@ -35,7 +35,7 @@
                 wire:model.live.debounce.300ms="search"
                 type="search"
                 placeholder="{{ __('Kategorie suchen...') }}"
-                class="block w-full rounded-lg border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500"
+                class="block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 pl-10 focus:border-teal-500 focus:ring-teal-500"
             >
         </div>
     </div>
@@ -43,12 +43,12 @@
     <!-- Categories Tree -->
     <div class="rounded-xl border border-gray-200 bg-white">
         @forelse($this->categories as $category)
-            <div wire:key="cat-{{ $category->id }}" class="border-b border-gray-200 last:border-b-0">
+            <div wire:key="cat-{{ $category->id }}" class="border-b border-gray-100 last:border-b-0">
                 <!-- Parent Category -->
-                <div class="flex items-center justify-between p-4 hover:bg-gray-50">
+                <div class="flex items-center justify-between p-4 hover:bg-gray-50 transition">
                     <div class="flex items-center gap-4">
-                        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100">
-                            <svg class="h-5 w-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-100">
+                            <svg class="h-5 w-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
                             </svg>
                         </div>
@@ -66,7 +66,7 @@
                             <span class="h-2 w-2 rounded-full {{ $category->is_active ? 'bg-green-500' : 'bg-gray-400' }}"></span>
                             {{ $category->is_active ? __('Aktiv') : __('Inaktiv') }}
                         </button>
-                        <button wire:click="openEditModal('{{ $category->id }}')" class="rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-indigo-600">
+                        <button wire:click="openEditModal('{{ $category->id }}')" class="rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-teal-600">
                             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                             </svg>
@@ -102,7 +102,7 @@
                                         <span class="h-1.5 w-1.5 rounded-full {{ $child->is_active ? 'bg-green-500' : 'bg-gray-400' }}"></span>
                                         {{ $child->is_active ? __('Aktiv') : __('Inaktiv') }}
                                     </button>
-                                    <button wire:click="openEditModal('{{ $child->id }}')" class="rounded p-1 text-gray-400 hover:text-indigo-600">
+                                    <button wire:click="openEditModal('{{ $child->id }}')" class="rounded p-1 text-gray-400 hover:text-teal-600">
                                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                         </svg>
@@ -127,7 +127,7 @@
                 <p class="mt-1 text-sm text-gray-500">{{ __('Erstelle deine erste Kategorie.') }}</p>
                 <button
                     wire:click="openCreateModal"
-                    class="mt-4 inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700"
+                    class="mt-4 inline-flex items-center gap-2 rounded-lg bg-teal-600 px-4 py-2 font-medium text-white hover:bg-teal-700"
                 >
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
@@ -157,28 +157,28 @@
                                 <!-- Name -->
                                 <div>
                                     <label for="name" class="block text-sm font-medium text-gray-700">{{ __('Name') }} <span class="text-red-500">*</span></label>
-                                    <input wire:model.live="name" type="text" id="name" class="mt-1 block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+                                    <input wire:model.live="name" type="text" id="name" class="mt-1 block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 focus:border-teal-500 focus:ring-teal-500">
                                     @error('name') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                                 </div>
 
                                 <!-- Slug -->
                                 <div>
                                     <label for="slug" class="block text-sm font-medium text-gray-700">{{ __('Slug') }} <span class="text-red-500">*</span></label>
-                                    <input wire:model="slug" type="text" id="slug" class="mt-1 block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+                                    <input wire:model="slug" type="text" id="slug" class="mt-1 block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 focus:border-teal-500 focus:ring-teal-500">
                                     @error('slug') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                                 </div>
 
                                 <!-- Description -->
                                 <div>
                                     <label for="description" class="block text-sm font-medium text-gray-700">{{ __('Beschreibung') }}</label>
-                                    <textarea wire:model="description" id="description" rows="2" class="mt-1 block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                                    <textarea wire:model="description" id="description" rows="2" class="mt-1 block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 focus:border-teal-500 focus:ring-teal-500"></textarea>
                                     @error('description') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                                 </div>
 
                                 <!-- Parent -->
                                 <div>
                                     <label for="parentId" class="block text-sm font-medium text-gray-700">{{ __('Übergeordnete Kategorie') }}</label>
-                                    <select wire:model="parentId" id="parentId" class="mt-1 block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+                                    <select wire:model="parentId" id="parentId" class="mt-1 block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 focus:border-teal-500 focus:ring-teal-500">
                                         <option value="">{{ __('Keine (Hauptkategorie)') }}</option>
                                         @foreach($this->parentCategories as $parent)
                                             <option value="{{ $parent->id }}">{{ $parent->name }}</option>
@@ -189,23 +189,23 @@
                                 <!-- Sort Order -->
                                 <div>
                                     <label for="sortOrder" class="block text-sm font-medium text-gray-700">{{ __('Sortierung') }}</label>
-                                    <input wire:model="sortOrder" type="number" id="sortOrder" min="0" class="mt-1 block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+                                    <input wire:model="sortOrder" type="number" id="sortOrder" min="0" class="mt-1 block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 focus:border-teal-500 focus:ring-teal-500">
                                 </div>
 
                                 <!-- Active -->
                                 <div>
                                     <label class="flex items-center gap-3">
-                                        <input wire:model="isActive" type="checkbox" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <input wire:model="isActive" type="checkbox" class="rounded border-gray-300 text-teal-600 focus:ring-teal-500">
                                         <span class="text-sm font-medium text-gray-700">{{ __('Aktiv') }}</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                            <button type="submit" class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 sm:ml-3 sm:w-auto sm:text-sm">
+                            <button type="submit" class="inline-flex w-full justify-center rounded-md bg-teal-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-teal-700 sm:ml-3 sm:w-auto sm:text-sm">
                                 {{ $editingId ? __('Speichern') : __('Erstellen') }}
                             </button>
-                            <button type="button" wire:click="closeModal" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 sm:mt-0 sm:w-auto sm:text-sm">
+                            <button type="button" wire:click="closeModal" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition sm:mt-0 sm:w-auto sm:text-sm">
                                 {{ __('Abbrechen') }}
                             </button>
                         </div>
@@ -243,7 +243,7 @@
                         <button wire:click="deleteCategory" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 sm:ml-3 sm:w-auto sm:text-sm">
                             {{ __('Löschen') }}
                         </button>
-                        <button wire:click="$set('showDeleteModal', false)" type="button" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 sm:mt-0 sm:w-auto sm:text-sm">
+                        <button wire:click="$set('showDeleteModal', false)" type="button" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition sm:mt-0 sm:w-auto sm:text-sm">
                             {{ __('Abbrechen') }}
                         </button>
                     </div>

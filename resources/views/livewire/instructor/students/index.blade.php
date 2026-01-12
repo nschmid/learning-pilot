@@ -11,7 +11,7 @@
     <div class="mb-6 flex flex-wrap gap-2">
         <button
             wire:click="$set('status', '')"
-            class="rounded-full px-4 py-2 text-sm font-medium transition {{ $status === '' ? 'bg-indigo-100 text-indigo-800' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}"
+            class="rounded-full px-4 py-2 text-sm font-medium transition {{ $status === '' ? 'bg-teal-100 text-teal-800' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}"
         >
             {{ __('Alle') }} ({{ $this->statusCounts['all'] }})
         </button>
@@ -42,12 +42,12 @@
                 type="text"
                 wire:model.live.debounce.300ms="search"
                 placeholder="{{ __('Teilnehmer suchen...') }}"
-                class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                class="w-full rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
             >
         </div>
         <select
             wire:model.live="pathId"
-            class="rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            class="rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
         >
             <option value="">{{ __('Alle Lernpfade') }}</option>
             @foreach($this->paths as $path)
@@ -78,7 +78,7 @@
                                     @if($enrollment->user->profile_photo_url)
                                         <img class="h-10 w-10 rounded-full object-cover" src="{{ $enrollment->user->profile_photo_url }}" alt="">
                                     @else
-                                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-sm font-medium text-indigo-600">
+                                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-teal-100 text-sm font-medium text-teal-600">
                                             {{ substr($enrollment->user->name, 0, 2) }}
                                         </div>
                                     @endif
@@ -110,7 +110,7 @@
                         <td class="whitespace-nowrap px-6 py-4">
                             <div class="flex items-center gap-2">
                                 <div class="h-2 w-24 overflow-hidden rounded-full bg-gray-200">
-                                    <div class="h-full rounded-full bg-indigo-600" style="width: {{ $enrollment->progress_percent }}%"></div>
+                                    <div class="h-full rounded-full bg-teal-600" style="width: {{ $enrollment->progress_percent }}%"></div>
                                 </div>
                                 <span class="text-sm text-gray-600">{{ $enrollment->progress_percent }}%</span>
                             </div>
@@ -121,7 +121,7 @@
                         <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                             <button
                                 wire:click="viewStudent('{{ $enrollment->id }}')"
-                                class="text-indigo-600 hover:text-indigo-900"
+                                class="text-teal-600 hover:text-teal-900"
                             >
                                 {{ __('Details') }}
                             </button>

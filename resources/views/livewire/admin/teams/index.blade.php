@@ -26,14 +26,14 @@
                 wire:model.live.debounce.300ms="search"
                 type="search"
                 placeholder="{{ __('Team suchen...') }}"
-                class="block w-full rounded-lg border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500"
+                class="block w-full rounded-lg border-0 bg-gray-50 ring-1 ring-gray-200 pl-10 focus:border-teal-500 focus:ring-teal-500"
             >
         </div>
     </div>
 
     <!-- Teams Table -->
     <div class="overflow-hidden rounded-xl border border-gray-200 bg-white">
-        <table class="min-w-full divide-y divide-gray-200">
+        <table class="min-w-full divide-y divide-gray-100">
             <thead class="bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
@@ -67,7 +67,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200 bg-white">
+            <tbody class="divide-y divide-gray-100 bg-white">
                 @forelse($this->teams as $team)
                     <tr wire:key="team-{{ $team->id }}">
                         <td class="whitespace-nowrap px-6 py-4">
@@ -167,7 +167,7 @@
                         <button wire:click="deleteTeam" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 sm:ml-3 sm:w-auto sm:text-sm">
                             {{ __('Löschen') }}
                         </button>
-                        <button wire:click="$set('showDeleteModal', false)" type="button" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 sm:mt-0 sm:w-auto sm:text-sm">
+                        <button wire:click="$set('showDeleteModal', false)" type="button" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition sm:mt-0 sm:w-auto sm:text-sm">
                             {{ __('Abbrechen') }}
                         </button>
                     </div>

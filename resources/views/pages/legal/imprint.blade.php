@@ -49,7 +49,7 @@
                 <p>{{ __('Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem schweizerischen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung ausserhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.') }}</p>
 
                 <h2>{{ __('Datenschutz') }}</h2>
-                <p>{{ __('Informationen zur Verarbeitung personenbezogener Daten finden Sie in unserer') }} <a href="{{ route('legal.privacy') }}" class="text-indigo-600 hover:text-indigo-500">{{ __('Datenschutzerklärung') }}</a>.</p>
+                <p>{{ __('Informationen zur Verarbeitung personenbezogener Daten finden Sie in unserer') }} <a href="{{ route('legal.privacy') }}" class="text-teal-600 hover:text-teal-500">{{ __('Datenschutzerklärung') }}</a>.</p>
 
                 <h2>{{ __('Streitbeilegung') }}</h2>
                 <p>{{ __('Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit. Wir sind nicht verpflichtet und nicht bereit, an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.') }}</p>

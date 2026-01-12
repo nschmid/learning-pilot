@@ -51,7 +51,7 @@ class AITutorService
         string $userMessage
     ): AiTutorMessage {
         $user = $conversation->user;
-        $this->usageService->checkQuota($user, AiServiceType::Tutor);
+        $this->usageService->checkQuota($user, AiServiceType::TutorChat);
 
         AiTutorMessage::create([
             'conversation_id' => $conversation->id,
@@ -63,14 +63,14 @@ class AITutorService
         $systemPrompt = $this->buildTutorSystemPrompt($conversation);
 
         $result = $this->client->createMessage(
-            AiServiceType::Tutor,
+            AiServiceType::TutorChat,
             $systemPrompt,
             $messages
         );
 
         $this->usageService->logUsage(
             $user,
-            AiServiceType::Tutor,
+            AiServiceType::TutorChat,
             $result['tokens_input'],
             $result['tokens_output'],
             $result['latency_ms'],

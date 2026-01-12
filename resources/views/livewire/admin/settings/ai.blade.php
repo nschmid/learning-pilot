@@ -1,11 +1,11 @@
 <div>
     <!-- Breadcrumb -->
     <nav class="mb-6 flex items-center gap-2 text-sm text-gray-500">
-        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-gray-700">{{ __('Dashboard') }}</a>
+        <a href="{{ route('admin.dashboard') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Dashboard') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
-        <a href="{{ route('admin.settings.index') }}" wire:navigate class="hover:text-gray-700">{{ __('Einstellungen') }}</a>
+        <a href="{{ route('admin.settings.index') }}" wire:navigate class="hover:text-teal-600 transition">{{ __('Einstellungen') }}</a>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
@@ -53,7 +53,7 @@
         </div>
         <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
             <p class="text-sm text-gray-500">{{ __('Tokens verbraucht') }}</p>
-            <p class="text-3xl font-bold text-indigo-600">{{ number_format($this->usageStats['total_tokens']) }}</p>
+            <p class="text-3xl font-bold text-teal-600">{{ number_format($this->usageStats['total_tokens']) }}</p>
         </div>
         <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
             <p class="text-sm text-gray-500">{{ __('Aktive Nutzer') }}</p>
@@ -67,8 +67,8 @@
 
     <div class="grid gap-8 lg:grid-cols-2">
         <!-- Model Configuration -->
-        <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
-            <div class="border-b border-gray-200 px-6 py-4">
+        <div class="rounded-xl bg-white shadow-sm ring-1 ring-gray-900/5">
+            <div class="border-b border-gray-100 px-6 py-4">
                 <h2 class="text-lg font-semibold text-gray-900">{{ __('Modell-Konfiguration') }}</h2>
             </div>
             <div class="p-6">
@@ -94,8 +94,8 @@
         </div>
 
         <!-- Default Quotas -->
-        <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
-            <div class="border-b border-gray-200 px-6 py-4">
+        <div class="rounded-xl bg-white shadow-sm ring-1 ring-gray-900/5">
+            <div class="border-b border-gray-100 px-6 py-4">
                 <h2 class="text-lg font-semibold text-gray-900">{{ __('Standard-Limits') }}</h2>
             </div>
             <div class="p-6">
@@ -120,7 +120,7 @@
                     </div>
                 </dl>
                 <div class="mt-6">
-                    <a href="{{ route('admin.ai.quotas') }}" wire:navigate class="text-sm text-indigo-600 hover:text-indigo-800">
+                    <a href="{{ route('admin.ai.quotas') }}" wire:navigate class="text-sm text-teal-600 hover:text-teal-800">
                         {{ __('Quotas verwalten') }} &rarr;
                     </a>
                 </div>
@@ -128,12 +128,12 @@
         </div>
 
         <!-- Top Features -->
-        <div class="rounded-xl border border-gray-200 bg-white shadow-sm lg:col-span-2">
-            <div class="border-b border-gray-200 px-6 py-4">
+        <div class="rounded-xl bg-white shadow-sm ring-1 ring-gray-900/5 lg:col-span-2">
+            <div class="border-b border-gray-100 px-6 py-4">
                 <h2 class="text-lg font-semibold text-gray-900">{{ __('Top KI-Funktionen (diesen Monat)') }}</h2>
             </div>
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
+                <table class="min-w-full divide-y divide-gray-100">
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Funktion') }}</th>
@@ -141,7 +141,7 @@
                             <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">{{ __('Tokens') }}</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200 bg-white">
+                    <tbody class="divide-y divide-gray-100 bg-white">
                         @forelse($this->topFeatures as $feature)
                             <tr>
                                 <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
@@ -165,7 +165,7 @@
                 </table>
             </div>
             <div class="border-t border-gray-200 px-6 py-3">
-                <a href="{{ route('admin.ai.usage') }}" wire:navigate class="text-sm text-indigo-600 hover:text-indigo-800">
+                <a href="{{ route('admin.ai.usage') }}" wire:navigate class="text-sm text-teal-600 hover:text-teal-800">
                     {{ __('Vollständige Nutzungsstatistik') }} &rarr;
                 </a>
             </div>

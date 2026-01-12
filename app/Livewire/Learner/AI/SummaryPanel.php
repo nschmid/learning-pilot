@@ -54,8 +54,8 @@ class SummaryPanel extends Component
             $summaryService = app(AISummaryService::class);
 
             $this->summary = $summaryService->generateModuleSummary(
-                user: auth()->user(),
                 module: $module,
+                user: auth()->user(),
             );
 
         } catch (\Exception $e) {

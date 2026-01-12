@@ -19,7 +19,7 @@
                         </a>
                         <button
                             wire:click="redirectToPortal"
-                            class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500"
+                            class="rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-500"
                         >
                             {{ __('Verwalten') }}
                         </button>
@@ -81,7 +81,7 @@
                             <p class="mt-1 text-sm text-gray-500">{{ __('Sie haben noch keine Zahlungsmethode hinzugefügt.') }}</p>
                             <button
                                 wire:click="redirectToPortal"
-                                class="mt-4 inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500"
+                                class="mt-4 inline-flex items-center rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-500"
                             >
                                 {{ __('Zahlungsmethode hinzufügen') }}
                             </button>

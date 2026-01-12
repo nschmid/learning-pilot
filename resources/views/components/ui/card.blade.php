@@ -6,29 +6,29 @@
 
 @php
 $variants = [
-    'default' => 'bg-white border-secondary-200 dark:bg-secondary-800 dark:border-secondary-700',
-    'primary' => 'bg-primary-50 border-primary-200 dark:bg-primary-900/20 dark:border-primary-800',
-    'success' => 'bg-success-50 border-success-200 dark:bg-success-900/20 dark:border-success-800',
-    'warning' => 'bg-warning-50 border-warning-200 dark:bg-warning-900/20 dark:border-warning-800',
-    'danger' => 'bg-danger-50 border-danger-200 dark:bg-danger-900/20 dark:border-danger-800',
+    'default' => 'bg-white ring-1 ring-gray-900/5',
+    'primary' => 'bg-teal-50 ring-1 ring-teal-600/10',
+    'success' => 'bg-green-50 ring-1 ring-green-600/10',
+    'warning' => 'bg-amber-50 ring-1 ring-amber-600/10',
+    'danger' => 'bg-rose-50 ring-1 ring-rose-600/10',
 ];
 
 $headerBg = match($variant) {
-    'primary' => 'bg-primary-100/50 dark:bg-primary-900/30',
-    'success' => 'bg-success-100/50 dark:bg-success-900/30',
-    'warning' => 'bg-warning-100/50 dark:bg-warning-900/30',
-    'danger' => 'bg-danger-100/50 dark:bg-danger-900/30',
-    default => 'bg-secondary-50 dark:bg-secondary-900/50',
+    'primary' => 'bg-teal-100/50',
+    'success' => 'bg-green-100/50',
+    'warning' => 'bg-amber-100/50',
+    'danger' => 'bg-rose-100/50',
+    default => 'bg-gray-50',
 };
 @endphp
 
 <div {{ $attributes->merge([
-    'class' => 'rounded-xl shadow-soft border ' . ($variants[$variant] ?? $variants['default']) . ' ' .
+    'class' => 'rounded-xl shadow-sm ' . ($variants[$variant] ?? $variants['default']) . ' ' .
         ($padding ? 'p-6' : '') . ' ' .
-        ($hover ? 'hover:shadow-soft-lg hover:border-secondary-300 dark:hover:border-secondary-600 transition-all duration-200' : '')
+        ($hover ? 'hover:shadow-md hover:ring-gray-900/10 transition-all duration-200' : '')
 ]) }}>
     @if (isset($header))
-        <div class="border-b border-secondary-200 dark:border-secondary-700 -mx-6 -mt-6 px-6 py-4 mb-6 {{ $headerBg }} rounded-t-xl">
+        <div class="border-b border-gray-100 -mx-6 -mt-6 px-6 py-4 mb-6 {{ $headerBg }} rounded-t-xl">
             {{ $header }}
         </div>
     @endif
@@ -36,7 +36,7 @@ $headerBg = match($variant) {
     {{ $slot }}
 
     @if (isset($footer))
-        <div class="border-t border-secondary-200 dark:border-secondary-700 -mx-6 -mb-6 px-6 py-4 mt-6 {{ $headerBg }} rounded-b-xl">
+        <div class="border-t border-gray-100 -mx-6 -mb-6 px-6 py-4 mt-6 {{ $headerBg }} rounded-b-xl">
             {{ $footer }}
         </div>
     @endif

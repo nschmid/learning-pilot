@@ -76,7 +76,7 @@
                     @if ($this->canReview && !$this->userReview)
                         <button
                             wire:click="$set('showReviewForm', true)"
-                            class="mt-6 w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                            class="mt-6 w-full px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors"
                         >
                             {{ __('Bewertung schreiben') }}
                         </button>
@@ -84,7 +84,7 @@
                         <div class="mt-6 p-3 bg-gray-50 rounded-lg">
                             <p class="text-sm text-gray-600 mb-2">{{ __('Du hast diesen Kurs bereits bewertet') }}</p>
                             <div class="flex gap-2">
-                                <button wire:click="editReview" class="text-sm text-indigo-600 hover:text-indigo-800">{{ __('Bearbeiten') }}</button>
+                                <button wire:click="editReview" class="text-sm text-teal-600 hover:text-teal-800">{{ __('Bearbeiten') }}</button>
                                 <button wire:click="deleteReview" wire:confirm="{{ __('Möchtest du deine Bewertung wirklich löschen?') }}" class="text-sm text-red-600 hover:text-red-800">{{ __('Löschen') }}</button>
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                                     wire:model="reviewText"
                                     id="reviewText"
                                     rows="4"
-                                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
                                     placeholder="{{ __('Was hat dir besonders gut gefallen? Was könnte verbessert werden?') }}"
                                 ></textarea>
                                 @error('reviewText') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -144,7 +144,7 @@
                                 </button>
                                 <button
                                     type="submit"
-                                    class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                                    class="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700"
                                     {{ $rating === 0 ? 'disabled' : '' }}
                                 >
                                     {{ __('Bewertung speichern') }}
@@ -157,7 +157,7 @@
                 <!-- Sort Options -->
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-lg font-medium text-gray-900">{{ __('Alle Bewertungen') }}</h2>
-                    <select wire:model.live="sort" class="rounded-md border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    <select wire:model.live="sort" class="rounded-md border-gray-300 text-sm focus:border-teal-500 focus:ring-teal-500">
                         <option value="newest">{{ __('Neueste zuerst') }}</option>
                         <option value="oldest">{{ __('Älteste zuerst') }}</option>
                         <option value="highest">{{ __('Beste zuerst') }}</option>
@@ -171,8 +171,8 @@
                         <div class="bg-white shadow rounded-lg p-6">
                             <div class="flex items-start gap-4">
                                 <div class="flex-shrink-0">
-                                    <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center">
-                                        <span class="text-indigo-600 font-medium">{{ substr($review->user->name, 0, 1) }}</span>
+                                    <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center">
+                                        <span class="text-teal-600 font-medium">{{ substr($review->user->name, 0, 1) }}</span>
                                     </div>
                                 </div>
                                 <div class="flex-1 min-w-0">

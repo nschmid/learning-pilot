@@ -17,7 +17,7 @@
                 @endif
                 class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors
                     {{ $isActive
-                        ? 'border-indigo-500 text-indigo-600'
+                        ? 'border-teal-500 text-teal-600'
                         : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}"
                 @if($isActive) aria-current="page" @endif
             >
@@ -32,7 +32,7 @@
 
                 @if (isset($tab['badge']))
                     <span class="ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium
-                        {{ $isActive ? 'bg-indigo-100 text-indigo-600' : 'bg-gray-100 text-gray-900' }}">
+                        {{ $isActive ? 'bg-teal-100 text-teal-600' : 'bg-gray-100 text-gray-900' }}">
                         {{ $tab['badge'] }}
                     </span>
                 @endif
