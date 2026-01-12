@@ -42,6 +42,8 @@ class AiPracticeQuestion extends Model
         return [
             'question_type' => QuestionType::class,
             'options' => 'array',
+            'correct_answer' => 'json',
+            'user_answer' => 'json',
             'topics' => 'array',
             'source_material_ids' => 'array',
             'is_correct' => 'boolean',
@@ -91,7 +93,7 @@ class AiPracticeQuestion extends Model
         return $this->answered_at !== null;
     }
 
-    public function answer(string $userAnswer, ?int $timeSpentSeconds = null): bool
+    public function answer(mixed $userAnswer, ?int $timeSpentSeconds = null): bool
     {
         $isCorrect = $this->checkAnswer($userAnswer);
 
@@ -107,21 +109,40 @@ class AiPracticeQuestion extends Model
         return $isCorrect;
     }
 
-    protected function checkAnswer(string $userAnswer): bool
+    protected function checkAnswer(mixed $userAnswer): bool
     {
+        $correctAnswer = $this->correct_answer;
+
         return match ($this->question_type) {
-            QuestionType::TrueFalse => strtolower($userAnswer) === strtolower($this->correct_answer),
-            QuestionType::SingleChoice => $userAnswer === $this->correct_answer,
-            QuestionType::MultipleChoice => $this->checkMultipleChoice($userAnswer),
-            QuestionType::Text => $this->checkTextAnswer($userAnswer),
-            default => $userAnswer === $this->correct_answer,
+            QuestionType::TrueFalse => $this->checkTrueFalse($userAnswer, $correctAnswer),
+            QuestionType::SingleChoice => $this->checkSingleChoice($userAnswer, $correctAnswer),
+            QuestionType::MultipleChoice => $this->checkMultipleChoice($userAnswer, $correctAnswer),
+            QuestionType::Text => $this->checkTextAnswer($userAnswer, $correctAnswer),
+            default => $userAnswer === $correctAnswer,
         };
     }
 
-    protected function checkMultipleChoice(string $userAnswer): bool
+    protected function checkTrueFalse(mixed $userAnswer, mixed $correctAnswer): bool
     {
-        $userAnswers = array_map('trim', explode(',', $userAnswer));
-        $correctAnswers = array_map('trim', explode(',', $this->correct_answer));
+        $userBool = filter_var($userAnswer, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        $correctBool = filter_var($correctAnswer, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+
+        if ($userBool !== null && $correctBool !== null) {
+            return $userBool === $correctBool;
+        }
+
+        return strtolower((string) $userAnswer) === strtolower((string) $correctAnswer);
+    }
+
+    protected function checkSingleChoice(mixed $userAnswer, mixed $correctAnswer): bool
+    {
+        return (string) $userAnswer === (string) $correctAnswer;
+    }
+
+    protected function checkMultipleChoice(mixed $userAnswer, mixed $correctAnswer): bool
+    {
+        $userAnswers = is_array($userAnswer) ? $userAnswer : array_map('trim', explode(',', (string) $userAnswer));
+        $correctAnswers = is_array($correctAnswer) ? $correctAnswer : array_map('trim', explode(',', (string) $correctAnswer));
 
         sort($userAnswers);
         sort($correctAnswers);
@@ -129,10 +150,10 @@ class AiPracticeQuestion extends Model
         return $userAnswers === $correctAnswers;
     }
 
-    protected function checkTextAnswer(string $userAnswer): bool
+    protected function checkTextAnswer(mixed $userAnswer, mixed $correctAnswer): bool
     {
         // Simple case-insensitive comparison for text answers
         // AI can provide more nuanced feedback through explanation
-        return strtolower(trim($userAnswer)) === strtolower(trim($this->correct_answer));
+        return strtolower(trim((string) $userAnswer)) === strtolower(trim((string) $correctAnswer));
     }
 }
