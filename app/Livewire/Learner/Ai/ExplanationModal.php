@@ -32,7 +32,9 @@ class ExplanationModal extends Component
             $explanationService = app(AIExplanationService::class);
 
             $result = $explanationService->generateExplanation($response, auth()->user());
-            $this->explanation = $result->content;
+            // Content is stored as array, extract text if present
+            $content = $result->content;
+            $this->explanation = is_array($content) ? ($content['text'] ?? json_encode($content, JSON_PRETTY_PRINT)) : (string) $content;
 
         } catch (\Exception $e) {
             $this->explanation = __('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.');

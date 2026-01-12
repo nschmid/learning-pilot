@@ -71,9 +71,12 @@ class HintButton extends Component
             );
 
             $this->currentHintLevel = $this->nextHintLevel;
+            // Content is stored as array, extract text if present
+            $content = $hintContent->content;
+            $hintText = is_array($content) ? ($content['text'] ?? json_encode($content, JSON_PRETTY_PRINT)) : (string) $content;
             $this->hints[] = [
                 'level' => $this->currentHintLevel,
-                'content' => $hintContent->content,
+                'content' => $hintText,
                 'generated_at' => now()->toISOString(),
             ];
 
@@ -108,7 +111,7 @@ class HintButton extends Component
             ->get();
 
         foreach ($cachedHints as $hint) {
-            $level = $hint->content_metadata['hint_level'] ?? 1;
+            $level = $hint->metadata['hint_level'] ?? 1;
             $this->hints[] = [
                 'level' => $level,
                 'content' => $hint->content,

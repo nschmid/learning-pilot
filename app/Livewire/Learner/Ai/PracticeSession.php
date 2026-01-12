@@ -121,7 +121,7 @@ class PracticeSession extends Component
             return;
         }
 
-        $questions = $session->questions()->orderBy('position')->get();
+        $questions = $session->questions()->orderBy('created_at')->get();
 
         if ($this->currentIndex >= $questions->count()) {
             $this->sessionComplete = true;
@@ -166,14 +166,22 @@ class PracticeSession extends Component
             return;
         }
 
-        $totalQuestions = $session->questions()->count();
+        // Update session counters - score is calculated via scorePercent() method
         $correctAnswers = $session->questions()->where('is_correct', true)->count();
+        $answeredQuestions = $session->questions()->whereNotNull('answered_at')->count();
 
         $session->update([
-            'score_percent' => $totalQuestions > 0
-                ? round(($correctAnswers / $totalQuestions) * 100)
-                : 0,
+            'questions_answered' => $answeredQuestions,
+            'correct_answers' => $correctAnswers,
         ]);
+
+        // Check if session is complete
+        if ($answeredQuestions >= $session->question_count) {
+            $session->update([
+                'is_completed' => true,
+                'completed_at' => now(),
+            ]);
+        }
     }
 
     public function getModuleProperty(): ?Module

@@ -53,10 +53,11 @@ class SummaryPanel extends Component
             $module = Module::findOrFail($this->moduleId);
             $summaryService = app(AISummaryService::class);
 
-            $this->summary = $summaryService->generateModuleSummary(
+            $result = $summaryService->generateModuleSummary(
                 module: $module,
                 user: auth()->user(),
             );
+            $this->summary = $result->content;
 
         } catch (\Exception $e) {
             session()->flash('error', __('Fehler beim Generieren der Zusammenfassung: :message', ['message' => $e->getMessage()]));

@@ -21,7 +21,7 @@ class AIContextBuilder
     {
         $question = $response->question;
         $assessment = $question->assessment;
-        $step = $assessment->learningStep;
+        $step = $assessment->step;
         $module = $step->module;
         $path = $module->learningPath;
 
@@ -53,7 +53,7 @@ class AIContextBuilder
      */
     public function buildStepContext(StepProgress $progress): array
     {
-        $step = $progress->learningStep;
+        $step = $progress->step;
         $module = $step->module;
         $path = $module->learningPath;
         $enrollment = $progress->enrollment;
@@ -181,7 +181,7 @@ class AIContextBuilder
             'user_progress' => $enrollment ? [
                 'progress_percent' => $enrollment->progress_percent,
                 'completed_steps' => $enrollment->stepProgress()
-                    ->whereHas('learningStep', fn ($q) => $q->where('module_id', $module->id))
+                    ->whereHas('step', fn ($q) => $q->where('module_id', $module->id))
                     ->where('status', 'completed')
                     ->count(),
             ] : null,
@@ -224,7 +224,7 @@ class AIContextBuilder
                 $context['user_progress'] = [
                     'overall_accuracy' => $this->calculateOverallAccuracy($enrollment),
                     'completed_steps' => $enrollment->stepProgress()
-                        ->whereHas('learningStep', fn ($q) => $q->where('module_id', $module->id))
+                        ->whereHas('step', fn ($q) => $q->where('module_id', $module->id))
                         ->where('status', 'completed')
                         ->count(),
                 ];
@@ -331,10 +331,10 @@ class AIContextBuilder
             ->get();
 
         $weakModules = $incorrectResponses
-            ->groupBy(fn ($r) => $r->question->assessment->learningStep->module->id)
+            ->groupBy(fn ($r) => $r->question->assessment->step->module->id)
             ->map(fn ($responses, $moduleId) => [
                 'module_id' => $moduleId,
-                'module_title' => $responses->first()->question->assessment->learningStep->module->title,
+                'module_title' => $responses->first()->question->assessment->step->module->title,
                 'incorrect_count' => $responses->count(),
             ])
             ->sortByDesc('incorrect_count')

@@ -24,11 +24,13 @@ class AISummaryService
     {
         $this->usageService->checkQuota($user, AiServiceType::Summary);
 
-        $cacheKey = "summary:module:{$module->id}";
-
+        // Check for cached content using composite lookup
         $cached = AiGeneratedContent::query()
-            ->where('cache_key', $cacheKey)
-            ->where('expires_at', '>', now())
+            ->where('contentable_type', Module::class)
+            ->where('contentable_id', $module->id)
+            ->where('content_type', AiContentType::Summary)
+            ->where('user_id', $user->id)
+            ->cached()
             ->first();
 
         if ($cached) {
@@ -57,18 +59,19 @@ class AISummaryService
         return AiGeneratedContent::create([
             'contentable_type' => Module::class,
             'contentable_id' => $module->id,
+            'user_id' => $user->id,
             'content_type' => AiContentType::Summary,
             'content' => $result['content'],
-            'content_metadata' => [
-                'model' => $result['model'],
+            'model_used' => $result['model'],
+            'tokens_used' => $result['tokens_input'] + $result['tokens_output'],
+            'generation_time_ms' => $result['latency_ms'],
+            'is_cached' => true,
+            'cache_expires_at' => now()->addDays(14),
+            'metadata' => [
                 'tokens_input' => $result['tokens_input'],
                 'tokens_output' => $result['tokens_output'],
-                'latency_ms' => $result['latency_ms'],
+                'context' => $context,
             ],
-            'context_snapshot' => $context,
-            'cache_key' => $cacheKey,
-            'expires_at' => now()->addDays(14),
-            'user_id' => $user->id,
         ]);
     }
 
@@ -79,11 +82,14 @@ class AISummaryService
     {
         $this->usageService->checkQuota($user, AiServiceType::Summary);
 
-        $cacheKey = "flashcards:module:{$module->id}:count:{$count}";
-
+        // Check for cached flashcards using composite lookup
         $cached = AiGeneratedContent::query()
-            ->where('cache_key', $cacheKey)
-            ->where('expires_at', '>', now())
+            ->where('contentable_type', Module::class)
+            ->where('contentable_id', $module->id)
+            ->where('content_type', AiContentType::Flashcard)
+            ->where('user_id', $user->id)
+            ->whereJsonContains('metadata->count', $count)
+            ->cached()
             ->first();
 
         if ($cached) {
@@ -112,19 +118,20 @@ class AISummaryService
         return AiGeneratedContent::create([
             'contentable_type' => Module::class,
             'contentable_id' => $module->id,
+            'user_id' => $user->id,
             'content_type' => AiContentType::Flashcard,
             'content' => $result['content'],
-            'content_metadata' => [
-                'model' => $result['model'],
+            'model_used' => $result['model'],
+            'tokens_used' => $result['tokens_input'] + $result['tokens_output'],
+            'generation_time_ms' => $result['latency_ms'],
+            'is_cached' => true,
+            'cache_expires_at' => now()->addDays(14),
+            'metadata' => [
                 'tokens_input' => $result['tokens_input'],
                 'tokens_output' => $result['tokens_output'],
-                'latency_ms' => $result['latency_ms'],
                 'count' => $count,
+                'context' => $context,
             ],
-            'context_snapshot' => $context,
-            'cache_key' => $cacheKey,
-            'expires_at' => now()->addDays(14),
-            'user_id' => $user->id,
         ]);
     }
 
@@ -135,11 +142,13 @@ class AISummaryService
     {
         $this->usageService->checkQuota($user, AiServiceType::Summary);
 
-        $cacheKey = "concepts:step:{$step->id}";
-
+        // Check for cached concepts using composite lookup
         $cached = AiGeneratedContent::query()
-            ->where('cache_key', $cacheKey)
-            ->where('expires_at', '>', now())
+            ->where('contentable_type', LearningStep::class)
+            ->where('contentable_id', $step->id)
+            ->where('content_type', AiContentType::ConceptBreakdown)
+            ->where('user_id', $user->id)
+            ->cached()
             ->first();
 
         if ($cached) {
@@ -185,18 +194,19 @@ class AISummaryService
         return AiGeneratedContent::create([
             'contentable_type' => LearningStep::class,
             'contentable_id' => $step->id,
+            'user_id' => $user->id,
             'content_type' => AiContentType::ConceptBreakdown,
             'content' => $result['content'],
-            'content_metadata' => [
-                'model' => $result['model'],
+            'model_used' => $result['model'],
+            'tokens_used' => $result['tokens_input'] + $result['tokens_output'],
+            'generation_time_ms' => $result['latency_ms'],
+            'is_cached' => true,
+            'cache_expires_at' => now()->addDays(30),
+            'metadata' => [
                 'tokens_input' => $result['tokens_input'],
                 'tokens_output' => $result['tokens_output'],
-                'latency_ms' => $result['latency_ms'],
+                'context' => $context,
             ],
-            'context_snapshot' => $context,
-            'cache_key' => $cacheKey,
-            'expires_at' => now()->addDays(30),
-            'user_id' => $user->id,
         ]);
     }
 

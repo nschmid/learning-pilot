@@ -60,12 +60,14 @@ class FlashcardViewer extends Component
             $module = Module::findOrFail($this->moduleId);
             $summaryService = app(AISummaryService::class);
 
-            $flashcardsContent = $summaryService->generateFlashcards(
-                user: auth()->user(),
+            $result = $summaryService->generateFlashcards(
                 module: $module,
+                user: auth()->user(),
             );
 
-            $this->flashcards = $flashcardsContent['cards'] ?? [];
+            // Parse flashcards from the generated content
+            $content = $result->content;
+            $this->flashcards = is_array($content) ? ($content['cards'] ?? $summaryService->parseFlashcards($result)) : [];
             $this->currentIndex = 0;
             $this->initializeProgress();
 

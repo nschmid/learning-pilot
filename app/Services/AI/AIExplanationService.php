@@ -25,11 +25,13 @@ class AIExplanationService
     {
         $this->usageService->checkQuota($user, AiServiceType::Explanation);
 
-        $cacheKey = "explanation:{$response->id}";
-
+        // Check for cached content using composite lookup
         $cached = AiGeneratedContent::query()
-            ->where('cache_key', $cacheKey)
-            ->where('expires_at', '>', now())
+            ->where('contentable_type', QuestionResponse::class)
+            ->where('contentable_id', $response->id)
+            ->where('content_type', AiContentType::Explanation)
+            ->where('user_id', $user->id)
+            ->cached()
             ->first();
 
         if ($cached) {
@@ -58,18 +60,19 @@ class AIExplanationService
         return AiGeneratedContent::create([
             'contentable_type' => QuestionResponse::class,
             'contentable_id' => $response->id,
+            'user_id' => $user->id,
             'content_type' => AiContentType::Explanation,
             'content' => $result['content'],
-            'content_metadata' => [
-                'model' => $result['model'],
+            'model_used' => $result['model'],
+            'tokens_used' => $result['tokens_input'] + $result['tokens_output'],
+            'generation_time_ms' => $result['latency_ms'],
+            'is_cached' => true,
+            'cache_expires_at' => now()->addDays(30),
+            'metadata' => [
                 'tokens_input' => $result['tokens_input'],
                 'tokens_output' => $result['tokens_output'],
-                'latency_ms' => $result['latency_ms'],
+                'context' => $context,
             ],
-            'context_snapshot' => $context,
-            'cache_key' => $cacheKey,
-            'expires_at' => now()->addDays(30),
-            'user_id' => $user->id,
         ]);
     }
 
@@ -80,11 +83,14 @@ class AIExplanationService
     {
         $this->usageService->checkQuota($user, AiServiceType::Explanation);
 
-        $cacheKey = "hint:{$progress->id}:level:{$hintLevel}";
-
+        // Check for cached hint at this level using composite lookup
         $cached = AiGeneratedContent::query()
-            ->where('cache_key', $cacheKey)
-            ->where('expires_at', '>', now())
+            ->where('contentable_type', StepProgress::class)
+            ->where('contentable_id', $progress->id)
+            ->where('content_type', AiContentType::Hint)
+            ->where('user_id', $user->id)
+            ->whereJsonContains('metadata->hint_level', $hintLevel)
+            ->cached()
             ->first();
 
         if ($cached) {
@@ -115,19 +121,20 @@ class AIExplanationService
         return AiGeneratedContent::create([
             'contentable_type' => StepProgress::class,
             'contentable_id' => $progress->id,
+            'user_id' => $user->id,
             'content_type' => AiContentType::Hint,
             'content' => $result['content'],
-            'content_metadata' => [
-                'model' => $result['model'],
+            'model_used' => $result['model'],
+            'tokens_used' => $result['tokens_input'] + $result['tokens_output'],
+            'generation_time_ms' => $result['latency_ms'],
+            'is_cached' => true,
+            'cache_expires_at' => now()->addDays(7),
+            'metadata' => [
                 'tokens_input' => $result['tokens_input'],
                 'tokens_output' => $result['tokens_output'],
-                'latency_ms' => $result['latency_ms'],
                 'hint_level' => $hintLevel,
+                'context' => $context,
             ],
-            'context_snapshot' => $context,
-            'cache_key' => $cacheKey,
-            'expires_at' => now()->addDays(7),
-            'user_id' => $user->id,
         ]);
     }
 
